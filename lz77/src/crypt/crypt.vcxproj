@@ -1,0 +1,202 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\base\basictypes.h" />
+    <ClInclude Include="..\base\basic_incls.h" />
+    <ClInclude Include="..\base\port.h" />
+    <ClInclude Include="crypt_export.h" />
+    <ClInclude Include="ecies\bignum_key.h" />
+    <ClInclude Include="ecies\decryption_file.h" />
+    <ClInclude Include="ecies\decrypt_message.h" />
+    <ClInclude Include="ecies\ecies_crypt.h" />
+    <ClInclude Include="ecies\ecies_gen_key.h" />
+    <ClInclude Include="ecies\ecies_secure_policy.h" />
+    <ClInclude Include="ecies\encryption_file.h" />
+    <ClInclude Include="ecies\encrypt_message.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ecies\bignum_key.cc" />
+    <ClCompile Include="ecies\decryption_file.cc" />
+    <ClCompile Include="ecies\decrypt_message.cc" />
+    <ClCompile Include="ecies\ecies_crypt.cc" />
+    <ClCompile Include="ecies\ecies_gen_key.cc" />
+    <ClCompile Include="ecies\ecies_secure_policy.cc" />
+    <ClCompile Include="ecies\encryption_file.cc" />
+    <ClCompile Include="ecies\encrypt_message.cc" />
+    <ClCompile Include="win\dllmain.cc" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{D6EF7581-74EB-440F-8995-5474174DC7E3}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>p2pupgrd</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Static</UseOfMfc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Static</UseOfMfc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Static</UseOfMfc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Static</UseOfMfc>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)\bin\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)\obj\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IncludePath>$(SolutionDir)\src\;$(SolutionDir)\src\third_party\openssl\include\;$(SolutionDir)\src\third_party\libevent\include\;$(SolutionDir)\src\third_party\curl\include\;$(SolutionDir)\src\third_party\libevent\WIN32-Code\nmake\;$(SolutionDir)\src\third_party\pthreads\;$(SolutionDir)\src\third_party\libevent\;$(SolutionDir)\src\third_party\zlib\;$(SolutionDir)\src\crypt;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\src\third_party\openssl\;$(SolutionDir)\src\third_party\libevent\;$(SolutionDir)\\src\third_party\curl\builds\libcurl-vc-x86-release-dll-ipv6-sspi-winssl\lib\;$(SolutionDir)\src\third_party\pthreads\;$(SolutionDir)\src\third_party\zlib\;$(SolutionDir)\bin\$(Configuration)\;$(LibraryPath)</LibraryPath>
+    <SourcePath>$(SolutionDir)\src\;$(SourcePath)</SourcePath>
+    <TargetName>$(ProjectName)</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>$(SolutionDir)\src\;$(SolutionDir)\src\third_party\openssl\include\;$(SolutionDir)\src\third_party\libevent\include\;$(SolutionDir)\src\third_party\curl\include\;$(SolutionDir)\src\third_party\libevent\WIN32-Code\nmake\;$(SolutionDir)\src\third_party\pthreads\;$(SolutionDir)\src\third_party\libevent\;$(SolutionDir)\src\third_party\zlib\;$(SolutionDir)\src\crypt;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\src\third_party\openssl-x64\;$(SolutionDir)\src\third_party\libevent\;$(SolutionDir)\\src\third_party\curl\builds\libcurl-vc-x86-release-dll-ipv6-sspi-winssl\lib\;$(SolutionDir)\src\third_party\pthreads\;$(SolutionDir)\src\third_party\zlib\;$(SolutionDir)\bin\$(Configuration)\;$(LibraryPath)</LibraryPath>
+    <SourcePath>$(SolutionDir)\src\;$(SourcePath)</SourcePath>
+    <TargetName>$(ProjectName)_$(Platform)</TargetName>
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)\bin\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)\obj\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)\bin\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)\obj\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IncludePath>$(SolutionDir)\src\;$(SolutionDir)\src\third_party\openssl\include\;$(SolutionDir)\src\third_party\libevent\include\;$(SolutionDir)\src\third_party\curl\include\;$(SolutionDir)\src\third_party\libevent\WIN32-Code\nmake\;$(SolutionDir)\src\third_party\pthreads\;$(SolutionDir)\src\third_party\libevent\;$(SolutionDir)\src\third_party\zlib\;$(SolutionDir)\src\crypt;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\src\third_party\openssl\;$(SolutionDir)\src\third_party\libevent\;$(SolutionDir)\\src\third_party\curl\builds\libcurl-vc-x86-release-dll-ipv6-sspi-winssl\lib\;$(SolutionDir)\src\third_party\pthreads\;$(SolutionDir)\src\third_party\zlib\;$(SolutionDir)\bin\$(Configuration)\;$(LibraryPath)</LibraryPath>
+    <SourcePath>$(SolutionDir)\src\;$(SourcePath)</SourcePath>
+    <TargetName>$(ProjectName)</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IncludePath>$(SolutionDir)\src\;$(SolutionDir)\src\third_party\openssl\include\;$(SolutionDir)\src\third_party\libevent\include\;$(SolutionDir)\src\third_party\curl\include\;$(SolutionDir)\src\third_party\libevent\WIN32-Code\nmake\;$(SolutionDir)\src\third_party\pthreads\;$(SolutionDir)\src\third_party\libevent\;$(SolutionDir)\src\third_party\zlib\;$(SolutionDir)\src\crypt;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\src\third_party\openssl-x64\;$(SolutionDir)\src\third_party\libevent\;$(SolutionDir)\\src\third_party\curl\builds\libcurl-vc-x86-release-dll-ipv6-sspi-winssl\lib\;$(SolutionDir)\src\third_party\pthreads\;$(SolutionDir)\src\third_party\zlib\;$(SolutionDir)\bin\$(Configuration)\;$(LibraryPath)</LibraryPath>
+    <SourcePath>$(SolutionDir)\src\;$(SourcePath)</SourcePath>
+    <TargetName>$(ProjectName)_$(Platform)</TargetName>
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)\bin\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)\obj\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>OS_WIN_X86;WIN32;_DLL;OS_WIN;COMPONENT_BUILD;CRYPT_IMPLEMENTATION;_DLL_DEBUG;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>DebugFastLink</GenerateDebugInformation>
+      <AdditionalDependencies>msvcrtd.lib;LIBCMTD.lib</AdditionalDependencies>
+      <IgnoreSpecificDefaultLibraries>libcmt.lib</IgnoreSpecificDefaultLibraries>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_DLL;OS_WIN;COMPONENT_BUILD;CRYPT_IMPLEMENTATION;_DLL_DEBUG;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>DebugFastLink</GenerateDebugInformation>
+      <AdditionalDependencies>msvcrtd.lib;LIBCMTD.lib</AdditionalDependencies>
+      <IgnoreSpecificDefaultLibraries>libcmt.lib</IgnoreSpecificDefaultLibraries>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Full</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>OS_WIN_X86;WIN32;_DLL;OS_WIN;COMPONENT_BUILD;CRYPT_IMPLEMENTATION;_DLLNDEBUG;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>msvcrt.lib;LIBCMT.lib</AdditionalDependencies>
+      <IgnoreSpecificDefaultLibraries>
+      </IgnoreSpecificDefaultLibraries>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Full</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>_DLL;OS_WIN;COMPONENT_BUILD;CRYPT_IMPLEMENTATION;_DLLNDEBUG;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>msvcrt.lib;LIBCMT.lib</AdditionalDependencies>
+      <IgnoreSpecificDefaultLibraries>
+      </IgnoreSpecificDefaultLibraries>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

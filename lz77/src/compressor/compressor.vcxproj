@@ -1,0 +1,953 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{EF259148-D275-4AAB-AF89-92CF8343761B}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>compressor</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Static</UseOfMfc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Static</UseOfMfc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Static</UseOfMfc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Static</UseOfMfc>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)\bin\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)\obj\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IncludePath>$(SolutionDir)\src\;$(SolutionDir)\src\third_party\openssl\include\;$(SolutionDir)\src\third_party\libevent\include\;$(SolutionDir)\src\third_party\curl\include\;$(SolutionDir)\src\third_party\libevent\WIN32-Code\nmake\;$(SolutionDir)\src\third_party\pthreads\;$(SolutionDir)\src\third_party\libevent\;$(SolutionDir)\src\third_party\zlib\;$(SolutionDir)\src\crypt;$(SolutionDir)\src\third_party\;$(SolutionDir)\src\third_party\7z-src\;$(SolutionDir)\src\third_party\7z-src\CPP;$(SolutionDir)\src\third_party\bit7z\;$(SolutionDir)\src\third_party\libarchive\libarchive\;$(SolutionDir)\src\third_party\libarchive\libarchive\libarchive\;$(SolutionDir)\src\third_party\libarchive\libarchive-src\libarchive\;$(SolutionDir)\src\third_party\googletest\googletest\include\;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\src\third_party\openssl\;$(SolutionDir)\src\third_party\libevent\;$(SolutionDir)\\src\third_party\curl\builds\libcurl-vc-x86-release-dll-ipv6-sspi-winssl\lib\;$(SolutionDir)\src\third_party\pthreads\;$(SolutionDir)\src\third_party\zlib\;$(SolutionDir)\bin\$(Configuration)\;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <TargetName>$(ProjectName)_$(Platform)</TargetName>
+    <OutDir>$(SolutionDir)\bin\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)\obj\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IncludePath>$(SolutionDir)\src\;$(SolutionDir)\src\third_party\openssl\include\;$(SolutionDir)\src\third_party\libevent\include\;$(SolutionDir)\src\third_party\curl\include\;$(SolutionDir)\src\third_party\libevent\WIN32-Code\nmake\;$(SolutionDir)\src\third_party\pthreads\;$(SolutionDir)\src\third_party\libevent\;$(SolutionDir)\src\third_party\zlib\;$(SolutionDir)\src\crypt;$(SolutionDir)\src\third_party\;$(SolutionDir)\src\third_party\7z-src\;$(SolutionDir)\src\third_party\7z-src\CPP;$(SolutionDir)\src\third_party\bit7z\;$(SolutionDir)\src\third_party\libarchive\libarchive\;$(SolutionDir)\src\third_party\libarchive\libarchive\libarchive\;$(SolutionDir)\src\third_party\libarchive\libarchive-src\libarchive\;$(SolutionDir)\src\third_party\googletest\googletest\include\;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\bin\$(Configuration)\;$(SolutionDir)\src\third_party\openssl\;$(SolutionDir)\src\third_party\libevent\;$(SolutionDir)\\src\third_party\curl\builds\libcurl-vc-x86-release-dll-ipv6-sspi-winssl\lib\;$(SolutionDir)\src\third_party\pthreads\;$(SolutionDir)\src\third_party\zlib\x64\;$(SolutionDir)\bin\$(Configuration)\;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)\bin\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)\obj\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IncludePath>$(SolutionDir)\src\;$(SolutionDir)\src\third_party\openssl\include\;$(SolutionDir)\src\third_party\libevent\include\;$(SolutionDir)\src\third_party\curl\include\;$(SolutionDir)\src\third_party\libevent\WIN32-Code\nmake\;$(SolutionDir)\src\third_party\pthreads\;$(SolutionDir)\src\third_party\libevent\;$(SolutionDir)\src\third_party\zlib\;$(SolutionDir)\src\crypt;$(SolutionDir)\src\third_party\;$(SolutionDir)\src\third_party\7z-src\;$(SolutionDir)\src\third_party\7z-src\CPP;$(SolutionDir)\src\third_party\bit7z\;$(SolutionDir)\src\third_party\libarchive\libarchive\;$(SolutionDir)\src\third_party\libarchive\libarchive\libarchive\;$(SolutionDir)\src\third_party\libarchive\libarchive-src\libarchive\;$(SolutionDir)\src\third_party\googletest\googletest\include\;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\src\third_party\openssl\;$(SolutionDir)\src\third_party\libevent\;$(SolutionDir)\\src\third_party\curl\builds\libcurl-vc-x86-release-dll-ipv6-sspi-winssl\lib\;$(SolutionDir)\src\third_party\pthreads\;$(SolutionDir)\src\third_party\zlib\;$(SolutionDir)\bin\$(Configuration)\;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <TargetName>$(ProjectName)_$(Platform)</TargetName>
+    <OutDir>$(SolutionDir)\bin\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)\obj\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IncludePath>$(SolutionDir)\src\;$(SolutionDir)\src\third_party\openssl\include\;$(SolutionDir)\src\third_party\libevent\include\;$(SolutionDir)\src\third_party\curl\include\;$(SolutionDir)\src\third_party\libevent\WIN32-Code\nmake\;$(SolutionDir)\src\third_party\pthreads\;$(SolutionDir)\src\third_party\libevent\;$(SolutionDir)\src\third_party\zlib\;$(SolutionDir)\src\crypt;$(SolutionDir)\src\third_party\;$(SolutionDir)\src\third_party\7z-src\;$(SolutionDir)\src\third_party\7z-src\CPP;$(SolutionDir)\src\third_party\bit7z\;$(SolutionDir)\src\third_party\libarchive\libarchive\;$(SolutionDir)\src\third_party\libarchive\libarchive\libarchive\;$(SolutionDir)\src\third_party\libarchive\libarchive-src\libarchive\;$(SolutionDir)\src\third_party\googletest\googletest\include\;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\bin\$(Configuration)\;$(SolutionDir)\src\third_party\openssl\;$(SolutionDir)\src\third_party\libevent\;$(SolutionDir)\\src\third_party\curl\builds\libcurl-vc-x86-release-dll-ipv6-sspi-winssl\lib\;$(SolutionDir)\src\third_party\pthreads\;$(SolutionDir)\src\third_party\zlib\x64\;$(SolutionDir)\bin\$(Configuration)\;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>COMPRESSOR_MULTI_THREAD;BUILD_LIBARCHIVE_DLL;OS_WIN_X86;COMPONENT_BUILD;USE_STATIC_7Z_COMPONENT;COMPRESSOR_IMPLEMENTATION;OS_WIN;LIBZIP_FIX;WIN32;_DEBUG;_WINDOWS;_USRDLL;COMPRESSOR_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>msvcrtd.lib;LIBCMTD.lib</AdditionalDependencies>
+      <IgnoreSpecificDefaultLibraries>libcmt.lib</IgnoreSpecificDefaultLibraries>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>COMPRESSOR_MULTI_THREAD;BUILD_LIBARCHIVE_DLL;COMPONENT_BUILD;USE_STATIC_7Z_COMPONENT;COMPRESSOR_IMPLEMENTATION;OS_WIN;LIBZIP_FIX;_DEBUG;_WINDOWS;_USRDLL;COMPRESSOR_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>msvcrtd.lib;LIBCMTD.lib</AdditionalDependencies>
+      <IgnoreSpecificDefaultLibraries>
+      </IgnoreSpecificDefaultLibraries>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>Full</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>COMPRESSOR_MULTI_THREAD;BUILD_LIBARCHIVE_DLL;OS_WIN_X86;COMPONENT_BUILD;USE_STATIC_7Z_COMPONENT;COMPRESSOR_IMPLEMENTATION;OS_WIN;LIBZIP_FIX;WIN32;NDEBUG;_WINDOWS;_USRDLL;COMPRESSOR_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>
+      </IgnoreSpecificDefaultLibraries>
+      <AdditionalDependencies>msvcrt.lib;LIBCMT.lib</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>COMPRESSOR_MULTI_THREAD;BUILD_LIBARCHIVE_DLL;COMPONENT_BUILD;USE_STATIC_7Z_COMPONENT;COMPRESSOR_IMPLEMENTATION;OS_WIN;LIBZIP_FIX;NDEBUG;_WINDOWS;_USRDLL;COMPRESSOR_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>msvcrt.lib;LIBCMT.lib</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\base\basic_incls.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Archive\7z\7zCompressionMode.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Archive\7z\7zDecode.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Archive\7z\7zEncode.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Archive\7z\7zFolderInStream.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Archive\7z\7zHandler.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Archive\7z\7zHeader.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Archive\7z\7zIn.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Archive\7z\7zItem.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Archive\7z\7zOut.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Archive\7z\7zProperties.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Archive\7z\7zSpecStream.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Archive\7z\7zUpdate.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Archive\7z\StdAfx.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Archive\Cab\CabBlockInStream.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Archive\Cab\CabHandler.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Archive\Cab\CabHeader.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Archive\Cab\CabIn.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Archive\Cab\CabItem.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Archive\Cab\StdAfx.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Archive\Chm\ChmHandler.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Archive\Chm\ChmIn.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Archive\Chm\StdAfx.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Archive\Common\CoderMixer2.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Archive\Common\DummyOutStream.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Archive\Common\FindSignature.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Archive\Common\HandlerOut.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Archive\Common\InStreamWithCRC.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Archive\Common\ItemNameUtils.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Archive\Common\MultiStream.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Archive\Common\OutStreamWithCRC.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Archive\Common\OutStreamWithSha1.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Archive\Common\ParseProperties.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Archive\Common\StdAfx.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Archive\DeflateProps.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Archive\HandlerCont.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Archive\IArchive.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Archive\Iso\IsoHandler.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Archive\Iso\IsoHeader.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Archive\Iso\IsoIn.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Archive\Iso\IsoItem.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Archive\Iso\StdAfx.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Archive\Nsis\NsisDecode.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Archive\Nsis\NsisHandler.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Archive\Nsis\NsisIn.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Archive\Nsis\StdAfx.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Archive\Rar\Rar5Handler.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Archive\Rar\RarHandler.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Archive\Rar\RarHeader.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Archive\Rar\RarItem.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Archive\Rar\RarVol.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Archive\Rar\StdAfx.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Archive\StdAfx.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Archive\Tar\StdAfx.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Archive\Tar\TarHandler.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Archive\Tar\TarHeader.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Archive\Tar\TarIn.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Archive\Tar\TarItem.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Archive\Tar\TarOut.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Archive\Tar\TarUpdate.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Archive\Udf\StdAfx.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Archive\Udf\UdfHandler.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Archive\Udf\UdfIn.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Archive\Wim\StdAfx.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Archive\Wim\WimHandler.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Archive\Wim\WimIn.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Archive\XzHandler.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Archive\Zip\StdAfx.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Archive\Zip\ZipAddCommon.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Archive\Zip\ZipCompressionMode.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Archive\Zip\ZipHandler.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Archive\Zip\ZipHeader.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Archive\Zip\ZipIn.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Archive\Zip\ZipItem.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Archive\Zip\ZipOut.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Archive\Zip\ZipUpdate.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Common\CreateCoder.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Common\CWrappers.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Common\FilePathAutoRename.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Common\FileStreams.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Common\FilterCoder.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Common\InBuffer.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Common\InOutTempBuffer.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Common\LimitedStreams.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Common\LockedStream.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Common\MemBlocks.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Common\MethodId.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Common\MethodProps.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Common\OffsetStream.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Common\OutBuffer.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Common\OutMemStream.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Common\ProgressMt.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Common\ProgressUtils.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Common\RegisterArc.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Common\RegisterCodec.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Common\StdAfx.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Common\StreamBinder.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Common\StreamObjects.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Common\StreamUtils.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Common\UniqBlocks.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Common\VirtThread.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Compress\Bcj2Coder.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Compress\BcjCoder.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Compress\BitlDecoder.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Compress\BitlEncoder.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Compress\BitmDecoder.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Compress\BitmEncoder.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Compress\BranchMisc.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Compress\BZip2Const.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Compress\BZip2Crc.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Compress\BZip2Decoder.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Compress\BZip2Encoder.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Compress\CopyCoder.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Compress\DeflateConst.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Compress\DeflateDecoder.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Compress\DeflateEncoder.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Compress\HuffmanDecoder.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Compress\ImplodeDecoder.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Compress\ImplodeHuffmanDecoder.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Compress\LzfseDecoder.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Compress\LzhDecoder.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Compress\Lzma2Decoder.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Compress\Lzma2Encoder.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Compress\LzmaDecoder.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Compress\LzmaEncoder.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Compress\LzmsDecoder.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Compress\LzOutWindow.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Compress\Lzx.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Compress\LzxDecoder.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Compress\Mtf8.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Compress\PpmdDecoder.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Compress\PpmdEncoder.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Compress\PpmdZip.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Compress\QuantumDecoder.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Compress\Rar1Decoder.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Compress\Rar2Decoder.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Compress\Rar3Decoder.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Compress\Rar3Vm.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Compress\Rar5Decoder.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Compress\ShrinkDecoder.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Compress\StdAfx.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Compress\XpressDecoder.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Compress\XzDecoder.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Compress\XzEncoder.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Compress\ZDecoder.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Compress\ZlibDecoder.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Compress\ZlibEncoder.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Crypto\7zAes.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Crypto\HmacSha1.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Crypto\HmacSha256.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Crypto\MyAes.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Crypto\Pbkdf2HmacSha1.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Crypto\RandGen.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Crypto\Rar20Crypto.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Crypto\Rar5Aes.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Crypto\RarAes.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Crypto\Sha1Cls.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Crypto\StdAfx.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Crypto\WzAes.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Crypto\ZipCrypto.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\Crypto\ZipStrong.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\ICoder.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\IDecl.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\IPassword.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\IProgress.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\IStream.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\7zip\PropID.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\Common\AutoPtr.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\Common\CommandLineParser.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\Common\Common.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\Common\ComTry.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\Common\C_FileIO.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\Common\Defs.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\Common\DynamicBuffer.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\Common\DynLimBuf.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\Common\IntToString.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\Common\Lang.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\Common\ListFileUtils.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\Common\MyBuffer.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\Common\MyBuffer2.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\Common\MyCom.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\Common\MyException.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\Common\MyGuidDef.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\Common\MyInitGuid.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\Common\MyLinux.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\Common\MyMap.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\Common\MyString.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\Common\MyTypes.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\Common\MyUnknown.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\Common\MyVector.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\Common\MyWindows.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\Common\MyXml.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\Common\NewHandler.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\Common\Random.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\Common\StdAfx.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\Common\StdInStream.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\Common\StdOutStream.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\Common\StringConvert.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\Common\StringToInt.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\Common\TextConfig.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\Common\UTFConvert.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\Common\Wildcard.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\Windows\Clipboard.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\Windows\COM.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\Windows\CommonDialog.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\Windows\Console.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\Windows\Defs.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\Windows\ErrorMsg.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\Windows\FileDir.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\Windows\FileFind.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\Windows\FileIO.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\Windows\FileMapping.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\Windows\FileName.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\Windows\FileSystem.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\Windows\Handle.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\Windows\MemoryGlobal.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\Windows\MemoryLock.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\Windows\Menu.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\Windows\NationalTime.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\Windows\Net.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\Windows\NtCheck.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\Windows\ProcessMessages.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\Windows\ProcessUtils.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\Windows\PropVariant.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\Windows\PropVariantConv.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\Windows\PropVariantUtils.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\Windows\Registry.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\Windows\SecurityUtils.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\Windows\Shell.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\Windows\StdAfx.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\Windows\Synchronization.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\Windows\System.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\Windows\Thread.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\Windows\TimeUtils.h" />
+    <ClInclude Include="..\third_party\7z-src\CPP\Windows\Window.h" />
+    <ClInclude Include="..\third_party\7z-src\C\7z.h" />
+    <ClInclude Include="..\third_party\7z-src\C\7zAlloc.h" />
+    <ClInclude Include="..\third_party\7z-src\C\7zBuf.h" />
+    <ClInclude Include="..\third_party\7z-src\C\7zCrc.h" />
+    <ClInclude Include="..\third_party\7z-src\C\7zFile.h" />
+    <ClInclude Include="..\third_party\7z-src\C\7zTypes.h" />
+    <ClInclude Include="..\third_party\7z-src\C\7zVersion.h" />
+    <ClInclude Include="..\third_party\7z-src\C\Aes.h" />
+    <ClInclude Include="..\third_party\7z-src\C\Alloc.h" />
+    <ClInclude Include="..\third_party\7z-src\C\Bcj2.h" />
+    <ClInclude Include="..\third_party\7z-src\C\Blake2.h" />
+    <ClInclude Include="..\third_party\7z-src\C\Bra.h" />
+    <ClInclude Include="..\third_party\7z-src\C\BwtSort.h" />
+    <ClInclude Include="..\third_party\7z-src\C\Compiler.h" />
+    <ClInclude Include="..\third_party\7z-src\C\CpuArch.h" />
+    <ClInclude Include="..\third_party\7z-src\C\Delta.h" />
+    <ClInclude Include="..\third_party\7z-src\C\DllSecur.h" />
+    <ClInclude Include="..\third_party\7z-src\C\HuffEnc.h" />
+    <ClInclude Include="..\third_party\7z-src\C\LzFind.h" />
+    <ClInclude Include="..\third_party\7z-src\C\LzFindMt.h" />
+    <ClInclude Include="..\third_party\7z-src\C\LzHash.h" />
+    <ClInclude Include="..\third_party\7z-src\C\Lzma2Dec.h" />
+    <ClInclude Include="..\third_party\7z-src\C\Lzma2DecMt.h" />
+    <ClInclude Include="..\third_party\7z-src\C\Lzma2Enc.h" />
+    <ClInclude Include="..\third_party\7z-src\C\Lzma86.h" />
+    <ClInclude Include="..\third_party\7z-src\C\LzmaDec.h" />
+    <ClInclude Include="..\third_party\7z-src\C\LzmaEnc.h" />
+    <ClInclude Include="..\third_party\7z-src\C\LzmaLib.h" />
+    <ClInclude Include="..\third_party\7z-src\C\MtCoder.h" />
+    <ClInclude Include="..\third_party\7z-src\C\MtDec.h" />
+    <ClInclude Include="..\third_party\7z-src\C\Ppmd.h" />
+    <ClInclude Include="..\third_party\7z-src\C\Ppmd7.h" />
+    <ClInclude Include="..\third_party\7z-src\C\Ppmd8.h" />
+    <ClInclude Include="..\third_party\7z-src\C\Precomp.h" />
+    <ClInclude Include="..\third_party\7z-src\C\RotateDefs.h" />
+    <ClInclude Include="..\third_party\7z-src\C\Sha1.h" />
+    <ClInclude Include="..\third_party\7z-src\C\Sha256.h" />
+    <ClInclude Include="..\third_party\7z-src\C\Sort.h" />
+    <ClInclude Include="..\third_party\7z-src\C\Threads.h" />
+    <ClInclude Include="..\third_party\7z-src\C\Xz.h" />
+    <ClInclude Include="..\third_party\7z-src\C\XzCrc64.h" />
+    <ClInclude Include="..\third_party\7z-src\C\XzEnc.h" />
+    <ClInclude Include="..\third_party\bit7z\include\bit7z.hpp" />
+    <ClInclude Include="..\third_party\bit7z\include\bit7zlibrary.hpp" />
+    <ClInclude Include="..\third_party\bit7z\include\bitarchivecreator.hpp" />
+    <ClInclude Include="..\third_party\bit7z\include\bitarchivehandler.hpp" />
+    <ClInclude Include="..\third_party\bit7z\include\bitarchiveopener.hpp" />
+    <ClInclude Include="..\third_party\bit7z\include\bitcompressionlevel.hpp" />
+    <ClInclude Include="..\third_party\bit7z\include\bitcompressor.hpp" />
+    <ClInclude Include="..\third_party\bit7z\include\bitexception.hpp" />
+    <ClInclude Include="..\third_party\bit7z\include\bitextractor.hpp" />
+    <ClInclude Include="..\third_party\bit7z\include\bitformat.hpp" />
+    <ClInclude Include="..\third_party\bit7z\include\bitguids.hpp" />
+    <ClInclude Include="..\third_party\bit7z\include\bitmemcompressor.hpp" />
+    <ClInclude Include="..\third_party\bit7z\include\bitmemextractor.hpp" />
+    <ClInclude Include="..\third_party\bit7z\include\bittypes.hpp" />
+    <ClInclude Include="..\third_party\bit7z\include\callback.hpp" />
+    <ClInclude Include="..\third_party\bit7z\include\coutmemstream.hpp" />
+    <ClInclude Include="..\third_party\bit7z\include\coutmultivolstream.hpp" />
+    <ClInclude Include="..\third_party\bit7z\include\extractcallback.hpp" />
+    <ClInclude Include="..\third_party\bit7z\include\fsindexer.hpp" />
+    <ClInclude Include="..\third_party\bit7z\include\fsitem.hpp" />
+    <ClInclude Include="..\third_party\bit7z\include\fsutil.hpp" />
+    <ClInclude Include="..\third_party\bit7z\include\memextractcallback.hpp" />
+    <ClInclude Include="..\third_party\bit7z\include\memupdatecallback.hpp" />
+    <ClInclude Include="..\third_party\bit7z\include\opencallback.hpp" />
+    <ClInclude Include="..\third_party\bit7z\include\updatecallback.hpp" />
+    <ClInclude Include="..\third_party\bit7z\include\util.hpp" />
+    <ClInclude Include="..\third_party\CTPL\ctpl_stl.h" />
+    <ClInclude Include="..\third_party\lib7zip\Lib7Zip\7ZipArchiveOpenCallback.h" />
+    <ClInclude Include="..\third_party\lib7zip\Lib7Zip\7ZipCodecInfo.h" />
+    <ClInclude Include="..\third_party\lib7zip\Lib7Zip\7ZipCompressCodecsInfo.h" />
+    <ClInclude Include="..\third_party\lib7zip\Lib7Zip\7ZipDllHandler.h" />
+    <ClInclude Include="..\third_party\lib7zip\Lib7Zip\7ZipFormatInfo.h" />
+    <ClInclude Include="..\third_party\lib7zip\Lib7Zip\7ZipFunctions.h" />
+    <ClInclude Include="..\third_party\lib7zip\Lib7Zip\7ZipInStreamWrapper.h" />
+    <ClInclude Include="..\third_party\lib7zip\Lib7Zip\AskOpenArchivePassword.h" />
+    <ClInclude Include="..\third_party\lib7zip\Lib7Zip\HelperFuncs.h" />
+    <ClInclude Include="..\third_party\lib7zip\Lib7Zip\lib7zip.h" />
+    <ClInclude Include="..\third_party\lib7zip\Lib7Zip\OSFunctions.h" />
+    <ClInclude Include="..\third_party\lib7zip\Lib7Zip\OSFunctions_Win32.h" />
+    <ClInclude Include="..\third_party\libarchive\libarchive-src\libarchive\archive.h" />
+    <ClInclude Include="..\third_party\libarchive\libarchive-src\libarchive\archive_endian.h" />
+    <ClInclude Include="..\third_party\libarchive\libarchive-src\libarchive\archive_entry.h" />
+    <ClInclude Include="..\third_party\libarchive\libarchive-src\libarchive\archive_entry_private.h" />
+    <ClInclude Include="..\third_party\libarchive\libarchive-src\libarchive\archive_platform.h" />
+    <ClInclude Include="..\third_party\libarchive\libarchive-src\libarchive\archive_private.h" />
+    <ClInclude Include="..\third_party\libarchive\libarchive-src\libarchive\archive_read_private.h" />
+    <ClInclude Include="..\third_party\libarchive\libarchive-src\libarchive\archive_string.h" />
+    <ClInclude Include="..\third_party\libarchive\libarchive-src\libarchive\archive_write_disk_private.h" />
+    <ClInclude Include="..\third_party\libarchive\libarchive-src\libarchive\archive_write_private.h" />
+    <ClInclude Include="..\third_party\libarchive\libarchive-src\libarchive\config_freebsd.h" />
+    <ClInclude Include="..\third_party\libarchive\libarchive-src\libarchive\config_win32.h" />
+    <ClInclude Include="..\third_party\libarchive\libarchive-src\libarchive\config_windows.h" />
+    <ClInclude Include="..\third_party\libarchive\libarchive-src\libarchive\libarchive-nonposix.h" />
+    <ClInclude Include="..\third_party\lz4-dev\lib\lz4.h" />
+    <ClInclude Include="..\third_party\lz4-dev\lib\lz4frame.h" />
+    <ClInclude Include="..\third_party\lz4-dev\lib\lz4frame_static.h" />
+    <ClInclude Include="..\third_party\lz4-dev\lib\lz4hc.h" />
+    <ClInclude Include="..\third_party\lz4-dev\lib\xxhash.h" />
+    <ClInclude Include="..\third_party\snappy\snappy-c.h" />
+    <ClInclude Include="..\third_party\snappy\snappy-internal.h" />
+    <ClInclude Include="..\third_party\snappy\snappy-sinksource.h" />
+    <ClInclude Include="..\third_party\snappy\snappy-stubs-internal.h" />
+    <ClInclude Include="..\third_party\snappy\snappy-stubs-public.h" />
+    <ClInclude Include="..\third_party\snappy\snappy.h" />
+    <ClInclude Include="..\third_party\sys\time.h" />
+    <ClInclude Include="..\third_party\sys\times.h" />
+    <ClInclude Include="compressor_exports.h" />
+    <ClInclude Include="lib7zip_compress.h" />
+    <ClInclude Include="lib7zip_compressor.h" />
+    <ClInclude Include="lib7zip_wrapper.h" />
+    <ClInclude Include="lib7z_exports.h" />
+    <ClInclude Include="lz4_compress.h" />
+    <ClInclude Include="lz4_compressor.h" />
+    <ClInclude Include="snappy_compress.h" />
+    <ClInclude Include="snappy_compressor.h" />
+    <ClInclude Include="vftable.h" />
+    <ClInclude Include="win\lib7z_achive.h" />
+    <ClInclude Include="zlib_compress.h" />
+    <ClInclude Include="zlib_compressor.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\7z\7zCompressionMode.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\7z\7zDecode.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\7z\7zEncode.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\7z\7zExtract.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\7z\7zFolderInStream.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\7z\7zHandler.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\7z\7zHandlerOut.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\7z\7zHeader.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\7z\7zIn.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\7z\7zOut.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\7z\7zProperties.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\7z\7zRegister.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\7z\7zSpecStream.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\7z\7zUpdate.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\7z\StdAfx.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\ApmHandler.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\ArchiveExports.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\ArHandler.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\ArjHandler.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\Bz2Handler.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\Cab\CabBlockInStream.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\Cab\CabHandler.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\Cab\CabHeader.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\Cab\CabIn.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\Cab\CabRegister.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\Chm\ChmHandler.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\Chm\ChmIn.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\ComHandler.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\Common\CoderMixer2.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\Common\DummyOutStream.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\Common\FindSignature.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\Common\HandlerOut.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\Common\InStreamWithCRC.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\Common\ItemNameUtils.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\Common\MultiStream.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\Common\OutStreamWithCRC.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\Common\OutStreamWithSha1.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\Common\ParseProperties.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\CpioHandler.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\CramfsHandler.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\DeflateProps.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\DllExports2.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\DmgHandler.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\ElfHandler.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\ExtHandler.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\FatHandler.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\FlvHandler.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\GptHandler.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\GzHandler.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\HandlerCont.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\HfsHandler.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\IhexHandler.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\Iso\IsoHandler.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\Iso\IsoHeader.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\Iso\IsoIn.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\Iso\IsoRegister.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\LzhHandler.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\LzmaHandler.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\MachoHandler.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\MbrHandler.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\MslzHandler.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\MubHandler.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\Nsis\NsisDecode.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\Nsis\NsisHandler.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\Nsis\NsisIn.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\Nsis\NsisRegister.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\NtfsHandler.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\PeHandler.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\PpmdHandler.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\QcowHandler.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\Rar\Rar5Handler.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\Rar\RarHandler.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\Rar\StdAfx.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\RpmHandler.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\SplitHandler.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\SquashfsHandler.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\SwfHandler.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\Tar\TarHandler.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\Tar\TarHandlerOut.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\Tar\TarHeader.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\Tar\TarIn.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\Tar\TarOut.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\Tar\TarRegister.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\Tar\TarUpdate.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\Udf\UdfHandler.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\Udf\UdfIn.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\UefiHandler.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\VdiHandler.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\VhdHandler.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\VmdkHandler.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\Wim\WimHandler.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\Wim\WimHandlerOut.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\Wim\WimIn.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\Wim\WimRegister.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\XarHandler.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\XzHandler.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\ZHandler.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\Zip\ZipAddCommon.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\Zip\ZipHandler.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\Zip\ZipHandlerOut.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\Zip\ZipIn.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\Zip\ZipItem.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\Zip\ZipOut.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\Zip\ZipRegister.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Archive\Zip\ZipUpdate.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Common\CreateCoder.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Common\CWrappers.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Common\FilePathAutoRename.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Common\FileStreams.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Common\FilterCoder.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Common\InBuffer.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Common\InOutTempBuffer.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Common\LimitedStreams.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Common\LockedStream.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Common\MemBlocks.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Common\MethodId.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Common\MethodProps.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Common\OffsetStream.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Common\OutBuffer.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Common\OutMemStream.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Common\ProgressMt.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Common\ProgressUtils.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Common\PropId.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Common\StreamBinder.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Common\StreamObjects.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Common\StreamUtils.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Common\UniqBlocks.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Common\VirtThread.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Compress\Bcj2Coder.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Compress\Bcj2Register.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Compress\BcjCoder.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Compress\BcjRegister.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Compress\BitlDecoder.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Compress\BranchMisc.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Compress\BranchRegister.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Compress\ByteSwap.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Compress\BZip2Crc.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Compress\BZip2Decoder.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Compress\BZip2Encoder.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Compress\BZip2Register.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Compress\CodecExports.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Compress\CopyCoder.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Compress\CopyRegister.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Compress\Deflate64Register.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Compress\DeflateDecoder.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Compress\DeflateEncoder.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Compress\DeflateRegister.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Compress\DeltaFilter.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Compress\DllExports2Compress.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Compress\ImplodeDecoder.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Compress\ImplodeHuffmanDecoder.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Compress\LzfseDecoder.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Compress\LzhDecoder.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Compress\Lzma2Decoder.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Compress\Lzma2Encoder.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Compress\Lzma2Register.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Compress\LzmaDecoder.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Compress\LzmaEncoder.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Compress\LzmaRegister.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Compress\LzmsDecoder.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Compress\LzOutWindow.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Compress\LzxDecoder.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Compress\PpmdDecoder.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Compress\PpmdEncoder.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Compress\PpmdRegister.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Compress\PpmdZip.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Compress\QuantumDecoder.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Compress\Rar1Decoder.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Compress\Rar2Decoder.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Compress\Rar3Decoder.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Compress\Rar3Vm.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Compress\Rar5Decoder.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Compress\RarCodecsRegister.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Compress\ShrinkDecoder.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Compress\XpressDecoder.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Compress\XzDecoder.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Compress\XzEncoder.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Compress\ZDecoder.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Compress\ZlibDecoder.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Compress\ZlibEncoder.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Crypto\7zAes.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Crypto\7zAesRegister.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Crypto\HmacSha1.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Crypto\HmacSha256.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Crypto\MyAes.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Crypto\MyAesReg.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Crypto\Pbkdf2HmacSha1.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Crypto\RandGen.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Crypto\Rar20Crypto.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Crypto\Rar5Aes.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Crypto\RarAes.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Crypto\WzAes.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Crypto\ZipCrypto.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\7zip\Crypto\ZipStrong.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\Common\CommandLineParser.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\Common\CRC.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\Common\CrcReg.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\Common\C_FileIO.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\Common\DynLimBuf.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\Common\IntToString.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\Common\Lang.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\Common\ListFileUtils.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\Common\MyMap.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\Common\MyString.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\Common\MyVector.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\Common\MyWindows.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\Common\MyXml.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\Common\NewHandler.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\Common\Random.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\Common\Sha1Reg.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\Common\Sha256Reg.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\Common\StdInStream.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\Common\StdOutStream.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\Common\StringConvert.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\Common\StringToInt.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\Common\TextConfig.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\Common\UTFConvert.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\Common\Wildcard.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\Common\XzCrc64Init.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\Common\XzCrc64Reg.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\Windows\Clipboard.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\Windows\COM.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\Windows\CommonDialog.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\Windows\Console.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\Windows\ErrorMsg.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\Windows\FileDir.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\Windows\FileFind.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\Windows\FileIO.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\Windows\FileLink.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\Windows\FileMapping.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\Windows\FileName.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\Windows\FileSystem.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\Windows\MemoryGlobal.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\Windows\MemoryLock.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\Windows\Menu.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\Windows\NationalTime.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\Windows\Net.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\Windows\ProcessMessages.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\Windows\ProcessUtils.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\Windows\PropVariant.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\Windows\PropVariantConv.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\Windows\PropVariantUtils.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\Windows\Registry.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\Windows\SecurityUtils.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\Windows\Shell.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\Windows\Synchronization.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\Windows\System.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\Windows\TimeUtils.cpp" />
+    <ClCompile Include="..\third_party\7z-src\CPP\Windows\Window.cpp" />
+    <ClCompile Include="..\third_party\7z-src\C\7zAlloc.c" />
+    <ClCompile Include="..\third_party\7z-src\C\7zArcIn.c" />
+    <ClCompile Include="..\third_party\7z-src\C\7zBuf.c" />
+    <ClCompile Include="..\third_party\7z-src\C\7zBuf2.c" />
+    <ClCompile Include="..\third_party\7z-src\C\7zCrc.c" />
+    <ClCompile Include="..\third_party\7z-src\C\7zCrcOpt.c" />
+    <ClCompile Include="..\third_party\7z-src\C\7zDec.c" />
+    <ClCompile Include="..\third_party\7z-src\C\7zFile.c" />
+    <ClCompile Include="..\third_party\7z-src\C\7zStream.c" />
+    <ClCompile Include="..\third_party\7z-src\C\Aes.c" />
+    <ClCompile Include="..\third_party\7z-src\C\AesOpt.c" />
+    <ClCompile Include="..\third_party\7z-src\C\Alloc.c" />
+    <ClCompile Include="..\third_party\7z-src\C\Bcj2.c" />
+    <ClCompile Include="..\third_party\7z-src\C\Bcj2Enc.c" />
+    <ClCompile Include="..\third_party\7z-src\C\Blake2s.c" />
+    <ClCompile Include="..\third_party\7z-src\C\Bra.c" />
+    <ClCompile Include="..\third_party\7z-src\C\Bra86.c" />
+    <ClCompile Include="..\third_party\7z-src\C\BraIA64.c" />
+    <ClCompile Include="..\third_party\7z-src\C\BwtSort.c" />
+    <ClCompile Include="..\third_party\7z-src\C\CpuArch.c" />
+    <ClCompile Include="..\third_party\7z-src\C\Delta.c" />
+    <ClCompile Include="..\third_party\7z-src\C\DllSecur.c" />
+    <ClCompile Include="..\third_party\7z-src\C\HuffEnc.c" />
+    <ClCompile Include="..\third_party\7z-src\C\LzFind.c" />
+    <ClCompile Include="..\third_party\7z-src\C\LzFindMt.c" />
+    <ClCompile Include="..\third_party\7z-src\C\Lzma2Dec.c" />
+    <ClCompile Include="..\third_party\7z-src\C\Lzma2DecMt.c" />
+    <ClCompile Include="..\third_party\7z-src\C\Lzma2Enc.c" />
+    <ClCompile Include="..\third_party\7z-src\C\Lzma86Dec.c" />
+    <ClCompile Include="..\third_party\7z-src\C\Lzma86Enc.c" />
+    <ClCompile Include="..\third_party\7z-src\C\LzmaDec.c" />
+    <ClCompile Include="..\third_party\7z-src\C\LzmaEnc.c" />
+    <ClCompile Include="..\third_party\7z-src\C\LzmaLib.c" />
+    <ClCompile Include="..\third_party\7z-src\C\MtCoder.c" />
+    <ClCompile Include="..\third_party\7z-src\C\MtDec.c" />
+    <ClCompile Include="..\third_party\7z-src\C\Ppmd7.c" />
+    <ClCompile Include="..\third_party\7z-src\C\Ppmd7Dec.c" />
+    <ClCompile Include="..\third_party\7z-src\C\Ppmd7Enc.c" />
+    <ClCompile Include="..\third_party\7z-src\C\Ppmd8.c" />
+    <ClCompile Include="..\third_party\7z-src\C\Ppmd8Dec.c" />
+    <ClCompile Include="..\third_party\7z-src\C\Ppmd8Enc.c" />
+    <ClCompile Include="..\third_party\7z-src\C\Sha1.c" />
+    <ClCompile Include="..\third_party\7z-src\C\Sha256.c" />
+    <ClCompile Include="..\third_party\7z-src\C\Sort.c" />
+    <ClCompile Include="..\third_party\7z-src\C\Threads.c" />
+    <ClCompile Include="..\third_party\7z-src\C\Xz.c" />
+    <ClCompile Include="..\third_party\7z-src\C\XzCrc64.c" />
+    <ClCompile Include="..\third_party\7z-src\C\XzCrc64Opt.c" />
+    <ClCompile Include="..\third_party\7z-src\C\XzDec.c" />
+    <ClCompile Include="..\third_party\7z-src\C\XzEnc.c" />
+    <ClCompile Include="..\third_party\7z-src\C\XzIn.c" />
+    <ClCompile Include="..\third_party\bit7z\src\bit7zlibrary.cpp" />
+    <ClCompile Include="..\third_party\bit7z\src\bitarchivecreator.cpp" />
+    <ClCompile Include="..\third_party\bit7z\src\bitarchivehandler.cpp" />
+    <ClCompile Include="..\third_party\bit7z\src\bitarchiveopener.cpp" />
+    <ClCompile Include="..\third_party\bit7z\src\bitcompressor.cpp" />
+    <ClCompile Include="..\third_party\bit7z\src\bitexception.cpp" />
+    <ClCompile Include="..\third_party\bit7z\src\bitextractor.cpp" />
+    <ClCompile Include="..\third_party\bit7z\src\bitformat.cpp" />
+    <ClCompile Include="..\third_party\bit7z\src\bitguids.cpp" />
+    <ClCompile Include="..\third_party\bit7z\src\bitmemcompressor.cpp" />
+    <ClCompile Include="..\third_party\bit7z\src\bitmemextractor.cpp" />
+    <ClCompile Include="..\third_party\bit7z\src\callback.cpp" />
+    <ClCompile Include="..\third_party\bit7z\src\coutmemstream.cpp" />
+    <ClCompile Include="..\third_party\bit7z\src\coutmultivolstream.cpp" />
+    <ClCompile Include="..\third_party\bit7z\src\extractcallback.cpp" />
+    <ClCompile Include="..\third_party\bit7z\src\fsindexer.cpp" />
+    <ClCompile Include="..\third_party\bit7z\src\fsitem.cpp" />
+    <ClCompile Include="..\third_party\bit7z\src\fsutil.cpp" />
+    <ClCompile Include="..\third_party\bit7z\src\memextractcallback.cpp" />
+    <ClCompile Include="..\third_party\bit7z\src\memupdatecallback.cpp" />
+    <ClCompile Include="..\third_party\bit7z\src\opencallback.cpp" />
+    <ClCompile Include="..\third_party\bit7z\src\updatecallback.cpp" />
+    <ClCompile Include="..\third_party\bit7z\src\util.cpp" />
+    <ClCompile Include="..\third_party\lib7zip\Lib7Zip\7ZipArchive.cpp" />
+    <ClCompile Include="..\third_party\lib7zip\Lib7Zip\7ZipArchiveItem.cpp" />
+    <ClCompile Include="..\third_party\lib7zip\Lib7Zip\7ZipArchiveOpenCallback.cpp" />
+    <ClCompile Include="..\third_party\lib7zip\Lib7Zip\7ZipCodecInfo.cpp" />
+    <ClCompile Include="..\third_party\lib7zip\Lib7Zip\7ZipCompressCodecsInfo.cpp" />
+    <ClCompile Include="..\third_party\lib7zip\Lib7Zip\7ZipDllHandler.cpp" />
+    <ClCompile Include="..\third_party\lib7zip\Lib7Zip\7ZipFormatInfo.cpp" />
+    <ClCompile Include="..\third_party\lib7zip\Lib7Zip\7ZipInStreamWrapper.cpp" />
+    <ClCompile Include="..\third_party\lib7zip\Lib7Zip\7zipLibrary.cpp" />
+    <ClCompile Include="..\third_party\lib7zip\Lib7Zip\7ZipObjectPtrArray.cpp" />
+    <ClCompile Include="..\third_party\lib7zip\Lib7Zip\7ZipOpenArchive.cpp" />
+    <ClCompile Include="..\third_party\lib7zip\Lib7Zip\HelperFuncs.cpp" />
+    <ClCompile Include="..\third_party\lib7zip\Lib7Zip\OSFunctions_Win32.cpp" />
+    <ClCompile Include="..\third_party\libarchive\libarchive-src\libarchive\archive_check_magic.c" />
+    <ClCompile Include="..\third_party\libarchive\libarchive-src\libarchive\archive_entry.c" />
+    <ClCompile Include="..\third_party\libarchive\libarchive-src\libarchive\archive_entry_copy_stat.c" />
+    <ClCompile Include="..\third_party\libarchive\libarchive-src\libarchive\archive_entry_link_resolver.c" />
+    <ClCompile Include="..\third_party\libarchive\libarchive-src\libarchive\archive_entry_stat.c" />
+    <ClCompile Include="..\third_party\libarchive\libarchive-src\libarchive\archive_entry_strmode.c" />
+    <ClCompile Include="..\third_party\libarchive\libarchive-src\libarchive\archive_read.c" />
+    <ClCompile Include="..\third_party\libarchive\libarchive-src\libarchive\archive_read_data_into_fd.c" />
+    <ClCompile Include="..\third_party\libarchive\libarchive-src\libarchive\archive_read_extract.c" />
+    <ClCompile Include="..\third_party\libarchive\libarchive-src\libarchive\archive_read_open_fd.c" />
+    <ClCompile Include="..\third_party\libarchive\libarchive-src\libarchive\archive_read_open_file.c" />
+    <ClCompile Include="..\third_party\libarchive\libarchive-src\libarchive\archive_read_open_filename.c" />
+    <ClCompile Include="..\third_party\libarchive\libarchive-src\libarchive\archive_read_open_memory.c" />
+    <ClCompile Include="..\third_party\libarchive\libarchive-src\libarchive\archive_read_support_compression_all.c" />
+    <ClCompile Include="..\third_party\libarchive\libarchive-src\libarchive\archive_read_support_compression_bzip2.c" />
+    <ClCompile Include="..\third_party\libarchive\libarchive-src\libarchive\archive_read_support_compression_compress.c" />
+    <ClCompile Include="..\third_party\libarchive\libarchive-src\libarchive\archive_read_support_compression_gzip.c" />
+    <ClCompile Include="..\third_party\libarchive\libarchive-src\libarchive\archive_read_support_compression_none.c" />
+    <ClCompile Include="..\third_party\libarchive\libarchive-src\libarchive\archive_read_support_compression_program.c" />
+    <ClCompile Include="..\third_party\libarchive\libarchive-src\libarchive\archive_read_support_format_all.c" />
+    <ClCompile Include="..\third_party\libarchive\libarchive-src\libarchive\archive_read_support_format_ar.c" />
+    <ClCompile Include="..\third_party\libarchive\libarchive-src\libarchive\archive_read_support_format_cpio.c" />
+    <ClCompile Include="..\third_party\libarchive\libarchive-src\libarchive\archive_read_support_format_empty.c" />
+    <ClCompile Include="..\third_party\libarchive\libarchive-src\libarchive\archive_read_support_format_iso9660.c" />
+    <ClCompile Include="..\third_party\libarchive\libarchive-src\libarchive\archive_read_support_format_mtree.c" />
+    <ClCompile Include="..\third_party\libarchive\libarchive-src\libarchive\archive_read_support_format_tar.c" />
+    <ClCompile Include="..\third_party\libarchive\libarchive-src\libarchive\archive_read_support_format_zip.c" />
+    <ClCompile Include="..\third_party\libarchive\libarchive-src\libarchive\archive_string.c" />
+    <ClCompile Include="..\third_party\libarchive\libarchive-src\libarchive\archive_string_sprintf.c" />
+    <ClCompile Include="..\third_party\libarchive\libarchive-src\libarchive\archive_util.c" />
+    <ClCompile Include="..\third_party\libarchive\libarchive-src\libarchive\archive_virtual.c" />
+    <ClCompile Include="..\third_party\libarchive\libarchive-src\libarchive\archive_write.c" />
+    <ClCompile Include="..\third_party\libarchive\libarchive-src\libarchive\archive_write_disk.c" />
+    <ClCompile Include="..\third_party\libarchive\libarchive-src\libarchive\archive_write_disk_set_standard_lookup.c" />
+    <ClCompile Include="..\third_party\libarchive\libarchive-src\libarchive\archive_write_open_fd.c" />
+    <ClCompile Include="..\third_party\libarchive\libarchive-src\libarchive\archive_write_open_file.c" />
+    <ClCompile Include="..\third_party\libarchive\libarchive-src\libarchive\archive_write_open_filename.c" />
+    <ClCompile Include="..\third_party\libarchive\libarchive-src\libarchive\archive_write_open_memory.c" />
+    <ClCompile Include="..\third_party\libarchive\libarchive-src\libarchive\archive_write_set_compression_bzip2.c" />
+    <ClCompile Include="..\third_party\libarchive\libarchive-src\libarchive\archive_write_set_compression_gzip.c" />
+    <ClCompile Include="..\third_party\libarchive\libarchive-src\libarchive\archive_write_set_compression_none.c" />
+    <ClCompile Include="..\third_party\libarchive\libarchive-src\libarchive\archive_write_set_compression_program.c" />
+    <ClCompile Include="..\third_party\libarchive\libarchive-src\libarchive\archive_write_set_format.c" />
+    <ClCompile Include="..\third_party\libarchive\libarchive-src\libarchive\archive_write_set_format_ar.c" />
+    <ClCompile Include="..\third_party\libarchive\libarchive-src\libarchive\archive_write_set_format_by_name.c" />
+    <ClCompile Include="..\third_party\libarchive\libarchive-src\libarchive\archive_write_set_format_cpio.c" />
+    <ClCompile Include="..\third_party\libarchive\libarchive-src\libarchive\archive_write_set_format_cpio_newc.c" />
+    <ClCompile Include="..\third_party\libarchive\libarchive-src\libarchive\archive_write_set_format_pax.c" />
+    <ClCompile Include="..\third_party\libarchive\libarchive-src\libarchive\archive_write_set_format_shar.c" />
+    <ClCompile Include="..\third_party\libarchive\libarchive-src\libarchive\archive_write_set_format_ustar.c" />
+    <ClCompile Include="..\third_party\libarchive\libarchive-src\libarchive\filter_fork.c" />
+    <ClCompile Include="..\third_party\libarchive\libarchive-src\libarchive\libarchive-nonposix.c" />
+    <ClCompile Include="..\third_party\lz4-dev\lib\lz4.c" />
+    <ClCompile Include="..\third_party\lz4-dev\lib\lz4frame.c" />
+    <ClCompile Include="..\third_party\lz4-dev\lib\lz4hc.c" />
+    <ClCompile Include="..\third_party\lz4-dev\lib\xxhash.c" />
+    <ClCompile Include="..\third_party\snappy\snappy-c.cc" />
+    <ClCompile Include="..\third_party\snappy\snappy-sinksource.cc" />
+    <ClCompile Include="..\third_party\snappy\snappy-stubs-internal.cc" />
+    <ClCompile Include="..\third_party\snappy\snappy.cc" />
+    <ClCompile Include="..\third_party\sys\time.cpp" />
+    <ClCompile Include="lib7zip_compress.cc" />
+    <ClCompile Include="lib7zip_compressor.cc" />
+    <ClCompile Include="lz4_compress.cc" />
+    <ClCompile Include="lz4_compressor.cc" />
+    <ClCompile Include="snappy_compress.cc" />
+    <ClCompile Include="snappy_compressor.cc" />
+    <ClCompile Include="win\dllmain.cpp" />
+    <ClCompile Include="win\lib7z_achive.cc" />
+    <ClCompile Include="zlib_compress.cc" />
+    <ClCompile Include="zlib_compressor.cc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\third_party\7z-src\CPP\7zip\Archive\Archive.def" />
+    <None Include="..\third_party\7z-src\CPP\7zip\Archive\Archive2.def" />
+    <None Include="..\third_party\7z-src\CPP\7zip\Compress\Codec.def" />
+    <None Include="..\third_party\7z-src\CPP\7zip\Compress\makefile" />
+    <None Include="..\third_party\7z-src\CPP\7zip\Crypto\Codec.def" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

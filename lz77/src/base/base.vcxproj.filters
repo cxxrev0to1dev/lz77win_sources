@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{9a267797-5bc6-442d-b921-232264d8e557}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\base">
+      <UniqueIdentifier>{9c643849-2353-4ff7-b1d4-266ac2e58b9e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\win">
+      <UniqueIdentifier>{a2069dec-2b0f-48fa-a283-5bfbf65ca8ef}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="file_stream.h">
+      <Filter>src\base</Filter>
+    </ClInclude>
+    <ClInclude Include="gen_pwd.h">
+      <Filter>src\base</Filter>
+    </ClInclude>
+    <ClInclude Include="port.h">
+      <Filter>src\base</Filter>
+    </ClInclude>
+    <ClInclude Include="base_export.h">
+      <Filter>src\base</Filter>
+    </ClInclude>
+    <ClInclude Include="basic_incls.h">
+      <Filter>src\base</Filter>
+    </ClInclude>
+    <ClInclude Include="basictypes.h">
+      <Filter>src\base</Filter>
+    </ClInclude>
+    <ClInclude Include="path.h">
+      <Filter>src\base</Filter>
+    </ClInclude>
+    <ClInclude Include="string_conv.h">
+      <Filter>src\base</Filter>
+    </ClInclude>
+    <ClInclude Include="win\registry.h">
+      <Filter>src\win</Filter>
+    </ClInclude>
+    <ClInclude Include="win\windows_version.h">
+      <Filter>src\win</Filter>
+    </ClInclude>
+    <ClInclude Include="win\CPU.h">
+      <Filter>src\win</Filter>
+    </ClInclude>
+    <ClInclude Include="win\SmartLock.h">
+      <Filter>src\win</Filter>
+    </ClInclude>
+    <ClInclude Include="win\TKTime.h">
+      <Filter>src\win</Filter>
+    </ClInclude>
+    <ClInclude Include="win\TKTypes.h">
+      <Filter>src\win</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="gen_pwd.cc">
+      <Filter>src\base</Filter>
+    </ClCompile>
+    <ClCompile Include="file_stream.cc">
+      <Filter>src\base</Filter>
+    </ClCompile>
+    <ClCompile Include="win\dllmain.cpp">
+      <Filter>src\win</Filter>
+    </ClCompile>
+    <ClCompile Include="path.cc">
+      <Filter>src\base</Filter>
+    </ClCompile>
+    <ClCompile Include="string_conv.cc">
+      <Filter>src\base</Filter>
+    </ClCompile>
+    <ClCompile Include="win\registry.cc">
+      <Filter>src\win</Filter>
+    </ClCompile>
+    <ClCompile Include="win\windows_version.cc">
+      <Filter>src\win</Filter>
+    </ClCompile>
+    <ClCompile Include="win\CPU.cpp">
+      <Filter>src\win</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

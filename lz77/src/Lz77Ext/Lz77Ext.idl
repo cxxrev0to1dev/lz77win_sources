@@ -1,0 +1,58 @@
+// Lz77Ext.idl : IDL source for Lz77Ext
+//
+
+// This file will be processed by the MIDL tool to
+// produce the type library (Lz77Ext.tlb) and marshalling code.
+
+import "oaidl.idl";
+import "ocidl.idl";
+
+[
+	object,
+	uuid(a817e7a2-43fa-11d0-9e44-00aa00b6770a),
+	dual,	
+	pointer_default(unique)
+]
+interface IComponentRegistrar : IDispatch
+{
+	[id(1)]	HRESULT Attach([in] BSTR bstrPath);
+	[id(2)]	HRESULT RegisterAll();
+	[id(3)]	HRESULT UnregisterAll();
+	[id(4)]	HRESULT GetComponents([out] SAFEARRAY(BSTR)* pbstrCLSIDs, [out] SAFEARRAY(BSTR)* pbstrDescriptions);
+	[id(5)]	HRESULT RegisterComponent([in] BSTR bstrCLSID);
+	[id(6)] HRESULT UnregisterComponent([in] BSTR bstrCLSID);
+};
+
+[
+	object,
+	uuid(2433BF14-8909-4BD3-A41B-38737EE8F60B),
+	dual,
+	nonextensible,
+	pointer_default(unique)
+]
+interface ILz77RMenu : IDispatch{
+};
+[
+	uuid(A14759C8-63CE-4016-AD8E-DBD7033BD39D),
+	version(1.0),
+	custom(a817e7a1-43fa-11d0-9e44-00aa00b6770a,"{0D91A406-64F9-4168-8B6D-F284DC24BFB8}")
+]
+library Lz77ExtLib
+{
+	importlib("stdole2.tlb");
+	[
+		uuid(0D91A406-64F9-4168-8B6D-F284DC24BFB8)		
+	]
+	coclass CompReg
+	{
+		[default] interface IComponentRegistrar;
+	};
+	[		
+		uuid(E1621F46-CB37-4E27-B159-CAD6F6A44595)		
+	]
+	coclass Lz77RMenu
+	{
+		[default] interface ILz77RMenu;
+	};
+};
+

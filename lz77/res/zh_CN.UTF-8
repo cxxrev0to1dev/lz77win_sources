@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CrossPlatform>
+	<Windows>
+		<RootShellExterntion name="MENU_ROOT" string="LZ77"/>
+		<SubShellExterntion>
+			<sub name="MENU_ARCHIVE" string="压缩"/>
+			<sub name="MENU_EXTRACT" string="解压"/>
+			<sub name="MENU_SENDTO" string="添加到Sendto"/>
+		</SubShellExterntion>
+	</Windows>
+	<ErrorMsgTable>
+		<sub name="kUnsupportedMethod" string="不支持的方法"/>
+		<sub name="kCRCError" string="CRC失败"/>
+		<sub name="kCrcFailedEncrypted" string="CRC在加密文件中失败.密码错误?"/>
+		<sub name="kDataError" string="数据错误"/>
+		<sub name="kDataErrorEncrypted" string="加密文件中的数据错误.密码错误?"/>
+		<sub name="kUnavailable" string="不可用的数据"/>
+		<sub name="kUnexpectedEnd" string="意外的数据结束"/>
+		<sub name="kDataAfterEnd" string="有效载荷数据结束后面有一些数据"/>
+		<sub name="kIsNotArc" string="不是一个压缩文档"/>
+		<sub name="kHeadersError" string="文件头错误"/>
+		<sub name="kWrongPassword" string="密码错误"/>
+		<sub name="kError" string="错误 #"/>
+		<sub name="kArchiveExtractOutDir" string="请选择解压输出目录"/>
+		<sub name="kArchiveExtractPasswordDlgTitle" string="请输入压缩包密码"/>
+		<sub name="kFileTypeNotSupport" string="文件类型不支持"/>
+		<sub name="kArchiveOutFmtTitle" string="请选择输出压缩文档格式"/>
+	</ErrorMsgTable>
+</CrossPlatform>

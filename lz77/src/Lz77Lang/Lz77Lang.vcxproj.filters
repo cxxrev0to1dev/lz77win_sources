@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{280fd233-2164-4a18-aa1e-0c99160750b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Lz77Lang">
+      <UniqueIdentifier>{ccaa4b72-6670-4f8f-8f7c-b82bc32145eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Lz77Lang\win">
+      <UniqueIdentifier>{7c8cb32c-1a0b-4b12-b6ad-b85382a45fbb}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="win\dllmain.cpp">
+      <Filter>src\Lz77Lang\win</Filter>
+    </ClCompile>
+    <ClCompile Include="win\stdafx.cpp">
+      <Filter>src\Lz77Lang\win</Filter>
+    </ClCompile>
+    <ClCompile Include="lz77_lang.cc">
+      <Filter>src\Lz77Lang</Filter>
+    </ClCompile>
+    <ClCompile Include="ui_windows.cc">
+      <Filter>src\Lz77Lang</Filter>
+    </ClCompile>
+    <ClCompile Include="error_msg_table.cc">
+      <Filter>src\Lz77Lang</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="win\stdafx.h">
+      <Filter>src\Lz77Lang\win</Filter>
+    </ClInclude>
+    <ClInclude Include="win\targetver.h">
+      <Filter>src\Lz77Lang\win</Filter>
+    </ClInclude>
+    <ClInclude Include="lz77_lang_exports.h">
+      <Filter>src\Lz77Lang</Filter>
+    </ClInclude>
+    <ClInclude Include="lz77_lang.h">
+      <Filter>src\Lz77Lang</Filter>
+    </ClInclude>
+    <ClInclude Include="ui_windows.h">
+      <Filter>src\Lz77Lang</Filter>
+    </ClInclude>
+    <ClInclude Include="lz77_stream.h">
+      <Filter>src\Lz77Lang</Filter>
+    </ClInclude>
+    <ClInclude Include="error_msg_table.h">
+      <Filter>src\Lz77Lang</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

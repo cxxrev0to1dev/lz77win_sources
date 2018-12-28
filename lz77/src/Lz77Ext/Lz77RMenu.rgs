@@ -1,0 +1,59 @@
+HKCR
+{
+	NoRemove CLSID
+	{
+		ForceRemove {E1621F46-CB37-4E27-B159-CAD6F6A44595} = s 'Lz77Ext Shell Extension'
+		{
+			ForceRemove Programmable
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Both'
+			}
+			TypeLib = s '{A14759C8-63CE-4016-AD8E-DBD7033BD39D}'
+			Version = s '1.0'
+		}
+	}
+	NoRemove *
+	{
+		NoRemove shellex
+		{
+			NoRemove ContextMenuHandlers
+			{
+				Lz77Ext = s '{E1621F46-CB37-4E27-B159-CAD6F6A44595}'
+			}
+		}
+	}
+}
+
+HKLM
+{
+	NoRemove CLSID
+	{
+		ForceRemove {E1621F46-CB37-4E27-B159-CAD6F6A44595} = s 'Lz77Ext Shell Extension'
+		{
+			ForceRemove Programmable
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Both'
+			}
+			TypeLib = s '{A14759C8-63CE-4016-AD8E-DBD7033BD39D}'
+			Version = s '1.0'
+		}
+	}
+	NoRemove SOFTWARE
+	{
+		NoRemove Classes
+		{
+			NoRemove Folder
+			{
+				NoRemove ShellEx
+				{
+					NoRemove ContextMenuHandlers
+					{
+						Lz77Ext = s '{E1621F46-CB37-4E27-B159-CAD6F6A44595}'
+					}
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CrossPlatform>
+	<Windows>
+		<RootShellExterntion name="MENU_ROOT" string="LZ77"/>
+		<SubShellExterntion>
+			<sub name="MENU_ARCHIVE" string="Archive"/>
+			<sub name="MENU_EXTRACT" string="Extract"/>
+			<sub name="MENU_SENDTO" string="add Sendto"/>
+		</SubShellExterntion>
+	</Windows>
+	<ErrorMsgTable>
+		<sub name="kUnsupportedMethod" string="Unsupported Method"/>
+		<sub name="kCRCError" string="CRC Failed"/>
+		<sub name="kCrcFailedEncrypted" string="CRC Failed in encrypted file. Wrong password?"/>
+		<sub name="kDataError" string="Data Error"/>
+		<sub name="kDataErrorEncrypted" string="Data Error in encrypted file. Wrong password?"/>
+		<sub name="kUnavailable" string="Unavailable data"/>
+		<sub name="kUnexpectedEnd" string="Unexpected end of data"/>
+		<sub name="kDataAfterEnd" string="There are some data after the end of the payload data"/>
+		<sub name="kIsNotArc" string="Is not archive"/>
+		<sub name="kHeadersError" string="Headers Error"/>
+		<sub name="kWrongPassword" string="Wrong password"/>
+		<sub name="kError" string="ERROR #"/>
+		<sub name="kArchiveExtractOutDir" string="Please choose to extract the output directory"/>
+		<sub name="kArchiveExtractPasswordDlgTitle" string="Please enter the archive password"/>
+		<sub name="kFileTypeNotSupport" string="file format not support"/>
+		<sub name="kArchiveOutFmtTitle" string="Please choose the output format archive"/>
+	</ErrorMsgTable>
+</CrossPlatform>

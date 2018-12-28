@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{c9f1d3ca-9ff2-4f1c-9531-921c528173a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\crypt">
+      <UniqueIdentifier>{1e15eb9d-f926-4e90-a0fb-0004e5baa276}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\crypt\ecies">
+      <UniqueIdentifier>{06f9a33b-72ce-4dde-9014-242caf59c815}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\crypt\win">
+      <UniqueIdentifier>{423ece38-26fe-4f05-aea6-6b775d2c0b2e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\base">
+      <UniqueIdentifier>{6d8699e7-72b9-414c-af06-abf8c5ea0aec}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ecies\bignum_key.h">
+      <Filter>src\crypt\ecies</Filter>
+    </ClInclude>
+    <ClInclude Include="ecies\decrypt_message.h">
+      <Filter>src\crypt\ecies</Filter>
+    </ClInclude>
+    <ClInclude Include="ecies\encrypt_message.h">
+      <Filter>src\crypt\ecies</Filter>
+    </ClInclude>
+    <ClInclude Include="ecies\encryption_file.h">
+      <Filter>src\crypt\ecies</Filter>
+    </ClInclude>
+    <ClInclude Include="ecies\decryption_file.h">
+      <Filter>src\crypt\ecies</Filter>
+    </ClInclude>
+    <ClInclude Include="ecies\ecies_gen_key.h">
+      <Filter>src\crypt\ecies</Filter>
+    </ClInclude>
+    <ClInclude Include="ecies\ecies_secure_policy.h">
+      <Filter>src\crypt\ecies</Filter>
+    </ClInclude>
+    <ClInclude Include="ecies\ecies_crypt.h">
+      <Filter>src\crypt\ecies</Filter>
+    </ClInclude>
+    <ClInclude Include="..\base\basic_incls.h">
+      <Filter>src\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\base\basictypes.h">
+      <Filter>src\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\base\port.h">
+      <Filter>src\base</Filter>
+    </ClInclude>
+    <ClInclude Include="crypt_export.h">
+      <Filter>src\crypt</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ecies\bignum_key.cc">
+      <Filter>src\crypt\ecies</Filter>
+    </ClCompile>
+    <ClCompile Include="ecies\decrypt_message.cc">
+      <Filter>src\crypt\ecies</Filter>
+    </ClCompile>
+    <ClCompile Include="ecies\encrypt_message.cc">
+      <Filter>src\crypt\ecies</Filter>
+    </ClCompile>
+    <ClCompile Include="ecies\encryption_file.cc">
+      <Filter>src\crypt\ecies</Filter>
+    </ClCompile>
+    <ClCompile Include="ecies\decryption_file.cc">
+      <Filter>src\crypt\ecies</Filter>
+    </ClCompile>
+    <ClCompile Include="ecies\ecies_gen_key.cc">
+      <Filter>src\crypt\ecies</Filter>
+    </ClCompile>
+    <ClCompile Include="ecies\ecies_secure_policy.cc">
+      <Filter>src\crypt\ecies</Filter>
+    </ClCompile>
+    <ClCompile Include="ecies\ecies_crypt.cc">
+      <Filter>src\crypt\ecies</Filter>
+    </ClCompile>
+    <ClCompile Include="win\dllmain.cc">
+      <Filter>src\crypt\win</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
