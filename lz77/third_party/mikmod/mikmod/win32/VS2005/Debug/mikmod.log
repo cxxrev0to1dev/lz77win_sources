@@ -1,0 +1,34 @@
+﻿  rcfile.c
+c:\users\dengtao\downloads\mikmod-master\mikmod\src\rcfile.c(37): fatal error C1083: Cannot open include file: 'mikmod.h': No such file or directory
+  mwindow.c
+c:\users\dengtao\downloads\mikmod-master\mikmod\src\mwindow.c(61): fatal error C1083: Cannot open include file: 'mikmod.h': No such file or directory
+  mwidget.c
+c:\users\dengtao\downloads\mikmod-master\mikmod\src\mwindow.h(45): fatal error C1083: Cannot open include file: 'mikmod.h': No such file or directory
+  mutilities.c
+c:\users\dengtao\downloads\mikmod-master\mikmod\src\mlist.h(32): fatal error C1083: Cannot open include file: 'mikmod.h': No such file or directory
+  mplayer.c
+c:\users\dengtao\downloads\mikmod-master\mikmod\src\mplayer.h(32): fatal error C1083: Cannot open include file: 'mikmod.h': No such file or directory
+  mmenu.c
+c:\users\dengtao\downloads\mikmod-master\mikmod\src\mwindow.h(45): fatal error C1083: Cannot open include file: 'mikmod.h': No such file or directory
+  mlistedit.c
+c:\users\dengtao\downloads\mikmod-master\mikmod\src\mlistedit.c(54): fatal error C1083: Cannot open include file: 'mikmod.h': No such file or directory
+  mlist.c
+c:\users\dengtao\downloads\mikmod-master\mikmod\src\mlist.h(32): fatal error C1083: Cannot open include file: 'mikmod.h': No such file or directory
+  mikmod.c
+c:\users\dengtao\downloads\mikmod-master\mikmod\src\mikmod.c(73): fatal error C1083: Cannot open include file: 'mikmod.h': No such file or directory
+  mgetopt1.c
+  mgetopt.c
+c:\users\dengtao\downloads\mikmod-master\mikmod\src\mgetopt.c(209): warning C4273: 'getenv': inconsistent dll linkage
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\stdlib.h(1183): note: see previous definition of 'getenv'
+  mfnmatch.c
+  mdialog.c
+c:\users\dengtao\downloads\mikmod-master\mikmod\src\mwindow.h(45): fatal error C1083: Cannot open include file: 'mikmod.h': No such file or directory
+  mconfig.c
+c:\users\dengtao\downloads\mikmod-master\mikmod\src\mconfig.h(32): fatal error C1083: Cannot open include file: 'mikmod.h': No such file or directory
+  mconfedit.c
+c:\users\dengtao\downloads\mikmod-master\mikmod\src\mconfedit.c(38): fatal error C1083: Cannot open include file: 'mikmod.h': No such file or directory
+  marchive.c
+c:\users\dengtao\downloads\mikmod-master\mikmod\src\marchive.c(75): fatal error C1083: Cannot open include file: 'mikmod.h': No such file or directory
+  display.c
+c:\users\dengtao\downloads\mikmod-master\mikmod\src\display.c(43): fatal error C1083: Cannot open include file: 'mikmod.h': No such file or directory
+  Generating Code...

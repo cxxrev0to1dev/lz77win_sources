@@ -1,0 +1,50 @@
+This is the instructions to compile mikmod on win32.
+
+Mikmod can be compiler using Microsoft Visual Studio, lcc-win32,
+or MinGW or MinGW-w64 compilers.
+
+1) First, compile libmikmod, and install it.
+
+   To install libmikmod, I copied libmikmod.lib (generated
+   when compiling libmikmod) in the /lib directory of lcc.
+   Next, I copied the file mikmod.h in the /include directory
+   of lcc.  Should be similar if you used MinGW[-w64] or MSVC.
+
+2) Compiling mikmod:
+
+ - using lcc:
+   cd to the win32 directory and type make -f Makefile.lcc
+
+ - using MinGW or MinGW-w64:
+   cd to the win32 directory and type make -f Makefile.mingw
+   (you need GNU make: gmake, or mingw32-make, or whatever)
+
+ - using MSVC:
+   Compile using project files from MSVC6 or VS2005. The VS2005
+   project file imports just fine into newer Visual Studio versions,
+   e.g. VS2012.
+
+   Hopefully, it will compile and a file named mikmod.exe will be
+   created.
+
+3) Try it!
+   There are 2 audio drivers for windows.
+   - DirectSound Driver (Requires DirectX 6 or newer)
+   - waveform-audio
+
+   Depending on how you compliled libmikmod, the XAudio2 driver,
+   and possibly others may be there too.
+
+   To choose which driver to use from the command line,
+   do a mikmod -n to get the list of drivers, and once you
+   know the correct driver id, do mikmod -d ?? where ?? is the id.
+
+   do mikmod -h for more command line options.
+
+
+--
+Good Luck!
+
+Raphael Assenat
+raph@raphnet.net
+

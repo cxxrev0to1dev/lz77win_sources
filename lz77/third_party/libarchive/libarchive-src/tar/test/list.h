@@ -1,0 +1,6 @@
+DEFINE_TEST(test_basic)
+DEFINE_TEST(test_copy)
+DEFINE_TEST(test_getdate)
+DEFINE_TEST(test_help)
+DEFINE_TEST(test_stdio)
+DEFINE_TEST(test_version)

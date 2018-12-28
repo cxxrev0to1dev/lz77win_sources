@@ -1,0 +1,16 @@
+Begin3
+Title: MikMod module player
+Version: 3.2.8
+Entered-date: no date yet
+Description: MikMod is a full-featured GPL module player based on the libmikmod
+Description: sound library.
+Keywords: mikmod player digital music sound audio
+Keywords: mod s3m xm mtm stm it ult dsm med 669 far med amf gdm alsa esd
+Author: (Many - see file AUTHORS for complete list)
+Maintained-by: O.Sezer <sezero@users.sf.net>
+Primary-site: http://mikmod.sourceforge.net/
+Alternate-site: none
+Platforms: AIX, DOS, FreeBSD, HP-UX, IRIX, Linux, OSF/1, OS/2, NetBSD,
+Platforms: OpenBSD, Mac OS X, Solaris... more on request !
+Copying-policy: GPL
+End

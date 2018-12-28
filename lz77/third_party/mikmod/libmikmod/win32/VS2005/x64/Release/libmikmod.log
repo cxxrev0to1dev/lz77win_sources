@@ -1,0 +1,168 @@
+﻿  mmcmp.c
+  pp20.c
+..\..\depackers\pp20.c(107): warning C4244: '=': conversion from 'ULONG' to 'UBYTE', possible loss of data
+..\..\depackers\pp20.c(120): warning C4244: '=': conversion from 'ULONG' to 'UBYTE', possible loss of data
+..\..\depackers\pp20.c(124): warning C4244: '=': conversion from 'ULONG' to 'UBYTE', possible loss of data
+..\..\depackers\pp20.c(127): warning C4244: '=': conversion from 'ULONG' to 'UBYTE', possible loss of data
+  s404.c
+..\..\depackers\s404.c(57): warning C4244: 'return': conversion from 'unsigned long' to 'UWORD', possible loss of data
+..\..\depackers\s404.c(154): warning C4244: '=': conversion from 'UWORD' to 'UBYTE', possible loss of data
+..\..\depackers\s404.c(179): warning C4244: '=': conversion from 'UWORD' to 'UBYTE', possible loss of data
+  xpk.c
+..\..\depackers\xpk.c(90): warning C4244: 'return': conversion from 'unsigned long' to 'UWORD', possible loss of data
+  drv_aiff.c
+..\..\drivers\drv_aiff.c(133): warning C4244: '=': conversion from 'ULONG' to 'char', possible loss of data
+..\..\drivers\drv_aiff.c(134): warning C4244: '=': conversion from 'ULONG' to 'char', possible loss of data
+..\..\drivers\drv_aiff.c(135): warning C4244: '=': conversion from 'ULONG' to 'char', possible loss of data
+..\..\drivers\drv_aiff.c(137): warning C4244: '=': conversion from 'ULONG' to 'char', possible loss of data
+..\..\drivers\drv_aiff.c(138): warning C4244: '=': conversion from 'ULONG' to 'char', possible loss of data
+..\..\drivers\drv_aiff.c(139): warning C4244: '=': conversion from 'ULONG' to 'char', possible loss of data
+  drv_ds.c
+..\..\drivers\drv_ds.c(110): warning C4018: '<': signed/unsigned mismatch
+  drv_nos.c
+  drv_openal.c
+  drv_raw.c
+  drv_sdl.c
+  drv_stdout.c
+  drv_wav.c
+  drv_win.c
+  drv_xaudio2.c
+  load_669.c
+  load_amf.c
+..\..\loaders\load_amf.c(546): warning C4018: '<': signed/unsigned mismatch
+  load_asy.c
+..\..\loaders\load_asy.c(260): warning C4018: '<': signed/unsigned mismatch
+  load_dsm.c
+..\..\loaders\load_dsm.c(271): warning C4244: '=': conversion from 'UWORD' to 'UBYTE', possible loss of data
+  load_far.c
+  load_gdm.c
+  Compiling...
+  load_gt2.c
+  load_imf.c
+  load_it.c
+..\..\loaders\load_it.c(447): warning C4244: '=': conversion from 'UWORD' to 'UBYTE', possible loss of data
+  load_m15.c
+..\..\loaders\load_m15.c(153): warning C4018: '<': signed/unsigned mismatch
+  load_med.c
+..\..\loaders\load_med.c(255): warning C4244: 'function': conversion from 'UWORD' to 'UBYTE', possible loss of data
+..\..\loaders\load_med.c(344): warning C4244: '=': conversion from 'UWORD' to 'UBYTE', possible loss of data
+..\..\loaders\load_med.c(398): warning C4244: '=': conversion from 'UWORD' to 'UBYTE', possible loss of data
+..\..\loaders\load_med.c(607): warning C4244: '=': conversion from 'ULONG' to 'CHAR', possible loss of data
+..\..\loaders\load_med.c(621): warning C4244: 'function': conversion from 'ULONG' to 'UWORD', possible loss of data
+..\..\loaders\load_med.c(627): warning C4244: 'function': conversion from 'ULONG' to 'UWORD', possible loss of data
+..\..\loaders\load_med.c(733): warning C4244: 'function': conversion from 'ULONG' to 'UWORD', possible loss of data
+  load_mod.c
+..\..\loaders\load_mod.c(351): warning C4018: '<': signed/unsigned mismatch
+  load_mtm.c
+  load_okt.c
+..\..\loaders\load_okt.c(221): warning C4244: '=': conversion from 'ULONG' to 'UWORD', possible loss of data
+..\..\loaders\load_okt.c(222): warning C4018: '>': signed/unsigned mismatch
+..\..\loaders\load_okt.c(223): warning C4244: '=': conversion from 'ULONG' to 'UWORD', possible loss of data
+  load_s3m.c
+  load_stm.c
+..\..\loaders\load_stm.c(236): warning C4018: '<': signed/unsigned mismatch
+  load_stx.c
+..\..\loaders\load_stx.c(353): warning C4244: '=': conversion from 'UWORD' to 'UBYTE', possible loss of data
+  load_ult.c
+  load_umx.c
+  load_uni.c
+  load_xm.c
+..\..\loaders\load_xm.c(337): warning C4018: '<': signed/unsigned mismatch
+..\..\loaders\load_xm.c(707): warning C4244: '=': conversion from 'UWORD' to 'UBYTE', possible loss of data
+..\..\loaders\load_xm.c(724): warning C4244: '=': conversion from 'UWORD' to 'UBYTE', possible loss of data
+  mmalloc.c
+  mmerror.c
+  mmio.c
+  mdreg.c
+  mdriver.c
+..\..\playercode\mdriver.c(332): warning C4244: 'function': conversion from 'unsigned long' to 'UWORD', possible loss of data
+  Compiling...
+  mloader.c
+..\..\playercode\mloader.c(75): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
+  mlreg.c
+  mlutil.c
+..\..\playercode\mlutil.c(97): warning C4018: '<': signed/unsigned mismatch
+..\..\playercode\mlutil.c(104): warning C4018: '>': signed/unsigned mismatch
+..\..\playercode\mlutil.c(108): warning C4018: '<': signed/unsigned mismatch
+..\..\playercode\mlutil.c(131): warning C4244: '=': conversion from 'UWORD' to 'UBYTE', possible loss of data
+..\..\playercode\mlutil.c(303): warning C4244: 'function': conversion from 'UWORD' to 'UBYTE', possible loss of data
+..\..\playercode\mlutil.c(307): warning C4244: 'function': conversion from 'UWORD' to 'UBYTE', possible loss of data
+..\..\playercode\mlutil.c(326): warning C4244: 'function': conversion from 'UWORD' to 'UBYTE', possible loss of data
+  mplayer.c
+..\..\playercode\mplayer.c(235): warning C4244: 'return': conversion from 'double' to 'int', possible loss of data
+..\..\playercode\mplayer.c(251): warning C4018: '<': signed/unsigned mismatch
+..\..\playercode\mplayer.c(254): warning C4244: 'function': conversion from 'ULONG' to 'SBYTE', possible loss of data
+..\..\playercode\mplayer.c(258): warning C4018: '<': signed/unsigned mismatch
+..\..\playercode\mplayer.c(289): warning C4244: '=': conversion from 'unsigned long' to 'UWORD', possible loss of data
+..\..\playercode\mplayer.c(306): warning C4244: 'function': conversion from 'ULONG' to 'SWORD', possible loss of data
+..\..\playercode\mplayer.c(323): warning C4244: 'return': conversion from 'unsigned long' to 'UWORD', possible loss of data
+..\..\playercode\mplayer.c(404): warning C4244: '=': conversion from 'UWORD' to 'UBYTE', possible loss of data
+..\..\playercode\mplayer.c(405): warning C4244: '=': conversion from 'UWORD' to 'UBYTE', possible loss of data
+..\..\playercode\mplayer.c(789): warning C4018: '>': signed/unsigned mismatch
+..\..\playercode\mplayer.c(875): warning C4244: '=': conversion from 'UWORD' to 'UBYTE', possible loss of data
+..\..\playercode\mplayer.c(1117): warning C4244: '=': conversion from 'UWORD' to 'UBYTE', possible loss of data
+..\..\playercode\mplayer.c(1148): warning C4244: '=': conversion from 'UWORD' to 'UBYTE', possible loss of data
+..\..\playercode\mplayer.c(1950): warning C4244: '=': conversion from 'SLONG' to 'SWORD', possible loss of data
+..\..\playercode\mplayer.c(2012): warning C4018: '>': signed/unsigned mismatch
+..\..\playercode\mplayer.c(2099): warning C4018: '>': signed/unsigned mismatch
+..\..\playercode\mplayer.c(2347): warning C4244: 'function': conversion from 'SWORD' to 'SBYTE', possible loss of data
+..\..\playercode\mplayer.c(2402): warning C4244: 'function': conversion from 'SWORD' to 'SBYTE', possible loss of data
+..\..\playercode\mplayer.c(2404): warning C4244: 'function': conversion from 'SWORD' to 'SBYTE', possible loss of data
+..\..\playercode\mplayer.c(2404): warning C4244: 'function': conversion from 'ULONG' to 'UWORD', possible loss of data
+..\..\playercode\mplayer.c(2411): warning C4244: 'function': conversion from 'SWORD' to 'SBYTE', possible loss of data
+..\..\playercode\mplayer.c(2414): warning C4244: 'function': conversion from 'SWORD' to 'SBYTE', possible loss of data
+..\..\playercode\mplayer.c(2417): warning C4244: 'function': conversion from 'SWORD' to 'SBYTE', possible loss of data
+..\..\playercode\mplayer.c(2448): warning C4244: '-=': conversion from 'SLONG' to 'UWORD', possible loss of data
+..\..\playercode\mplayer.c(2467): warning C4244: '-=': conversion from 'SLONG' to 'UWORD', possible loss of data
+..\..\playercode\mplayer.c(2495): warning C4244: '+=': conversion from 'long' to 'UWORD', possible loss of data
+..\..\playercode\mplayer.c(2499): warning C4244: 'function': conversion from 'SWORD' to 'SBYTE', possible loss of data
+..\..\playercode\mplayer.c(2504): warning C4244: 'function': conversion from 'SWORD' to 'SBYTE', possible loss of data
+..\..\playercode\mplayer.c(2638): warning C4244: '=': conversion from 'SLONG' to 'SWORD', possible loss of data
+..\..\playercode\mplayer.c(2646): warning C4244: '+=': conversion from 'SLONG' to 'SWORD', possible loss of data
+..\..\playercode\mplayer.c(2816): warning C4244: '=': conversion from 'SWORD' to 'UBYTE', possible loss of data
+..\..\playercode\mplayer.c(3037): warning C4244: '=': conversion from 'SWORD' to 'UBYTE', possible loss of data
+..\..\playercode\mplayer.c(3283): warning C4018: '>=': signed/unsigned mismatch
+..\..\playercode\mplayer.c(3283): warning C4018: '<=': signed/unsigned mismatch
+  munitrk.c
+..\..\playercode\munitrk.c(267): warning C4244: '=': conversion from 'UWORD' to 'UBYTE', possible loss of data
+  mwav.c
+..\..\playercode\mwav.c(189): warning C4244: '=': conversion from 'ULONG' to 'UWORD', possible loss of data
+  npertab.c
+  sloader.c
+..\..\playercode\sloader.c(147): warning C4244: 'return': conversion from '__int64' to 'int', possible loss of data
+..\..\playercode\sloader.c(83): warning C4244: 'initializing': conversion from 'SWORD' to 'SBYTE', possible loss of data
+..\..\playercode\sloader.c(215): warning C4244: '+=': conversion from 'SLONG' to 'SWORD', possible loss of data
+..\..\playercode\sloader.c(221): warning C4244: 'return': conversion from '__int64' to 'int', possible loss of data
+  virtch.c
+..\..\playercode\virtch.c(737): warning C4244: 'initializing': conversion from 'SLONGLONG' to 'int', possible loss of data
+..\..\playercode\virtch.c(756): warning C4244: 'initializing': conversion from 'SLONGLONG' to 'int', possible loss of data
+..\..\playercode\virtch.c(817): warning C4244: '=': conversion from 'SLONG' to 'SWORD', possible loss of data
+..\..\playercode\virtch.c(822): warning C4244: '=': conversion from 'SLONG' to 'SWORD', possible loss of data
+..\..\playercode\virtch.c(1087): warning C4244: 'function': conversion from 'SLONGLONG' to 'SLONG', possible loss of data
+..\..\playercode\virtch.c(1090): warning C4244: 'function': conversion from 'SLONGLONG' to 'SLONG', possible loss of data
+..\..\playercode\virtch.c(1093): warning C4244: 'function': conversion from 'SLONGLONG' to 'SLONG', possible loss of data
+..\..\playercode\virtch.c(1097): warning C4244: 'function': conversion from 'SLONGLONG' to 'SLONG', possible loss of data
+..\..\playercode\virtch.c(1107): warning C4244: 'function': conversion from 'SLONGLONG' to 'SLONG', possible loss of data
+..\..\playercode\virtch.c(1111): warning C4244: 'function': conversion from 'SLONGLONG' to 'SLONG', possible loss of data
+..\..\playercode\virtch.c(1164): warning C4018: '<': signed/unsigned mismatch
+  virtch2.c
+..\..\playercode\virtch2.c(627): warning C4244: '=': conversion from 'SLONGLONG' to 'SLONG', possible loss of data
+..\..\playercode\virtch2.c(628): warning C4244: '=': conversion from 'SLONGLONG' to 'SLONG', possible loss of data
+..\..\playercode\virtch2.c(657): warning C4244: '=': conversion from 'SLONGLONG' to 'SLONG', possible loss of data
+..\..\playercode\virtch2.c(658): warning C4244: '=': conversion from 'SLONGLONG' to 'SLONG', possible loss of data
+..\..\playercode\virtch2.c(663): warning C4244: '=': conversion from 'SLONGLONG' to 'SLONG', possible loss of data
+..\..\playercode\virtch2.c(664): warning C4244: '=': conversion from 'SLONGLONG' to 'SLONG', possible loss of data
+..\..\playercode\virtch2.c(690): warning C4244: 'initializing': conversion from 'SLONGLONG' to 'int', possible loss of data
+..\..\playercode\virtch2.c(709): warning C4244: 'initializing': conversion from 'SLONGLONG' to 'int', possible loss of data
+..\..\playercode\virtch2.c(1110): warning C4244: 'function': conversion from 'SLONGLONG' to 'ULONG', possible loss of data
+..\..\playercode\virtch2.c(1113): warning C4244: 'function': conversion from 'SLONGLONG' to 'ULONG', possible loss of data
+..\..\playercode\virtch2.c(1116): warning C4244: 'function': conversion from 'SLONGLONG' to 'SLONG', possible loss of data
+..\..\playercode\virtch2.c(1168): warning C4018: '<': signed/unsigned mismatch
+  virtch_common.c
+  strcasecmp.c
+     Creating library D:\privatespace\CryptApp\x64\Release\libmikmod.lib and object D:\privatespace\CryptApp\x64\Release\libmikmod.exp
+  Generating code
+  All 657 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  libmikmod.vcxproj -> D:\privatespace\CryptApp\x64\Release\libmikmod.dll
+  libmikmod.vcxproj -> D:\privatespace\CryptApp\x64\Release\libmikmod.pdb (Full PDB)

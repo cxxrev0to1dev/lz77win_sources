@@ -1,0 +1,30 @@
+#!/bin/bash
+
+set -o errexit  # Stop if a command yields a non-zero exit code.
+
+failed()
+{
+    echo "error running script $0"
+}
+
+trap failed ERR
+
+if [ `uname` == "Darwin" ]
+then
+    echo "running glibtoolize..."
+    glibtoolize --force
+else
+    echo "running libtoolize..."
+    libtoolize --force
+fi
+
+echo "running aclocal..."
+aclocal --force --warnings=all -I m4
+
+echo "running autoconf..."
+autoconf --force --warnings=all
+
+echo "running automake..."
+automake --force --warnings=all -a
+
+echo "success running script $0"

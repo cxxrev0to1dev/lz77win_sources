@@ -1,0 +1,2155 @@
+diff -ipuwr --binary --strip-trailing-cr -x '*.bak' -x '*.orig' -x '*.rej' -x '*.new' -x '*~' -x debian -x '*.po' -x '*.pot' libarchive-2.4.11-orig/Makefile.in libarchive-2.4.11-src/Makefile.in
+--- libarchive-2.4.11-orig/Makefile.in	2007-12-31 07:38:05.000000000 +0100
++++ libarchive-2.4.11-src/Makefile.in	2008-01-02 09:01:44.375000000 +0100
+@@ -16,6 +16,8 @@
+ 
+ 
+ 
++resdir = @top_builddir@/resource
++VPATH = @srcdir@ $(resdir)
+ VPATH = @srcdir@
+ pkgdatadir = $(datadir)/@PACKAGE@
+ pkglibdir = $(libdir)/@PACKAGE@
+@@ -121,7 +123,11 @@ am_libarchive_la_OBJECTS =  \
+ 	libarchive/libarchive_la-archive_write_set_format_pax.lo \
+ 	libarchive/libarchive_la-archive_write_set_format_shar.lo \
+ 	libarchive/libarchive_la-archive_write_set_format_ustar.lo \
+-	libarchive/libarchive_la-filter_fork.lo
++	libarchive/libarchive_la-filter_fork.lo \
++ 	libarchive/libarchive_la-libarchive-nonposix.lo \
++ 	libarchive/libarchive_la-archive-dllversion.lo \
++ 	libarchive/libarchive_la-archive-dll-res.lo
++
+ libarchive_la_OBJECTS = $(am_libarchive_la_OBJECTS)
+ libarchive_la_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
+ 	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
+@@ -134,7 +140,8 @@ binPROGRAMS_INSTALL = $(INSTALL_PROGRAM)
+ PROGRAMS = $(bin_PROGRAMS)
+ am_bsdcpio_OBJECTS = cpio/bsdcpio-cmdline.$(OBJEXT) \
+ 	cpio/bsdcpio-cpio.$(OBJEXT) cpio/bsdcpio-err.$(OBJEXT) \
+-	cpio/bsdcpio-match.$(OBJEXT) cpio/bsdcpio-matching.$(OBJEXT)
++	cpio/bsdcpio-match.$(OBJEXT) cpio/bsdcpio-matching.$(OBJEXT) \
++	cpio/bsdcpio-res.$(OBJEXT) cpio/bsdcpio-nonposix.$(OBJEXT)
+ bsdcpio_OBJECTS = $(am_bsdcpio_OBJECTS)
+ bsdcpio_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
+ 	--mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(bsdcpio_LDFLAGS) \
+@@ -166,7 +173,9 @@ bsdcpio_test_LDADD = $(LDADD)
+ am_bsdtar_OBJECTS = tar/bsdtar-bsdtar.$(OBJEXT) \
+ 	tar/bsdtar-getdate.$(OBJEXT) tar/bsdtar-matching.$(OBJEXT) \
+ 	tar/bsdtar-read.$(OBJEXT) tar/bsdtar-tree.$(OBJEXT) \
+-	tar/bsdtar-util.$(OBJEXT) tar/bsdtar-write.$(OBJEXT)
++	tar/bsdtar-util.$(OBJEXT) tar/bsdtar-write.$(OBJEXT) \
++	tar/bsdtar-nonposix.$(OBJEXT) tar/bsdtar-res.$(OBJEXT)
++	
+ bsdtar_OBJECTS = $(am_bsdtar_OBJECTS)
+ bsdtar_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
+ 	--mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(bsdtar_LDFLAGS) \
+@@ -232,7 +241,8 @@ am__objects_1 =  \
+ 	libarchive/libarchive_test-archive_write_set_format_pax.$(OBJEXT) \
+ 	libarchive/libarchive_test-archive_write_set_format_shar.$(OBJEXT) \
+ 	libarchive/libarchive_test-archive_write_set_format_ustar.$(OBJEXT) \
+-	libarchive/libarchive_test-filter_fork.$(OBJEXT)
++	libarchive/libarchive_test-filter_fork.$(OBJEXT) \
++ 	libarchive/libarchive_test-libarchive-nonposix.$(OBJEXT)
+ am_libarchive_test_OBJECTS = $(am__objects_1) \
+ 	libarchive/test/libarchive_test-main.$(OBJEXT) \
+ 	libarchive/test/libarchive_test-read_open_memory.$(OBJEXT) \
+@@ -369,7 +379,7 @@ INSTALL_DATA = @INSTALL_DATA@
+ INSTALL_PROGRAM = @INSTALL_PROGRAM@
+ INSTALL_SCRIPT = @INSTALL_SCRIPT@
+ INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
+-LDFLAGS = @LDFLAGS@
++LDFLAGS = @LDFLAGS@ $(VERSADD)
+ LIBARCHIVE_VERSION = @LIBARCHIVE_VERSION@
+ LIBARCHIVE_VERSION_STRING = @LIBARCHIVE_VERSION_STRING@
+ LIBOBJS = @LIBOBJS@
+@@ -392,6 +402,9 @@ SET_MAKE = @SET_MAKE@
+ SHELL = @SHELL@
+ STRIP = @STRIP@
+ VERSION = @VERSION@
++MAJOR=$(shell echo $(VERSION) | sed -e "s/\..*$$//")
++MINOR=$(shell echo $(VERSION) | sed -e "s/^[^\.]*\.0*\([0-9]\+\).*$$/\1/")
++VERSADD = -Wl,--major-image-version=$(MAJOR) -Wl,--minor-image-version=$(MINOR) 
+ YACC = @YACC@
+ YFLAGS = @YFLAGS@
+ abs_builddir = @abs_builddir@
+@@ -476,7 +489,8 @@ EXTRA_DIST = version			\
+ # Libarchive headers, source, etc.
+ #
+ #
+-include_HEADERS = libarchive/archive_entry.h
++include_HEADERS = libarchive/archive_entry.h \
++	libarchive/libarchive-nonposix.h
+ # Note: archive.h is built from archive.h.in, so don't
+ # include archive.h in the distfile, but do install it.
+ nodist_include_HEADERS = libarchive/archive.h
+@@ -539,8 +553,12 @@ libarchive_la_SOURCES = \
+ 	libarchive/archive_write_set_format_pax.c		\
+ 	libarchive/archive_write_set_format_shar.c		\
+ 	libarchive/archive_write_set_format_ustar.c		\
++	libarchive/libarchive-nonposix.c		\
++	resource/archive-dllversion.c		\
++	resource/archive-dll-res.rc		\
+ 	libarchive/config_freebsd.h				\
+ 	libarchive/config_windows.h				\
++	libarchive/config_win32.h				\
+ 	libarchive/filter_fork.c				\
+ 	libarchive/filter_fork.h
+ 
+@@ -643,6 +661,8 @@ libarchive_test_EXTRA_DIST = \
+ 	libarchive/test/test_read_format_gtar_sparse_1_17_posix10_modified.tar
+ 
+ libarchive_test_CPPFLAGS = -I$(top_builddir)/libarchive -I$(top_builddir)/libarchive/test
++libarchive_test_CPPFLAGS = -DLIBARCHIVE_STATIC -I$(top_builddir)/libarchive \
++	-I$(top_builddir)/libarchive/test -I$(top_srcdir)/libarchive -I$(top_srcdir)/libarchive/test
+ libarchive_TESTS_ENVIRONMENT = LIBARCHIVE_TEST_FILES=`cd $(top_srcdir);/bin/pwd`/libarchive/test
+ 
+ #
+@@ -786,7 +806,7 @@ all: $(BUILT_SOURCES) config.h
+ 	$(MAKE) $(AM_MAKEFLAGS) all-am
+ 
+ .SUFFIXES:
+-.SUFFIXES: .c .lo .o .obj .y
++.SUFFIXES: .c .lo .o .obj .y .rc .exe .dll
+ am--refresh:
+ 	@:
+ $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
+@@ -1020,6 +1040,12 @@ libarchive/libarchive_la-archive_write_s
+ 	libarchive/$(DEPDIR)/$(am__dirstamp)
+ libarchive/libarchive_la-filter_fork.lo: libarchive/$(am__dirstamp) \
+ 	libarchive/$(DEPDIR)/$(am__dirstamp)
++libarchive/libarchive_la-libarchive-nonposix.lo:  \
++	libarchive/$(am__dirstamp) \
++	libarchive/$(DEPDIR)/$(am__dirstamp)
++libarchive/libarchive_la-archive-dllversion.lo:  \
++	libarchive/$(am__dirstamp) \
++	libarchive/$(DEPDIR)/$(am__dirstamp)
+ libarchive.la: $(libarchive_la_OBJECTS) $(libarchive_la_DEPENDENCIES) 
+ 	$(libarchive_la_LINK) -rpath $(libdir) $(libarchive_la_OBJECTS) $(libarchive_la_LIBADD) $(LIBS)
+ install-binPROGRAMS: $(bin_PROGRAMS)
+@@ -1126,6 +1152,8 @@ cpio/test/bsdcpio_test-test_owner_parse.
+ 	cpio/test/$(am__dirstamp) cpio/test/$(DEPDIR)/$(am__dirstamp)
+ cpio/test/bsdcpio_test-test_pathmatch.$(OBJEXT):  \
+ 	cpio/test/$(am__dirstamp) cpio/test/$(DEPDIR)/$(am__dirstamp)
++cpio/bsdcpio-nonposix.$(OBJEXT): cpio/$(am__dirstamp) \
++	cpio/$(DEPDIR)/$(am__dirstamp)
+ bsdcpio_test$(EXEEXT): $(bsdcpio_test_OBJECTS) $(bsdcpio_test_DEPENDENCIES) 
+ 	@rm -f bsdcpio_test$(EXEEXT)
+ 	$(LINK) $(bsdcpio_test_OBJECTS) $(bsdcpio_test_LDADD) $(LIBS)
+@@ -1149,6 +1177,8 @@ tar/bsdtar-util.$(OBJEXT): tar/$(am__dir
+ 	tar/$(DEPDIR)/$(am__dirstamp)
+ tar/bsdtar-write.$(OBJEXT): tar/$(am__dirstamp) \
+ 	tar/$(DEPDIR)/$(am__dirstamp)
++tar/bsdtar-nonposix.$(OBJEXT): tar/$(am__dirstamp) \
++	tar/$(DEPDIR)/$(am__dirstamp)
+ bsdtar$(EXEEXT): $(bsdtar_OBJECTS) $(bsdtar_DEPENDENCIES) 
+ 	@rm -f bsdtar$(EXEEXT)
+ 	$(bsdtar_LINK) $(bsdtar_OBJECTS) $(bsdtar_LDADD) $(LIBS)
+@@ -1330,6 +1360,9 @@ libarchive/libarchive_test-archive_write
+ libarchive/libarchive_test-filter_fork.$(OBJEXT):  \
+ 	libarchive/$(am__dirstamp) \
+ 	libarchive/$(DEPDIR)/$(am__dirstamp)
++libarchive/libarchive_test-libarchive-nonposix.$(OBJEXT):  \
++	libarchive/$(am__dirstamp) \
++	libarchive/$(DEPDIR)/$(am__dirstamp)
+ libarchive/test/$(am__dirstamp):
+ 	@$(MKDIR_P) libarchive/test
+ 	@: > libarchive/test/$(am__dirstamp)
+@@ -1497,7 +1530,7 @@ libarchive/test/libarchive_test-test_wri
+ 	libarchive/test/$(DEPDIR)/$(am__dirstamp)
+ libarchive_test$(EXEEXT): $(libarchive_test_OBJECTS) $(libarchive_test_DEPENDENCIES) 
+ 	@rm -f libarchive_test$(EXEEXT)
+-	$(LINK) $(libarchive_test_OBJECTS) $(libarchive_test_LDADD) $(LIBS)
++	$(LINK) $(libarchive_test_OBJECTS) $(libarchive_test_LDADD) -liberty $(LIBS)
+ 
+ mostlyclean-compile:
+ 	-rm -f *.$(OBJEXT)
+@@ -1509,6 +1542,8 @@ mostlyclean-compile:
+ 	-rm -f cpio/bsdcpio_test-cmdline.$(OBJEXT)
+ 	-rm -f cpio/bsdcpio_test-err.$(OBJEXT)
+ 	-rm -f cpio/bsdcpio_test-match.$(OBJEXT)
++	-rm -f cpio/bsdcpio-nonposix.$(OBJEXT)
++	-rm -f cpio/bsdcpio-res.$(OBJEXT)
+ 	-rm -f cpio/test/bsdcpio_test-main.$(OBJEXT)
+ 	-rm -f cpio/test/bsdcpio_test-test_basic.$(OBJEXT)
+ 	-rm -f cpio/test/bsdcpio_test-test_gcpio_compat.$(OBJEXT)
+@@ -1630,6 +1665,12 @@ mostlyclean-compile:
+ 	-rm -f libarchive/libarchive_la-archive_write_set_format_ustar.lo
+ 	-rm -f libarchive/libarchive_la-filter_fork.$(OBJEXT)
+ 	-rm -f libarchive/libarchive_la-filter_fork.lo
++	-rm -f libarchive/libarchive_la-libarchive-nonposix.$(OBJEXT)
++	-rm -f libarchive/libarchive_la-libarchive-nonposix.lo
++	-rm -f libarchive/libarchive_la-archive-dllversion.$(OBJEXT)
++	-rm -f libarchive/libarchive_la-archive-dllversion.lo
++	-rm -f libarchive/libarchive_la-archive-dll-res.$(OBJEXT)
++	-rm -f libarchive/libarchive_la-archive-dll-res.lo	
+ 	-rm -f libarchive/libarchive_test-archive_check_magic.$(OBJEXT)
+ 	-rm -f libarchive/libarchive_test-archive_entry.$(OBJEXT)
+ 	-rm -f libarchive/libarchive_test-archive_entry_copy_stat.$(OBJEXT)
+@@ -1680,6 +1721,7 @@ mostlyclean-compile:
+ 	-rm -f libarchive/libarchive_test-archive_write_set_format_pax.$(OBJEXT)
+ 	-rm -f libarchive/libarchive_test-archive_write_set_format_shar.$(OBJEXT)
+ 	-rm -f libarchive/libarchive_test-archive_write_set_format_ustar.$(OBJEXT)
++	-rm -f libarchive/libarchive_test-libarchive-nonposix.$(OBJEXT)
+ 	-rm -f libarchive/libarchive_test-filter_fork.$(OBJEXT)
+ 	-rm -f libarchive/test/libarchive_test-main.$(OBJEXT)
+ 	-rm -f libarchive/test/libarchive_test-read_open_memory.$(OBJEXT)
+@@ -1761,6 +1803,7 @@ distclean-compile:
+ @AMDEP_TRUE@@am__include@ @am__quote@cpio/$(DEPDIR)/bsdcpio_test-cmdline.Po@am__quote@
+ @AMDEP_TRUE@@am__include@ @am__quote@cpio/$(DEPDIR)/bsdcpio_test-err.Po@am__quote@
+ @AMDEP_TRUE@@am__include@ @am__quote@cpio/$(DEPDIR)/bsdcpio_test-match.Po@am__quote@
++@AMDEP_TRUE@@am__include@ @am__quote@cpio/$(DEPDIR)/bsdcpio-nonposix.Po@am__quote@
+ @AMDEP_TRUE@@am__include@ @am__quote@cpio/test/$(DEPDIR)/bsdcpio_test-main.Po@am__quote@
+ @AMDEP_TRUE@@am__include@ @am__quote@cpio/test/$(DEPDIR)/bsdcpio_test-test_basic.Po@am__quote@
+ @AMDEP_TRUE@@am__include@ @am__quote@cpio/test/$(DEPDIR)/bsdcpio_test-test_gcpio_compat.Po@am__quote@
+@@ -1881,6 +1924,7 @@ distclean-compile:
+ @AMDEP_TRUE@@am__include@ @am__quote@libarchive/$(DEPDIR)/libarchive_test-archive_write_set_format_pax.Po@am__quote@
+ @AMDEP_TRUE@@am__include@ @am__quote@libarchive/$(DEPDIR)/libarchive_test-archive_write_set_format_shar.Po@am__quote@
+ @AMDEP_TRUE@@am__include@ @am__quote@libarchive/$(DEPDIR)/libarchive_test-archive_write_set_format_ustar.Po@am__quote@
++@AMDEP_TRUE@@am__include@ @am__quote@libarchive/$(DEPDIR)/libarchive_la-libarchive-nonposix.Plo@am__quote@
+ @AMDEP_TRUE@@am__include@ @am__quote@libarchive/$(DEPDIR)/libarchive_test-filter_fork.Po@am__quote@
+ @AMDEP_TRUE@@am__include@ @am__quote@libarchive/test/$(DEPDIR)/libarchive_test-main.Po@am__quote@
+ @AMDEP_TRUE@@am__include@ @am__quote@libarchive/test/$(DEPDIR)/libarchive_test-read_open_memory.Po@am__quote@
+@@ -1950,6 +1994,15 @@ distclean-compile:
+ @AMDEP_TRUE@@am__include@ @am__quote@tar/test/$(DEPDIR)/bsdtar_test-test_help.Po@am__quote@
+ @AMDEP_TRUE@@am__include@ @am__quote@tar/test/$(DEPDIR)/bsdtar_test-test_stdio.Po@am__quote@
+ @AMDEP_TRUE@@am__include@ @am__quote@tar/test/$(DEPDIR)/bsdtar_test-test_version.Po@am__quote@
++@AMDEP_TRUE@@am__include@ @am__quote@tar/$(DEPDIR)/bsdtar-nonposix.Po@am__quote@
++
++RCTOOL = rctool.sh
++RCTOOL_COMPILE = RCTOOL
++# Rule to make compiled resource (Windows)
++.rc.o:
++	windres --include-dir $(resdir) -i $< -o $@
++.rc.lo:
++	$(RCTOOL_COMPILE) $<
+ 
+ .c.o:
+ @am__fastdepCC_TRUE@	depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.o$$||'`;\
+@@ -2402,6 +2455,20 @@ cpio/bsdcpio-matching.obj: cpio/matching
+ @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+ @am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(bsdcpio_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o cpio/bsdcpio-matching.obj `if test -f 'cpio/matching.c'; then $(CYGPATH_W) 'cpio/matching.c'; else $(CYGPATH_W) '$(srcdir)/cpio/matching.c'; fi`
+ 
++cpio/bsdcpio-nonposix.o: cpio/bsdcpio-nonposix.c
++@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(bsdcpio_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT cpio/bsdcpio-nonposix.o -MD -MP -MF "cpio/$(DEPDIR)/bsdcpio-nonposix.Tpo" -c -o cpio/bsdcpio-nonposix.o `test -f 'cpio/bsdcpio-nonposix.c' || echo '$(srcdir)/'`cpio/bsdcpio-nonposix.c; \
++@am__fastdepCC_TRUE@	then mv -f "cpio/$(DEPDIR)/bsdcpio-nonposix.Tpo" "cpio/$(DEPDIR)/bsdcpio-nonposix.Po"; else rm -f "cpio/$(DEPDIR)/bsdcpio-nonposix.Tpo"; exit 1; fi
++@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='cpio/bsdcpio-nonposix.c' object='cpio/bsdcpio-nonposix.o' libtool=no @AMDEPBACKSLASH@
++@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
++@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(bsdcpio_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o cpio/bsdcpio-nonposix.o `test -f 'cpio/bsdcpio-nonposix.c' || echo '$(srcdir)/'`cpio/bsdcpio-nonposix.c
++
++cpio/bsdcpio-nonposix.obj: cpio/bsdcpio-nonposix.c
++@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(bsdcpio_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT cpio/bsdcpio-nonposix.obj -MD -MP -MF "cpio/$(DEPDIR)/bsdcpio-nonposix.Tpo" -c -o cpio/bsdcpio-nonposix.obj `if test -f 'cpio/bsdcpio-nonposix.c'; then $(CYGPATH_W) 'cpio/bsdcpio-nonposix.c'; else $(CYGPATH_W) '$(srcdir)/cpio/bsdcpio-nonposix.c'; fi`; \
++@am__fastdepCC_TRUE@	then mv -f "cpio/$(DEPDIR)/bsdcpio-nonposix.Tpo" "cpio/$(DEPDIR)/bsdcpio-nonposix.Po"; else rm -f "cpio/$(DEPDIR)/bsdcpio-nonposix.Tpo"; exit 1; fi
++@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='cpio/bsdcpio-nonposix.c' object='cpio/bsdcpio-nonposix.obj' libtool=no @AMDEPBACKSLASH@
++@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
++@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(bsdcpio_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o cpio/bsdcpio-nonposix.obj `if test -f 'cpio/bsdcpio-nonposix.c'; then $(CYGPATH_W) 'cpio/bsdcpio-nonposix.c'; else $(CYGPATH_W) '$(srcdir)/cpio/bsdcpio-nonposix.c'; fi`
++
+ cpio/bsdcpio_test-cmdline.o: cpio/cmdline.c
+ @am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(bsdcpio_test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT cpio/bsdcpio_test-cmdline.o -MD -MP -MF cpio/$(DEPDIR)/bsdcpio_test-cmdline.Tpo -c -o cpio/bsdcpio_test-cmdline.o `test -f 'cpio/cmdline.c' || echo '$(srcdir)/'`cpio/cmdline.c
+ @am__fastdepCC_TRUE@	mv -f cpio/$(DEPDIR)/bsdcpio_test-cmdline.Tpo cpio/$(DEPDIR)/bsdcpio_test-cmdline.Po
+@@ -2710,6 +2777,25 @@ cpio/test/bsdcpio_test-test_pathmatch.ob
+ @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+ @am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(bsdcpio_test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o cpio/test/bsdcpio_test-test_pathmatch.obj `if test -f 'cpio/test/test_pathmatch.c'; then $(CYGPATH_W) 'cpio/test/test_pathmatch.c'; else $(CYGPATH_W) '$(srcdir)/cpio/test/test_pathmatch.c'; fi`
+ 
++libarchive/libarchive_la-libarchive-nonposix.lo: libarchive/libarchive-nonposix.c
++@am__fastdepCC_TRUE@	if $(LIBTOOL) --tag=CC --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libarchive_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libarchive/libarchive_la-libarchive-nonposix.lo -MD -MP -MF "libarchive/$(DEPDIR)/libarchive_la-libarchive-nonposix.Tpo" -c -o libarchive/libarchive_la-libarchive-nonposix.lo `test -f 'libarchive/libarchive-nonposix.c' || echo '$(srcdir)/'`libarchive/libarchive-nonposix.c; \
++@am__fastdepCC_TRUE@	then mv -f "libarchive/$(DEPDIR)/libarchive_la-libarchive-nonposix.Tpo" "libarchive/$(DEPDIR)/libarchive_la-libarchive-nonposix.Plo"; else rm -f "libarchive/$(DEPDIR)/libarchive_la-libarchive-nonposix.Tpo"; exit 1; fi
++@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='libarchive/libarchive-nonposix.c' object='libarchive/libarchive_la-libarchive-nonposix.lo' libtool=yes @AMDEPBACKSLASH@
++@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
++@am__fastdepCC_FALSE@	$(LIBTOOL) --tag=CC --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libarchive_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libarchive/libarchive_la-libarchive-nonposix.lo `test -f 'libarchive/libarchive-nonposix.c' || echo '$(srcdir)/'`libarchive/libarchive-nonposix.c
++
++libarchive/libarchive_la-archive-dllversion.lo: resource/archive-dllversion.c
++@am__fastdepCC_TRUE@	if $(LIBTOOL) --tag=CC --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libarchive_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libarchive/libarchive_la-archive-dllversion.lo -MD -MP -MF "libarchive/$(DEPDIR)/libarchive_la-archive-dllversion.Tpo" -c -o libarchive/libarchive_la-archive-dllversion.lo `test -f 'resource/archive-dllversion.c' || echo '$(srcdir)/'`resource/archive-dllversion.c; \
++@am__fastdepCC_TRUE@	then mv -f "libarchive/$(DEPDIR)/libarchive_la-archive-dllversion.Tpo" "libarchive/$(DEPDIR)/libarchive_la-archive-dllversion.Plo"; else rm -f "libarchive/$(DEPDIR)/libarchive_la-archive-dllversion.Tpo"; exit 1; fi
++@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='resource/archive-dllversion.c' object='libarchive/libarchive_la-archive-dllversion.lo' libtool=yes @AMDEPBACKSLASH@
++@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
++@am__fastdepCC_FALSE@	$(LIBTOOL) --tag=CC --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libarchive_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libarchive/libarchive_la-archive-dllversion.lo `test -f 'resource/archive-dllversion.c' || echo '$(srcdir)/'`resource/archive-dllversion.c
++
++libarchive/libarchive_la-archive-dll-res.lo: $(resdir)/archive-dll-res.rc
++	$(RCTOOL_COMPILE) $<
++	mv -f $(resdir)/archive-dll-res.lo $@
++	mv -f $(resdir)/archive-dll-res.o libarchive/.libs/archive-dll-res.o
++
+ tar/bsdtar-bsdtar.o: tar/bsdtar.c
+ @am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(bsdtar_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT tar/bsdtar-bsdtar.o -MD -MP -MF tar/$(DEPDIR)/bsdtar-bsdtar.Tpo -c -o tar/bsdtar-bsdtar.o `test -f 'tar/bsdtar.c' || echo '$(srcdir)/'`tar/bsdtar.c
+ @am__fastdepCC_TRUE@	mv -f tar/$(DEPDIR)/bsdtar-bsdtar.Tpo tar/$(DEPDIR)/bsdtar-bsdtar.Po
+@@ -2920,6 +3006,26 @@ tar/test/bsdtar_test-test_version.obj: t
+ @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+ @am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(bsdtar_test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o tar/test/bsdtar_test-test_version.obj `if test -f 'tar/test/test_version.c'; then $(CYGPATH_W) 'tar/test/test_version.c'; else $(CYGPATH_W) '$(srcdir)/tar/test/test_version.c'; fi`
+ 
++tar/bsdtar-nonposix.o: tar/bsdtar-nonposix.c
++@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(bsdtar_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT tar/bsdtar-nonposix.o -MD -MP -MF "tar/$(DEPDIR)/bsdtar-nonposix.Tpo" -c -o tar/bsdtar-nonposix.o `test -f 'tar/bsdtar-nonposix.c' || echo '$(srcdir)/'`tar/bsdtar-nonposix.c; \
++@am__fastdepCC_TRUE@	then mv -f "tar/$(DEPDIR)/bsdtar-nonposix.Tpo" "tar/$(DEPDIR)/bsdtar-nonposix.Po"; else rm -f "tar/$(DEPDIR)/bsdtar-nonposix.Tpo"; exit 1; fi
++@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='tar/bsdtar-nonposix.c' object='tar/bsdtar-nonposix.o' libtool=no @AMDEPBACKSLASH@
++@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
++@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(bsdtar_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o tar/bsdtar-nonposix.o `test -f 'tar/bsdtar-nonposix.c' || echo '$(srcdir)/'`tar/bsdtar-nonposix.c
++
++tar/bsdtar-nonposix.obj: tar/bsdtar-nonposix.c
++@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(bsdtar_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT tar/bsdtar-nonposix.obj -MD -MP -MF "tar/$(DEPDIR)/bsdtar-nonposix.Tpo" -c -o tar/bsdtar-nonposix.obj `if test -f 'tar/bsdtar-nonposix.c'; then $(CYGPATH_W) 'tar/bsdtar-nonposix.c'; else $(CYGPATH_W) '$(srcdir)/tar/bsdtar-nonposix.c'; fi`; \
++@am__fastdepCC_TRUE@	then mv -f "tar/$(DEPDIR)/bsdtar-nonposix.Tpo" "tar/$(DEPDIR)/bsdtar-nonposix.Po"; else rm -f "tar/$(DEPDIR)/bsdtar-nonposix.Tpo"; exit 1; fi
++@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='tar/bsdtar-nonposix.c' object='tar/bsdtar-nonposix.obj' libtool=no @AMDEPBACKSLASH@
++@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
++@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(bsdtar_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o tar/bsdtar-nonposix.obj `if test -f 'tar/bsdtar-nonposix.c'; then $(CYGPATH_W) 'tar/bsdtar-nonposix.c'; else $(CYGPATH_W) '$(srcdir)/tar/bsdtar-nonposix.c'; fi`
++
++tar/bsdtar-res.o: $(resdir)/bsdtar-res.rc
++	windres --include-dir $(resdir) $< $@
++
++cpio/bsdcpio-res.o: $(resdir)/bsdcpio-res.rc
++	windres --include-dir $(resdir) $< $@
++
+ libarchive/libarchive_test-archive_check_magic.o: libarchive/archive_check_magic.c
+ @am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libarchive_test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libarchive/libarchive_test-archive_check_magic.o -MD -MP -MF libarchive/$(DEPDIR)/libarchive_test-archive_check_magic.Tpo -c -o libarchive/libarchive_test-archive_check_magic.o `test -f 'libarchive/archive_check_magic.c' || echo '$(srcdir)/'`libarchive/archive_check_magic.c
+ @am__fastdepCC_TRUE@	mv -f libarchive/$(DEPDIR)/libarchive_test-archive_check_magic.Tpo libarchive/$(DEPDIR)/libarchive_test-archive_check_magic.Po
+@@ -3634,6 +3740,20 @@ libarchive/libarchive_test-filter_fork.o
+ @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+ @am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libarchive_test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libarchive/libarchive_test-filter_fork.obj `if test -f 'libarchive/filter_fork.c'; then $(CYGPATH_W) 'libarchive/filter_fork.c'; else $(CYGPATH_W) '$(srcdir)/libarchive/filter_fork.c'; fi`
+ 
++libarchive/libarchive_test-libarchive-nonposix.o: libarchive/libarchive-nonposix.c
++@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libarchive_test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libarchive/libarchive_test-libarchive-nonposix.o -MD -MP -MF "libarchive/$(DEPDIR)/libarchive_test-libarchive-nonposix.Tpo" -c -o libarchive/libarchive_test-libarchive-nonposix.o `test -f 'libarchive/libarchive-nonposix.c' || echo '$(srcdir)/'`libarchive/libarchive-nonposix.c; \
++@am__fastdepCC_TRUE@	then mv -f "libarchive/$(DEPDIR)/libarchive_test-libarchive-nonposix.Tpo" "libarchive/$(DEPDIR)/libarchive_test-libarchive-nonposix.Po"; else rm -f "libarchive/$(DEPDIR)/libarchive_test-libarchive-nonposix.Tpo"; exit 1; fi
++@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='libarchive/libarchive-nonposix.c' object='libarchive/libarchive_test-libarchive-nonposix.o' libtool=no @AMDEPBACKSLASH@
++@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
++@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libarchive_test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libarchive/libarchive_test-libarchive-nonposix.o `test -f 'libarchive/libarchive-nonposix.c' || echo '$(srcdir)/'`libarchive/libarchive-nonposix.c
++
++libarchive/libarchive_test-libarchive-nonposix.obj: libarchive/libarchive-nonposix.c
++@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libarchive_test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libarchive/libarchive_test-libarchive-nonposix.obj -MD -MP -MF "libarchive/$(DEPDIR)/libarchive_test-libarchive-nonposix.Tpo" -c -o libarchive/libarchive_test-libarchive-nonposix.obj `if test -f 'libarchive/libarchive-nonposix.c'; then $(CYGPATH_W) 'libarchive/libarchive-nonposix.c'; else $(CYGPATH_W) '$(srcdir)/libarchive/libarchive-nonposix.c'; fi`; \
++@am__fastdepCC_TRUE@	then mv -f "libarchive/$(DEPDIR)/libarchive_test-libarchive-nonposix.Tpo" "libarchive/$(DEPDIR)/libarchive_test-libarchive-nonposix.Po"; else rm -f "libarchive/$(DEPDIR)/libarchive_test-libarchive-nonposix.Tpo"; exit 1; fi
++@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='libarchive/libarchive-nonposix.c' object='libarchive/libarchive_test-libarchive-nonposix.obj' libtool=no @AMDEPBACKSLASH@
++@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
++@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libarchive_test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libarchive/libarchive_test-libarchive-nonposix.obj `if test -f 'libarchive/libarchive-nonposix.c'; then $(CYGPATH_W) 'libarchive/libarchive-nonposix.c'; else $(CYGPATH_W) '$(srcdir)/libarchive/libarchive-nonposix.c'; fi`
++
+ libarchive/test/libarchive_test-main.o: libarchive/test/main.c
+ @am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libarchive_test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libarchive/test/libarchive_test-main.o -MD -MP -MF libarchive/test/$(DEPDIR)/libarchive_test-main.Tpo -c -o libarchive/test/libarchive_test-main.o `test -f 'libarchive/test/main.c' || echo '$(srcdir)/'`libarchive/test/main.c
+ @am__fastdepCC_TRUE@	mv -f libarchive/test/$(DEPDIR)/libarchive_test-main.Tpo libarchive/test/$(DEPDIR)/libarchive_test-main.Po
+diff -ipuwr --binary --strip-trailing-cr -x '*.bak' -x '*.orig' -x '*.rej' -x '*.new' -x '*~' -x debian -x '*.po' -x '*.pot' libarchive-2.4.11-orig/config.h.in libarchive-2.4.11-src/config.h.in
+--- libarchive-2.4.11-orig/config.h.in	2007-12-31 07:38:03.000000000 +0100
++++ libarchive-2.4.11-src/config.h.in	2008-01-02 08:59:08.734375000 +0100
+@@ -1,4 +1,6 @@
+ /* config.h.in.  Generated from configure.ac by autoheader.  */
++#ifndef CONFIG_H_INCLUDED
++#define CONFIG_H_INCLUDED
+ 
+ /* Version number of bsdcpio */
+ #undef BSDCPIO_VERSION_STRING
+@@ -132,6 +134,9 @@
+ /* Define to 1 if you have the `futimes' function. */
+ #undef HAVE_FUTIMES
+ 
++/* Define to 1 if you have the `geteuid' function. */
++#undef HAVE_GETEUID
++
+ /* Define to 1 if you have the `getopt_long' function. */
+ #undef HAVE_GETOPT_LONG
+ 
+@@ -220,6 +225,9 @@
+ /* Define to 1 if you have the `mkfifo' function. */
+ #undef HAVE_MKFIFO
+ 
++/* Define to 1 if you have the `mknod' function. */
++#undef HAVE_MKNOD
++
+ /* Define to 1 if you have the <ndir.h> header file, and it defines `DIR'. */
+ #undef HAVE_NDIR_H
+ 
+@@ -480,3 +488,5 @@
+ 
+ /* Define to `unsigned int' if <sys/types.h> does not define. */
+ #undef uintptr_t
++
++#endif /* CONFIG_H_INCLUDED */
+diff -ipuwr --binary --strip-trailing-cr -x '*.bak' -x '*.orig' -x '*.rej' -x '*.new' -x '*~' -x debian -x '*.po' -x '*.pot' libarchive-2.4.11-orig/cpio/cmdline.c libarchive-2.4.11-src/cpio/cmdline.c
+--- libarchive-2.4.11-orig/cpio/cmdline.c	2007-12-22 08:11:16.000000000 +0100
++++ libarchive-2.4.11-src/cpio/cmdline.c	2008-01-02 08:59:08.765625000 +0100
+@@ -209,6 +209,7 @@ owner_parse(const char *spec, int *uid, 
+ 			++g;
+ 	}
+ 
++#ifdef HAVE_PWD_H 
+ 	if (u != NULL) {
+ 		/* Look up user: ue is first char after end of user. */
+ 		char *user;
+@@ -231,6 +232,10 @@ owner_parse(const char *spec, int *uid, 
+ 		if (*ue != '\0' && *g == '\0')
+ 			*gid = pwent->pw_gid;
+ 	}
++#else
++	*uid = 0;
++#endif
++#ifdef HAVE_GRP_H 
+ 	if (*g != '\0') {
+ 		struct group *grp;
+ 		grp = getgrnam(g);
+@@ -241,5 +246,8 @@ owner_parse(const char *spec, int *uid, 
+ 			return (1);
+ 		}
+ 	}
++#else
++	*gid = 0;
++#endif
+ 	return (0);
+ }
+diff -ipuwr --binary --strip-trailing-cr -x '*.bak' -x '*.orig' -x '*.rej' -x '*.new' -x '*~' -x debian -x '*.po' -x '*.pot' libarchive-2.4.11-orig/cpio/cpio.c libarchive-2.4.11-src/cpio/cpio.c
+--- libarchive-2.4.11-orig/cpio/cpio.c	2007-12-30 23:45:35.000000000 +0100
++++ libarchive-2.4.11-src/cpio/cpio.c	2008-01-02 08:59:08.781250000 +0100
+@@ -443,7 +443,7 @@ file_to_archive(struct cpio *cpio, const
+ 	 * trying to write the header.
+ 	 */
+ 	if (S_ISREG(st.st_mode) && st.st_size > 0) {
+-		fd = open(srcpath, O_RDONLY);
++		fd = open(srcpath, O_RDONLY | O_BINARY);
+ 		if (fd < 0) {
+ 			cpio_warnc(errno,
+ 			    "%s: could not open file", srcpath);
+@@ -466,7 +466,7 @@ file_to_archive(struct cpio *cpio, const
+ 		exit(1);
+ 
+ 	if (r >= ARCHIVE_WARN && fd >= 0 && archive_entry_size(entry) > 0) {
+-		fd = open(srcpath, O_RDONLY);
++		fd = open(srcpath, O_RDONLY | O_BINARY);
+ 		len = read(fd, buff, sizeof(buff));
+ 		while (len > 0) {
+ 			r = archive_write_data(cpio->archive, buff, len);
+diff -ipuwr --binary --strip-trailing-cr -x '*.bak' -x '*.orig' -x '*.rej' -x '*.new' -x '*~' -x debian -x '*.po' -x '*.pot' libarchive-2.4.11-orig/cpio/cpio.h libarchive-2.4.11-src/cpio/cpio.h
+--- libarchive-2.4.11-orig/cpio/cpio.h	2007-12-22 07:51:40.000000000 +0100
++++ libarchive-2.4.11-src/cpio/cpio.h	2008-01-02 08:59:08.812500000 +0100
+@@ -31,6 +31,9 @@
+ #include "cpio_platform.h"
+ #include <stdio.h>
+ 
++#ifdef HAVE_GETOPT_LONG
++#include <getopt.h>
++#endif
+ #define	DEFAULT_BYTES_PER_BLOCK	(20*512)
+ 
+ /*
+diff -ipuwr --binary --strip-trailing-cr -x '*.bak' -x '*.orig' -x '*.rej' -x '*.new' -x '*~' -x debian -x '*.po' -x '*.pot' libarchive-2.4.11-orig/cpio/matching.c libarchive-2.4.11-src/cpio/matching.c
+--- libarchive-2.4.11-orig/cpio/matching.c	2007-12-22 07:37:00.000000000 +0100
++++ libarchive-2.4.11-src/cpio/matching.c	2008-01-02 09:19:34.078125000 +0100
+@@ -272,4 +272,150 @@ cpio_fnmatch(const char *pattern, const 
+ 	return (fnmatch(pattern, string, 0));
+ }
+ 
++#else
++/*
++ * The following was hacked from BSD C library
++ * code:  src/lib/libc/gen/fnmatch.c,v 1.15 2002/02/01
++ *
++ * In particular, most of the flags were ripped out: this always
++ * behaves like FNM_LEADING_DIR is set and other flags specified
++ * by POSIX are unset.
++ *
++ * Normally, I would not conditionally compile something like this: If
++ * I have to support it anyway, everyone may as well use it. ;-)
++ * However, the full POSIX spec for fnmatch() includes a lot of
++ * advanced character handling that I'm not ready to put in here, so
++ * it's probably best if people use a local version when it's available.
++ */
++
++/*
++ * Copyright (c) 1989, 1993, 1994
++ *	The Regents of the University of California.  All rights reserved.
++ *
++ * This code is derived from software contributed to Berkeley by
++ * Guido van Rossum.
++ *
++ * Redistribution and use in source and binary forms, with or without
++ * modification, are permitted provided that the following conditions
++ * are met:
++ * 1. Redistributions of source code must retain the above copyright
++ *    notice, this list of conditions and the following disclaimer.
++ * 2. Redistributions in binary form must reproduce the above copyright
++ *    notice, this list of conditions and the following disclaimer in the
++ *    documentation and/or other materials provided with the distribution.
++ * 4. Neither the name of the University nor the names of its contributors
++ *    may be used to endorse or promote products derived from this software
++ *    without specific prior written permission.
++ *
++ * THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
++ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
++ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
++ * ARE DISCLAIMED.  IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE
++ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
++ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
++ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
++ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
++ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
++ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
++ * SUCH DAMAGE.
++ */
++
++static int
++cpio_fnmatch(const char *pattern, const char *string)
++{
++	const char *saved_pattern;
++	int negate, matched;
++	char c;
++
++	for (;;) {
++		switch (c = *pattern++) {
++		case '\0':
++			if (*string == '/' || *string == '\0')
++				return (0);
++			return (1);
++		case '?':
++			if (*string == '\0')
++				return (1);
++			++string;
++			break;
++		case '*':
++			c = *pattern;
++			/* Collapse multiple stars. */
++			while (c == '*')
++				c = *++pattern;
++
++			/* Optimize for pattern with * at end. */
++			if (c == '\0')
++				return (0);
++
++			/* General case, use recursion. */
++			while (*string != '\0') {
++				if (!cpio_fnmatch(pattern, string))
++					return (0);
++				++string;
++			}
++			return (1);
++		case '[':
++			if (*string == '\0')
++				return (1);
++			saved_pattern = pattern;
++			if (*pattern == '!' || *pattern == '^') {
++				negate = 1;
++				++pattern;
++			} else
++				negate = 0;
++			matched = 0;
++			c = *pattern++;
++			do {
++				if (c == '\\')
++					c = *pattern++;
++				if (c == '\0') {
++					pattern = saved_pattern;
++					c = '[';
++					goto norm;
++				}
++				if (*pattern == '-') {
++					char c2 = *(pattern + 1);
++					if (c2 == '\0') {
++						pattern = saved_pattern;
++						c = '[';
++						goto norm;
++					}
++					if (c2 == ']') {
++						/* [a-] is not a range. */
++						if (c == *string
++						    || '-' == *string)
++							matched = 1;
++						pattern ++;
++					} else {
++						if (c <= *string
++						    && *string <= c2)
++							matched = 1;
++						pattern += 2;
++					}
++				} else if (c == *string)
++					matched = 1;
++				c = *pattern++;
++			} while (c != ']');
++			if (matched == negate)
++				return (1);
++			++string;
++			break;
++		case '\\':
++			if ((c = *pattern++) == '\0') {
++				c = '\\';
++				--pattern;
++			}
++			/* FALLTHROUGH */
++		default:
++		norm:
++			if (c != *string)
++				return (1);
++			string++;
++			break;
++		}
++	}
++	/* NOTREACHED */
++}
++
+ #endif
+diff -ipuwr --binary --strip-trailing-cr -x '*.bak' -x '*.orig' -x '*.rej' -x '*.new' -x '*~' -x debian -x '*.po' -x '*.pot' libarchive-2.4.11-orig/libarchive/archive.h.in libarchive-2.4.11-src/libarchive/archive.h.in
+--- libarchive-2.4.11-orig/libarchive/archive.h.in	2007-09-17 03:35:00.000000000 +0200
++++ libarchive-2.4.11-src/libarchive/archive.h.in	2007-10-29 20:45:06.000000000 +0100
+@@ -40,12 +40,33 @@
+ #ifndef _WIN32
+ #include <unistd.h>  /* For ssize_t and size_t */
+ #else
+-typedef long ssize_t;
+-typedef unsigned int uid_t;
+-typedef unsigned int gid_t;
+-typedef unsigned short mode_t;
++#include "libarchive-nonposix.h"
+ #endif
+ 
++#ifndef __GNUC__
++# define __DLL_IMPORT__  __declspec(dllimport)
++# define __DLL_EXPORT__  __declspec(dllexport)
++#else
++# define __DLL_IMPORT__  __attribute__((dllimport)) extern
++# define __DLL_EXPORT__  __attribute__((dllexport)) extern
++#endif 
++
++#if (defined __WIN32__) || (defined _WIN32)
++# ifdef BUILD_LIBARCHIVE_DLL
++#  define LIBARCHIVE_DLL_IMPEXP    __DLL_EXPORT__
++# elif defined(LIBARCHIVE_STATIC)
++#  define LIBARCHIVE_DLL_IMPEXP     
++# elif defined (USE_LIBARCHIVE_DLL)
++#  define LIBARCHIVE_DLL_IMPEXP    __DLL_IMPORT__
++# elif defined (USE_LIBARCHIVE_STATIC)
++#  define LIBARCHIVE_DLL_IMPEXP     
++# else /* assume USE_LIBARCHIVE_DLL */
++#  define LIBARCHIVE_DLL_IMPEXP    __DLL_IMPORT__
++# endif
++#else /* _WIN32 */
++# define LIBARCHIVE_DLL_IMPEXP
++#endif /* _WIN32 */      
++
+ #ifdef __cplusplus
+ extern "C" {
+ #endif
+@@ -61,7 +82,7 @@ extern "C" {
+  * Textual name/version of the library, useful for version displays.
+  */
+ #define	ARCHIVE_LIBRARY_VERSION	"libarchive @LIBARCHIVE_VERSION_STRING@"
+-const char *	archive_version(void);
++LIBARCHIVE_DLL_IMPEXP const char *	archive_version(void);
+ 
+ /*
+  * The "version stamp" is a single integer that makes it easy to check
+@@ -80,7 +101,7 @@ const char *	archive_version(void);
+  * #endif
+  */
+ #define ARCHIVE_VERSION_STAMP	@LIBARCHIVE_VERSION@
+-int		archive_version_stamp(void);
++LIBARCHIVE_DLL_IMPEXP int		archive_version_stamp(void);
+ 
+ /*
+  * Major version number: If ARCHIVE_API_VERSION !=
+@@ -91,14 +112,14 @@ int		archive_version_stamp(void);
+  * instead.
+  */
+ #define	ARCHIVE_API_VERSION	(ARCHIVE_VERSION_STAMP / 1000000)
+-int		archive_api_version(void);
++LIBARCHIVE_DLL_IMPEXP int		archive_api_version(void);
+ 
+ /*
+  * Minor version number.  This is deprecated and will be removed.
+  * Use ARCHIVE_VERSION_STAMP to adapt to libarchive API variations.
+  */
+ #define	ARCHIVE_API_FEATURE	((ARCHIVE_VERSION_STAMP / 1000) % 1000)
+-int		archive_api_feature(void);
++LIBARCHIVE_DLL_IMPEXP int		archive_api_feature(void);
+ 
+ 
+ #define	ARCHIVE_BYTES_PER_RECORD	  512
+@@ -222,7 +243,7 @@ typedef int	archive_close_callback(struc
+  *      data for entries of interest.
+  *   5) Call archive_read_finish to end processing.
+  */
+-struct archive	*archive_read_new(void);
++LIBARCHIVE_DLL_IMPEXP struct archive	*archive_read_new(void);
+ 
+ /*
+  * The archive_read_support_XXX calls enable auto-detect for this
+@@ -231,30 +252,30 @@ struct archive	*archive_read_new(void);
+  * support_compression_bzip2().  The "all" functions provide the
+  * obvious shorthand.
+  */
+-int		 archive_read_support_compression_all(struct archive *);
+-int		 archive_read_support_compression_bzip2(struct archive *);
+-int		 archive_read_support_compression_compress(struct archive *);
+-int		 archive_read_support_compression_gzip(struct archive *);
+-int		 archive_read_support_compression_none(struct archive *);
+-int		 archive_read_support_compression_program(struct archive *,
++LIBARCHIVE_DLL_IMPEXP int		 archive_read_support_compression_all(struct archive *);
++LIBARCHIVE_DLL_IMPEXP int		 archive_read_support_compression_bzip2(struct archive *);
++LIBARCHIVE_DLL_IMPEXP int		 archive_read_support_compression_compress(struct archive *);
++LIBARCHIVE_DLL_IMPEXP int		 archive_read_support_compression_gzip(struct archive *);
++LIBARCHIVE_DLL_IMPEXP int		 archive_read_support_compression_none(struct archive *);
++LIBARCHIVE_DLL_IMPEXP int		 archive_read_support_compression_program(struct archive *,
+ 		     const char *command);
+ 
+-int		 archive_read_support_format_all(struct archive *);
+-int		 archive_read_support_format_ar(struct archive *);
+-int		 archive_read_support_format_cpio(struct archive *);
+-int		 archive_read_support_format_empty(struct archive *);
+-int		 archive_read_support_format_gnutar(struct archive *);
+-int		 archive_read_support_format_iso9660(struct archive *);
+-int		 archive_read_support_format_mtree(struct archive *);
+-int		 archive_read_support_format_tar(struct archive *);
+-int		 archive_read_support_format_zip(struct archive *);
++LIBARCHIVE_DLL_IMPEXP int		 archive_read_support_format_all(struct archive *);
++LIBARCHIVE_DLL_IMPEXP int		 archive_read_support_format_ar(struct archive *);
++LIBARCHIVE_DLL_IMPEXP int		 archive_read_support_format_cpio(struct archive *);
++LIBARCHIVE_DLL_IMPEXP int		 archive_read_support_format_empty(struct archive *);
++LIBARCHIVE_DLL_IMPEXP int		 archive_read_support_format_gnutar(struct archive *);
++LIBARCHIVE_DLL_IMPEXP int		 archive_read_support_format_iso9660(struct archive *);
++LIBARCHIVE_DLL_IMPEXP int		 archive_read_support_format_mtree(struct archive *);
++LIBARCHIVE_DLL_IMPEXP int		 archive_read_support_format_tar(struct archive *);
++LIBARCHIVE_DLL_IMPEXP int		 archive_read_support_format_zip(struct archive *);
+ 
+ 
+ /* Open the archive using callbacks for archive I/O. */
+-int		 archive_read_open(struct archive *, void *_client_data,
++LIBARCHIVE_DLL_IMPEXP int		 archive_read_open(struct archive *, void *_client_data,
+ 		     archive_open_callback *, archive_read_callback *,
+ 		     archive_close_callback *);
+-int		 archive_read_open2(struct archive *, void *_client_data,
++LIBARCHIVE_DLL_IMPEXP int		 archive_read_open2(struct archive *, void *_client_data,
+ 		     archive_open_callback *, archive_read_callback *,
+ 		     archive_skip_callback *, archive_close_callback *);
+ 
+@@ -264,43 +285,43 @@ int		 archive_read_open2(struct archive 
+  * accept a block size handle tape blocking correctly.
+  */
+ /* Use this if you know the filename.  Note: NULL indicates stdin. */
+-int		 archive_read_open_filename(struct archive *,
++LIBARCHIVE_DLL_IMPEXP int		 archive_read_open_filename(struct archive *,
+ 		     const char *_filename, size_t _block_size);
+ /* archive_read_open_file() is a deprecated synonym for ..._open_filename(). */
+-int		 archive_read_open_file(struct archive *,
++LIBARCHIVE_DLL_IMPEXP int		 archive_read_open_file(struct archive *,
+ 		     const char *_filename, size_t _block_size);
+ /* Read an archive that's stored in memory. */
+-int		 archive_read_open_memory(struct archive *,
++LIBARCHIVE_DLL_IMPEXP int		 archive_read_open_memory(struct archive *,
+ 		     void * buff, size_t size);
+ /* A more involved version that is only used for internal testing. */
+-int		archive_read_open_memory2(struct archive *a, void *buff,
++LIBARCHIVE_DLL_IMPEXP int		archive_read_open_memory2(struct archive *a, void *buff,
+ 		     size_t size, size_t read_size);
+ /* Read an archive that's already open, using the file descriptor. */
+-int		 archive_read_open_fd(struct archive *, int _fd,
++LIBARCHIVE_DLL_IMPEXP int		 archive_read_open_fd(struct archive *, int _fd,
+ 		     size_t _block_size);
+ /* Read an archive that's already open, using a FILE *. */
+ /* Note: DO NOT use this with tape drives. */
+-int		 archive_read_open_FILE(struct archive *, FILE *_file);
++LIBARCHIVE_DLL_IMPEXP int		 archive_read_open_FILE(struct archive *, FILE *_file);
+ 
+ /* Parses and returns next entry header. */
+-int		 archive_read_next_header(struct archive *,
++LIBARCHIVE_DLL_IMPEXP int		 archive_read_next_header(struct archive *,
+ 		     struct archive_entry **);
+ 
+ /*
+  * Retrieve the byte offset in UNCOMPRESSED data where last-read
+  * header started.
+  */
+-int64_t		 archive_read_header_position(struct archive *);
++LIBARCHIVE_DLL_IMPEXP int64_t		 archive_read_header_position(struct archive *);
+ 
+ /* Read data from the body of an entry.  Similar to read(2). */
+-ssize_t		 archive_read_data(struct archive *, void *, size_t);
++LIBARCHIVE_DLL_IMPEXP ssize_t		 archive_read_data(struct archive *, void *, size_t);
+ /*
+  * A zero-copy version of archive_read_data that also exposes the file offset
+  * of each returned block.  Note that the client has no way to specify
+  * the desired size of the block.  The API does guarantee that offsets will
+  * be strictly increasing and that returned blocks will not overlap.
+  */
+-int		 archive_read_data_block(struct archive *a,
++LIBARCHIVE_DLL_IMPEXP int		 archive_read_data_block(struct archive *a,
+ 		    const void **buff, size_t *size, off_t *offset);
+ 
+ /*-
+@@ -309,10 +330,10 @@ int		 archive_read_data_block(struct arc
+  *  'into_buffer': writes data into memory buffer that you provide
+  *  'into_fd': writes data to specified filedes
+  */
+-int		 archive_read_data_skip(struct archive *);
+-int		 archive_read_data_into_buffer(struct archive *, void *buffer,
++LIBARCHIVE_DLL_IMPEXP int		 archive_read_data_skip(struct archive *);
++LIBARCHIVE_DLL_IMPEXP int		 archive_read_data_into_buffer(struct archive *, void *buffer,
+ 		     ssize_t len);
+-int		 archive_read_data_into_fd(struct archive *, int fd);
++LIBARCHIVE_DLL_IMPEXP int		 archive_read_data_into_fd(struct archive *, int fd);
+ 
+ /*-
+  * Convenience function to recreate the current entry (whose header
+@@ -356,26 +377,26 @@ int		 archive_read_data_into_fd(struct a
+ /* Default: Overwrite files, even if one on disk is newer. */
+ #define	ARCHIVE_EXTRACT_NO_OVERWRITE_NEWER (2048)
+ 
+-int		 archive_read_extract(struct archive *, struct archive_entry *,
++LIBARCHIVE_DLL_IMPEXP int		 archive_read_extract(struct archive *, struct archive_entry *,
+ 		     int flags);
+-void		 archive_read_extract_set_progress_callback(struct archive *,
++LIBARCHIVE_DLL_IMPEXP void		 archive_read_extract_set_progress_callback(struct archive *,
+ 		     void (*_progress_func)(void *), void *_user_data);
+ 
+ /* Record the dev/ino of a file that will not be written.  This is
+  * generally set to the dev/ino of the archive being read. */
+-void		archive_read_extract_set_skip_file(struct archive *,
+-		     dev_t, ino_t);
++LIBARCHIVE_DLL_IMPEXP void		archive_read_extract_set_skip_file(struct archive *,
++		     dev_t, ino_t, char *);
+ 
+ /* Close the file and release most resources. */
+-int		 archive_read_close(struct archive *);
++LIBARCHIVE_DLL_IMPEXP int		 archive_read_close(struct archive *);
+ /* Release all resources and destroy the object. */
+ /* Note that archive_read_finish will call archive_read_close for you. */
+ #if ARCHIVE_API_VERSION > 1
+-int		 archive_read_finish(struct archive *);
++LIBARCHIVE_DLL_IMPEXP int		 archive_read_finish(struct archive *);
+ #else
+ /* Temporarily allow library to compile with either 1.x or 2.0 API. */
+ /* Erroneously declared to return void in libarchive 1.x */
+-void		 archive_read_finish(struct archive *);
++LIBARCHIVE_DLL_IMPEXP void		 archive_read_finish(struct archive *);
+ #endif
+ 
+ /*-
+@@ -393,74 +414,74 @@ void		 archive_read_finish(struct archiv
+  *   5) archive_write_close to close the output
+  *   6) archive_write_finish to cleanup the writer and release resources
+  */
+-struct archive	*archive_write_new(void);
+-int		 archive_write_set_bytes_per_block(struct archive *,
++LIBARCHIVE_DLL_IMPEXP struct archive	*archive_write_new(void);
++LIBARCHIVE_DLL_IMPEXP int		 archive_write_set_bytes_per_block(struct archive *,
+ 		     int bytes_per_block);
+-int		 archive_write_get_bytes_per_block(struct archive *);
++LIBARCHIVE_DLL_IMPEXP int		 archive_write_get_bytes_per_block(struct archive *);
+ /* XXX This is badly misnamed; suggestions appreciated. XXX */
+-int		 archive_write_set_bytes_in_last_block(struct archive *,
++LIBARCHIVE_DLL_IMPEXP int		 archive_write_set_bytes_in_last_block(struct archive *,
+ 		     int bytes_in_last_block);
+-int		 archive_write_get_bytes_in_last_block(struct archive *);
++LIBARCHIVE_DLL_IMPEXP int		 archive_write_get_bytes_in_last_block(struct archive *);
+ 
+ /* The dev/ino of a file that won't be archived.  This is used
+  * to avoid recursively adding an archive to itself. */
+-int		 archive_write_set_skip_file(struct archive *, dev_t, ino_t);
++LIBARCHIVE_DLL_IMPEXP int		 archive_write_set_skip_file(struct archive *, dev_t, ino_t, char *);
+ 
+-int		 archive_write_set_compression_bzip2(struct archive *);
+-int		 archive_write_set_compression_gzip(struct archive *);
+-int		 archive_write_set_compression_none(struct archive *);
+-int		 archive_write_set_compression_program(struct archive *,
++LIBARCHIVE_DLL_IMPEXP int		 archive_write_set_compression_bzip2(struct archive *);
++LIBARCHIVE_DLL_IMPEXP int		 archive_write_set_compression_gzip(struct archive *);
++LIBARCHIVE_DLL_IMPEXP int		 archive_write_set_compression_none(struct archive *);
++LIBARCHIVE_DLL_IMPEXP int		 archive_write_set_compression_program(struct archive *,
+ 		     const char *cmd);
+ /* A convenience function to set the format based on the code or name. */
+-int		 archive_write_set_format(struct archive *, int format_code);
+-int		 archive_write_set_format_by_name(struct archive *,
++LIBARCHIVE_DLL_IMPEXP int		 archive_write_set_format(struct archive *, int format_code);
++LIBARCHIVE_DLL_IMPEXP int		 archive_write_set_format_by_name(struct archive *,
+ 		     const char *name);
+ /* To minimize link pollution, use one or more of the following. */
+-int		 archive_write_set_format_ar_bsd(struct archive *);
+-int		 archive_write_set_format_ar_svr4(struct archive *);
+-int		 archive_write_set_format_cpio(struct archive *);
+-int		 archive_write_set_format_cpio_newc(struct archive *);
+-/* TODO: int archive_write_set_format_old_tar(struct archive *); */
+-int		 archive_write_set_format_pax(struct archive *);
+-int		 archive_write_set_format_pax_restricted(struct archive *);
+-int		 archive_write_set_format_shar(struct archive *);
+-int		 archive_write_set_format_shar_dump(struct archive *);
+-int		 archive_write_set_format_ustar(struct archive *);
+-int		 archive_write_open(struct archive *, void *,
++LIBARCHIVE_DLL_IMPEXP int		 archive_write_set_format_ar_bsd(struct archive *);
++LIBARCHIVE_DLL_IMPEXP int		 archive_write_set_format_ar_svr4(struct archive *);
++LIBARCHIVE_DLL_IMPEXP int		 archive_write_set_format_cpio(struct archive *);
++LIBARCHIVE_DLL_IMPEXP int		 archive_write_set_format_cpio_newc(struct archive *);
++/* TODO: LIBARCHIVE_DLL_IMPEXP int archive_write_set_format_old_tar(struct archive *); */
++LIBARCHIVE_DLL_IMPEXP int		 archive_write_set_format_pax(struct archive *);
++LIBARCHIVE_DLL_IMPEXP int		 archive_write_set_format_pax_restricted(struct archive *);
++LIBARCHIVE_DLL_IMPEXP int		 archive_write_set_format_shar(struct archive *);
++LIBARCHIVE_DLL_IMPEXP int		 archive_write_set_format_shar_dump(struct archive *);
++LIBARCHIVE_DLL_IMPEXP int		 archive_write_set_format_ustar(struct archive *);
++LIBARCHIVE_DLL_IMPEXP int		 archive_write_open(struct archive *, void *,
+ 		     archive_open_callback *, archive_write_callback *,
+ 		     archive_close_callback *);
+-int		 archive_write_open_fd(struct archive *, int _fd);
+-int		 archive_write_open_filename(struct archive *, const char *_file);
++LIBARCHIVE_DLL_IMPEXP int		 archive_write_open_fd(struct archive *, int _fd);
++LIBARCHIVE_DLL_IMPEXP int		 archive_write_open_filename(struct archive *, const char *_file);
+ /* A deprecated synonym for archive_write_open_filename() */
+-int		 archive_write_open_file(struct archive *, const char *_file);
+-int		 archive_write_open_FILE(struct archive *, FILE *);
++LIBARCHIVE_DLL_IMPEXP int		 archive_write_open_file(struct archive *, const char *_file);
++LIBARCHIVE_DLL_IMPEXP int		 archive_write_open_FILE(struct archive *, FILE *);
+ /* _buffSize is the size of the buffer, _used refers to a variable that
+  * will be updated after each write into the buffer. */
+-int		 archive_write_open_memory(struct archive *,
++LIBARCHIVE_DLL_IMPEXP int		 archive_write_open_memory(struct archive *,
+ 			void *_buffer, size_t _buffSize, size_t *_used);
+ 
+ /*
+  * Note that the library will truncate writes beyond the size provided
+  * to archive_write_header or pad if the provided data is short.
+  */
+-int		 archive_write_header(struct archive *,
++LIBARCHIVE_DLL_IMPEXP int		 archive_write_header(struct archive *,
+ 		     struct archive_entry *);
+ #if ARCHIVE_API_VERSION > 1
+-ssize_t		 archive_write_data(struct archive *, const void *, size_t);
++LIBARCHIVE_DLL_IMPEXP ssize_t		 archive_write_data(struct archive *, const void *, size_t);
+ #else
+ /* Temporarily allow library to compile with either 1.x or 2.0 API. */
+ /* This was erroneously declared to return "int" in libarchive 1.x. */
+-int		 archive_write_data(struct archive *, const void *, size_t);
++LIBARCHIVE_DLL_IMPEXP int		 archive_write_data(struct archive *, const void *, size_t);
+ #endif
+-ssize_t		 archive_write_data_block(struct archive *, const void *, size_t, off_t);
+-int		 archive_write_finish_entry(struct archive *);
+-int		 archive_write_close(struct archive *);
++LIBARCHIVE_DLL_IMPEXP ssize_t		 archive_write_data_block(struct archive *, const void *, size_t, off_t);
++LIBARCHIVE_DLL_IMPEXP int		 archive_write_finish_entry(struct archive *);
++LIBARCHIVE_DLL_IMPEXP int		 archive_write_close(struct archive *);
+ #if ARCHIVE_API_VERSION > 1
+-int		 archive_write_finish(struct archive *);
++LIBARCHIVE_DLL_IMPEXP int		 archive_write_finish(struct archive *);
+ #else
+ /* Temporarily allow library to compile with either 1.x or 2.0 API. */
+ /* Return value was incorrect in libarchive 1.x. */
+-void		 archive_write_finish(struct archive *);
++LIBARCHIVE_DLL_IMPEXP void		 archive_write_finish(struct archive *);
+ #endif
+ 
+ /*-
+@@ -477,12 +498,12 @@ void		 archive_write_finish(struct archi
+  * In particular, you can use this in conjunction with archive_read()
+  * to pull entries out of an archive and create them on disk.
+  */
+-struct archive	*archive_write_disk_new(void);
++LIBARCHIVE_DLL_IMPEXP struct archive	*archive_write_disk_new(void);
+ /* This file will not be overwritten. */
+-int		 archive_write_disk_set_skip_file(struct archive *,
+-		     dev_t, ino_t);
++LIBARCHIVE_DLL_IMPEXP int		 archive_write_disk_set_skip_file(struct archive *,
++		     dev_t, ino_t, char *);
+ /* Set flags to control how the next item gets created. */
+-int		 archive_write_disk_set_options(struct archive *,
++LIBARCHIVE_DLL_IMPEXP int		 archive_write_disk_set_options(struct archive *,
+ 		     int flags);
+ /*
+  * The lookup functions are given uname/uid (or gname/gid) pairs and
+@@ -501,17 +522,17 @@ int		 archive_write_disk_set_options(str
+  * particular, these match the specifications of POSIX "pax" and old
+  * POSIX "tar".
+  */
+-int		 archive_write_disk_set_standard_lookup(struct archive *);
++LIBARCHIVE_DLL_IMPEXP int		 archive_write_disk_set_standard_lookup(struct archive *);
+ /*
+  * If neither the default (naive) nor the standard (big) functions suit
+  * your needs, you can write your own and register them.  Be sure to
+  * include a cleanup function if you have allocated private data.
+  */
+-int		 archive_write_disk_set_group_lookup(struct archive *,
++LIBARCHIVE_DLL_IMPEXP int		 archive_write_disk_set_group_lookup(struct archive *,
+ 		     void *private_data,
+ 		     gid_t (*loookup)(void *, const char *gname, gid_t gid),
+ 		     void (*cleanup)(void *));
+-int		 archive_write_disk_set_user_lookup(struct archive *,
++LIBARCHIVE_DLL_IMPEXP int		 archive_write_disk_set_user_lookup(struct archive *,
+ 		     void *private_data,
+ 		     uid_t (*)(void *, const char *uname, uid_t uid),
+ 		     void (*cleanup)(void *));
+@@ -521,19 +542,19 @@ int		 archive_write_disk_set_user_lookup
+  * the struct archive object:
+  */
+ /* Bytes written after compression or read before decompression. */
+-int64_t		 archive_position_compressed(struct archive *);
++LIBARCHIVE_DLL_IMPEXP int64_t		 archive_position_compressed(struct archive *);
+ /* Bytes written to compressor or read from decompressor. */
+-int64_t		 archive_position_uncompressed(struct archive *);
++LIBARCHIVE_DLL_IMPEXP int64_t		 archive_position_uncompressed(struct archive *);
+ 
+-const char	*archive_compression_name(struct archive *);
+-int		 archive_compression(struct archive *);
+-int		 archive_errno(struct archive *);
+-const char	*archive_error_string(struct archive *);
+-const char	*archive_format_name(struct archive *);
+-int		 archive_format(struct archive *);
+-void		 archive_clear_error(struct archive *);
+-void		 archive_set_error(struct archive *, int _err, const char *fmt, ...);
+-void		 archive_copy_error(struct archive *dest, struct archive *src);
++LIBARCHIVE_DLL_IMPEXP const char	*archive_compression_name(struct archive *);
++LIBARCHIVE_DLL_IMPEXP int		 archive_compression(struct archive *);
++LIBARCHIVE_DLL_IMPEXP int		 archive_errno(struct archive *);
++LIBARCHIVE_DLL_IMPEXP const char	*archive_error_string(struct archive *);
++LIBARCHIVE_DLL_IMPEXP const char	*archive_format_name(struct archive *);
++LIBARCHIVE_DLL_IMPEXP int		 archive_format(struct archive *);
++LIBARCHIVE_DLL_IMPEXP void		 archive_clear_error(struct archive *);
++LIBARCHIVE_DLL_IMPEXP void		 archive_set_error(struct archive *, int _err, const char *fmt, ...);
++LIBARCHIVE_DLL_IMPEXP void		 archive_copy_error(struct archive *dest, struct archive *src);
+ 
+ #ifdef __cplusplus
+ }
+diff -ipuwr --binary --strip-trailing-cr -x '*.bak' -x '*.orig' -x '*.rej' -x '*.new' -x '*~' -x debian -x '*.po' -x '*.pot' libarchive-2.4.11-orig/libarchive/archive_entry.h libarchive-2.4.11-src/libarchive/archive_entry.h
+--- libarchive-2.4.11-orig/libarchive/archive_entry.h	2007-09-16 02:10:07.000000000 +0200
++++ libarchive-2.4.11-src/libarchive/archive_entry.h	2007-10-29 20:45:06.000000000 +0100
+@@ -28,7 +28,31 @@
+ #ifndef ARCHIVE_ENTRY_H_INCLUDED
+ #define	ARCHIVE_ENTRY_H_INCLUDED
+ 
++#ifndef __GNUC__
++# define __DLL_IMPORT__  __declspec(dllimport)
++# define __DLL_EXPORT__  __declspec(dllexport)
++#else
++# define __DLL_IMPORT__  __attribute__((dllimport)) extern
++# define __DLL_EXPORT__  __attribute__((dllexport)) extern
++#endif 
++
++#if (defined __WIN32__) || (defined _WIN32)
++# ifdef BUILD_LIBARCHIVE_DLL
++#  define LIBARCHIVE_DLL_IMPEXP    __DLL_EXPORT__
++# elif defined(LIBARCHIVE_STATIC)
++#  define LIBARCHIVE_DLL_IMPEXP     
++# elif defined (USE_LIBARCHIVE_DLL)
++#  define LIBARCHIVE_DLL_IMPEXP    __DLL_IMPORT__
++# elif defined (USE_LIBARCHIVE_STATIC)
++#  define LIBARCHIVE_DLL_IMPEXP     
++# else /* assume USE_LIBARCHIVE_DLL */
++#  define LIBARCHIVE_DLL_IMPEXP    __DLL_IMPORT__
++# endif
++#else /* _WIN32 */
++# define LIBARCHIVE_DLL_IMPEXP
++#endif /* _WIN32 */      
+ #include <sys/types.h>
++
+ #include <stddef.h>  /* for wchar_t */
+ #include <time.h>
+ #include <unistd.h>
+@@ -72,49 +96,49 @@ struct archive_entry;
+  * Basic object manipulation
+  */
+ 
+-struct archive_entry	*archive_entry_clear(struct archive_entry *);
++LIBARCHIVE_DLL_IMPEXP struct archive_entry	*archive_entry_clear(struct archive_entry *);
+ /* The 'clone' function does a deep copy; all of the strings are copied too. */
+-struct archive_entry	*archive_entry_clone(struct archive_entry *);
+-void			 archive_entry_free(struct archive_entry *);
+-struct archive_entry	*archive_entry_new(void);
++LIBARCHIVE_DLL_IMPEXP struct archive_entry	*archive_entry_clone(struct archive_entry *);
++LIBARCHIVE_DLL_IMPEXP void			 archive_entry_free(struct archive_entry *);
++LIBARCHIVE_DLL_IMPEXP struct archive_entry	*archive_entry_new(void);
+ 
+ /*
+  * Retrieve fields from an archive_entry.
+  */
+ 
+-time_t			 archive_entry_atime(struct archive_entry *);
+-long			 archive_entry_atime_nsec(struct archive_entry *);
+-time_t			 archive_entry_ctime(struct archive_entry *);
+-long			 archive_entry_ctime_nsec(struct archive_entry *);
+-dev_t			 archive_entry_dev(struct archive_entry *);
+-dev_t			 archive_entry_devmajor(struct archive_entry *);
+-dev_t			 archive_entry_devminor(struct archive_entry *);
+-mode_t			 archive_entry_filetype(struct archive_entry *);
+-void			 archive_entry_fflags(struct archive_entry *,
++LIBARCHIVE_DLL_IMPEXP time_t			 archive_entry_atime(struct archive_entry *);
++LIBARCHIVE_DLL_IMPEXP long			 archive_entry_atime_nsec(struct archive_entry *);
++LIBARCHIVE_DLL_IMPEXP time_t			 archive_entry_ctime(struct archive_entry *);
++LIBARCHIVE_DLL_IMPEXP long			 archive_entry_ctime_nsec(struct archive_entry *);
++LIBARCHIVE_DLL_IMPEXP dev_t			 archive_entry_dev(struct archive_entry *);
++LIBARCHIVE_DLL_IMPEXP dev_t			 archive_entry_devmajor(struct archive_entry *);
++LIBARCHIVE_DLL_IMPEXP dev_t			 archive_entry_devminor(struct archive_entry *);
++LIBARCHIVE_DLL_IMPEXP mode_t			 archive_entry_filetype(struct archive_entry *);
++LIBARCHIVE_DLL_IMPEXP void			 archive_entry_fflags(struct archive_entry *,
+ 			     unsigned long *set, unsigned long *clear);
+-const char		*archive_entry_fflags_text(struct archive_entry *);
+-gid_t			 archive_entry_gid(struct archive_entry *);
+-const char		*archive_entry_gname(struct archive_entry *);
+-const wchar_t		*archive_entry_gname_w(struct archive_entry *);
+-const char		*archive_entry_hardlink(struct archive_entry *);
+-const wchar_t		*archive_entry_hardlink_w(struct archive_entry *);
+-ino_t			 archive_entry_ino(struct archive_entry *);
+-mode_t			 archive_entry_mode(struct archive_entry *);
+-time_t			 archive_entry_mtime(struct archive_entry *);
+-long			 archive_entry_mtime_nsec(struct archive_entry *);
+-unsigned int		 archive_entry_nlink(struct archive_entry *);
+-const char		*archive_entry_pathname(struct archive_entry *);
+-const wchar_t		*archive_entry_pathname_w(struct archive_entry *);
+-dev_t			 archive_entry_rdev(struct archive_entry *);
+-dev_t			 archive_entry_rdevmajor(struct archive_entry *);
+-dev_t			 archive_entry_rdevminor(struct archive_entry *);
+-int64_t			 archive_entry_size(struct archive_entry *);
+-const char		*archive_entry_strmode(struct archive_entry *);
+-const char		*archive_entry_symlink(struct archive_entry *);
+-const wchar_t		*archive_entry_symlink_w(struct archive_entry *);
+-uid_t			 archive_entry_uid(struct archive_entry *);
+-const char		*archive_entry_uname(struct archive_entry *);
+-const wchar_t		*archive_entry_uname_w(struct archive_entry *);
++LIBARCHIVE_DLL_IMPEXP const char		*archive_entry_fflags_text(struct archive_entry *);
++LIBARCHIVE_DLL_IMPEXP gid_t			 archive_entry_gid(struct archive_entry *);
++LIBARCHIVE_DLL_IMPEXP const char		*archive_entry_gname(struct archive_entry *);
++LIBARCHIVE_DLL_IMPEXP const wchar_t		*archive_entry_gname_w(struct archive_entry *);
++LIBARCHIVE_DLL_IMPEXP const char		*archive_entry_hardlink(struct archive_entry *);
++LIBARCHIVE_DLL_IMPEXP const wchar_t		*archive_entry_hardlink_w(struct archive_entry *);
++LIBARCHIVE_DLL_IMPEXP ino_t			 archive_entry_ino(struct archive_entry *);
++LIBARCHIVE_DLL_IMPEXP mode_t			 archive_entry_mode(struct archive_entry *);
++LIBARCHIVE_DLL_IMPEXP time_t			 archive_entry_mtime(struct archive_entry *);
++LIBARCHIVE_DLL_IMPEXP long			 archive_entry_mtime_nsec(struct archive_entry *);
++LIBARCHIVE_DLL_IMPEXP unsigned int		 archive_entry_nlink(struct archive_entry *);
++LIBARCHIVE_DLL_IMPEXP const char		*archive_entry_pathname(struct archive_entry *);
++LIBARCHIVE_DLL_IMPEXP const wchar_t		*archive_entry_pathname_w(struct archive_entry *);
++LIBARCHIVE_DLL_IMPEXP dev_t			 archive_entry_rdev(struct archive_entry *);
++LIBARCHIVE_DLL_IMPEXP dev_t			 archive_entry_rdevmajor(struct archive_entry *);
++LIBARCHIVE_DLL_IMPEXP dev_t			 archive_entry_rdevminor(struct archive_entry *);
++LIBARCHIVE_DLL_IMPEXP int64_t			 archive_entry_size(struct archive_entry *);
++LIBARCHIVE_DLL_IMPEXP const char		*archive_entry_strmode(struct archive_entry *);
++LIBARCHIVE_DLL_IMPEXP const char		*archive_entry_symlink(struct archive_entry *);
++LIBARCHIVE_DLL_IMPEXP const wchar_t		*archive_entry_symlink_w(struct archive_entry *);
++LIBARCHIVE_DLL_IMPEXP uid_t			 archive_entry_uid(struct archive_entry *);
++LIBARCHIVE_DLL_IMPEXP const char		*archive_entry_uname(struct archive_entry *);
++LIBARCHIVE_DLL_IMPEXP const wchar_t		*archive_entry_uname_w(struct archive_entry *);
+ 
+ /*
+  * Set fields in an archive_entry.
+@@ -123,45 +147,45 @@ const wchar_t		*archive_entry_uname_w(st
+  * In contrast, 'copy' functions do copy the object pointed to.
+  */
+ 
+-void	archive_entry_set_atime(struct archive_entry *, time_t, long);
+-void	archive_entry_set_ctime(struct archive_entry *, time_t, long);
+-void	archive_entry_set_dev(struct archive_entry *, dev_t);
+-void	archive_entry_set_devmajor(struct archive_entry *, dev_t);
+-void	archive_entry_set_devminor(struct archive_entry *, dev_t);
+-void	archive_entry_set_filetype(struct archive_entry *, unsigned int);
+-void	archive_entry_set_fflags(struct archive_entry *,
++LIBARCHIVE_DLL_IMPEXP void	archive_entry_set_atime(struct archive_entry *, time_t, long);
++LIBARCHIVE_DLL_IMPEXP void	archive_entry_set_ctime(struct archive_entry *, time_t, long);
++LIBARCHIVE_DLL_IMPEXP void	archive_entry_set_dev(struct archive_entry *, dev_t);
++LIBARCHIVE_DLL_IMPEXP void	archive_entry_set_devmajor(struct archive_entry *, dev_t);
++LIBARCHIVE_DLL_IMPEXP void	archive_entry_set_devminor(struct archive_entry *, dev_t);
++LIBARCHIVE_DLL_IMPEXP void	archive_entry_set_filetype(struct archive_entry *, unsigned int);
++LIBARCHIVE_DLL_IMPEXP void	archive_entry_set_fflags(struct archive_entry *,
+ 	    unsigned long set, unsigned long clear);
+ /* Returns pointer to start of first invalid token, or NULL if none. */
+ /* Note that all recognized tokens are processed, regardless. */
+-const wchar_t *archive_entry_copy_fflags_text_w(struct archive_entry *,
++LIBARCHIVE_DLL_IMPEXP const wchar_t *archive_entry_copy_fflags_text_w(struct archive_entry *,
+ 	    const wchar_t *);
+-void	archive_entry_set_gid(struct archive_entry *, gid_t);
+-void	archive_entry_set_gname(struct archive_entry *, const char *);
+-void	archive_entry_copy_gname(struct archive_entry *, const char *);
+-void	archive_entry_copy_gname_w(struct archive_entry *, const wchar_t *);
+-void	archive_entry_set_hardlink(struct archive_entry *, const char *);
+-void	archive_entry_copy_hardlink(struct archive_entry *, const char *);
+-void	archive_entry_copy_hardlink_w(struct archive_entry *, const wchar_t *);
+-void	archive_entry_set_ino(struct archive_entry *, unsigned long);
+-void	archive_entry_set_link(struct archive_entry *, const char *);
+-void	archive_entry_set_mode(struct archive_entry *, mode_t);
+-void	archive_entry_set_mtime(struct archive_entry *, time_t, long);
+-void	archive_entry_set_nlink(struct archive_entry *, unsigned int);
+-void	archive_entry_set_pathname(struct archive_entry *, const char *);
+-void	archive_entry_copy_pathname(struct archive_entry *, const char *);
+-void	archive_entry_copy_pathname_w(struct archive_entry *, const wchar_t *);
+-void	archive_entry_set_perm(struct archive_entry *, mode_t);
+-void	archive_entry_set_rdev(struct archive_entry *, dev_t);
+-void	archive_entry_set_rdevmajor(struct archive_entry *, dev_t);
+-void	archive_entry_set_rdevminor(struct archive_entry *, dev_t);
+-void	archive_entry_set_size(struct archive_entry *, int64_t);
+-void	archive_entry_set_symlink(struct archive_entry *, const char *);
+-void	archive_entry_copy_symlink(struct archive_entry *, const char *);
+-void	archive_entry_copy_symlink_w(struct archive_entry *, const wchar_t *);
+-void	archive_entry_set_uid(struct archive_entry *, uid_t);
+-void	archive_entry_set_uname(struct archive_entry *, const char *);
+-void	archive_entry_copy_uname(struct archive_entry *, const char *);
+-void	archive_entry_copy_uname_w(struct archive_entry *, const wchar_t *);
++LIBARCHIVE_DLL_IMPEXP void	archive_entry_set_gid(struct archive_entry *, gid_t);
++LIBARCHIVE_DLL_IMPEXP void	archive_entry_set_gname(struct archive_entry *, const char *);
++LIBARCHIVE_DLL_IMPEXP void	archive_entry_copy_gname(struct archive_entry *, const char *);
++LIBARCHIVE_DLL_IMPEXP void	archive_entry_copy_gname_w(struct archive_entry *, const wchar_t *);
++LIBARCHIVE_DLL_IMPEXP void	archive_entry_set_hardlink(struct archive_entry *, const char *);
++LIBARCHIVE_DLL_IMPEXP void	archive_entry_copy_hardlink(struct archive_entry *, const char *);
++LIBARCHIVE_DLL_IMPEXP void	archive_entry_copy_hardlink_w(struct archive_entry *, const wchar_t *);
++LIBARCHIVE_DLL_IMPEXP void	archive_entry_set_ino(struct archive_entry *, unsigned long);
++LIBARCHIVE_DLL_IMPEXP void	archive_entry_set_link(struct archive_entry *, const char *);
++LIBARCHIVE_DLL_IMPEXP void	archive_entry_set_mode(struct archive_entry *, mode_t);
++LIBARCHIVE_DLL_IMPEXP void	archive_entry_set_mtime(struct archive_entry *, time_t, long);
++LIBARCHIVE_DLL_IMPEXP void	archive_entry_set_nlink(struct archive_entry *, unsigned int);
++LIBARCHIVE_DLL_IMPEXP void	archive_entry_set_pathname(struct archive_entry *, const char *);
++LIBARCHIVE_DLL_IMPEXP void	archive_entry_copy_pathname(struct archive_entry *, const char *);
++LIBARCHIVE_DLL_IMPEXP void	archive_entry_copy_pathname_w(struct archive_entry *, const wchar_t *);
++LIBARCHIVE_DLL_IMPEXP void	archive_entry_set_perm(struct archive_entry *, mode_t);
++LIBARCHIVE_DLL_IMPEXP void	archive_entry_set_rdev(struct archive_entry *, dev_t);
++LIBARCHIVE_DLL_IMPEXP void	archive_entry_set_rdevmajor(struct archive_entry *, dev_t);
++LIBARCHIVE_DLL_IMPEXP void	archive_entry_set_rdevminor(struct archive_entry *, dev_t);
++LIBARCHIVE_DLL_IMPEXP void	archive_entry_set_size(struct archive_entry *, int64_t);
++LIBARCHIVE_DLL_IMPEXP void	archive_entry_set_symlink(struct archive_entry *, const char *);
++LIBARCHIVE_DLL_IMPEXP void	archive_entry_copy_symlink(struct archive_entry *, const char *);
++LIBARCHIVE_DLL_IMPEXP void	archive_entry_copy_symlink_w(struct archive_entry *, const wchar_t *);
++LIBARCHIVE_DLL_IMPEXP void	archive_entry_set_uid(struct archive_entry *, uid_t);
++LIBARCHIVE_DLL_IMPEXP void	archive_entry_set_uname(struct archive_entry *, const char *);
++LIBARCHIVE_DLL_IMPEXP void	archive_entry_copy_uname(struct archive_entry *, const char *);
++LIBARCHIVE_DLL_IMPEXP void	archive_entry_copy_uname_w(struct archive_entry *, const wchar_t *);
+ 
+ /*
+  * Routines to bulk copy fields to/from a platform-native "struct
+@@ -172,8 +196,8 @@ void	archive_entry_copy_uname_w(struct a
+  *
+  * TODO: On Linux, provide both stat32 and stat64 versions of these functions.
+  */
+-const struct stat	*archive_entry_stat(struct archive_entry *);
+-void	archive_entry_copy_stat(struct archive_entry *, const struct stat *);
++LIBARCHIVE_DLL_IMPEXP const struct stat	*archive_entry_stat(struct archive_entry *);
++LIBARCHIVE_DLL_IMPEXP void	archive_entry_copy_stat(struct archive_entry *, const struct stat *);
+ 
+ /*
+  * ACL routines.  This used to simply store and return text-format ACL
+@@ -214,10 +238,10 @@ void	archive_entry_copy_stat(struct arch
+  * POSIX.1e) is useful for handling archive formats that combine
+  * default and access information in a single ACL list.
+  */
+-void	 archive_entry_acl_clear(struct archive_entry *);
+-void	 archive_entry_acl_add_entry(struct archive_entry *,
++LIBARCHIVE_DLL_IMPEXP void	 archive_entry_acl_clear(struct archive_entry *);
++LIBARCHIVE_DLL_IMPEXP void	 archive_entry_acl_add_entry(struct archive_entry *,
+ 	     int type, int permset, int tag, int qual, const char *name);
+-void	 archive_entry_acl_add_entry_w(struct archive_entry *,
++LIBARCHIVE_DLL_IMPEXP void	 archive_entry_acl_add_entry_w(struct archive_entry *,
+ 	     int type, int permset, int tag, int qual, const wchar_t *name);
+ 
+ /*
+@@ -225,10 +249,10 @@ void	 archive_entry_acl_add_entry_w(stru
+  * "next" entry.  The want_type parameter allows you to request only
+  * access entries or only default entries.
+  */
+-int	 archive_entry_acl_reset(struct archive_entry *, int want_type);
+-int	 archive_entry_acl_next(struct archive_entry *, int want_type,
++LIBARCHIVE_DLL_IMPEXP int	 archive_entry_acl_reset(struct archive_entry *, int want_type);
++LIBARCHIVE_DLL_IMPEXP int	 archive_entry_acl_next(struct archive_entry *, int want_type,
+ 	     int *type, int *permset, int *tag, int *qual, const char **name);
+-int	 archive_entry_acl_next_w(struct archive_entry *, int want_type,
++LIBARCHIVE_DLL_IMPEXP int	 archive_entry_acl_next_w(struct archive_entry *, int want_type,
+ 	     int *type, int *permset, int *tag, int *qual,
+ 	     const wchar_t **name);
+ 
+@@ -245,10 +269,10 @@ int	 archive_entry_acl_next_w(struct arc
+  */
+ #define	ARCHIVE_ENTRY_ACL_STYLE_EXTRA_ID	1024
+ #define	ARCHIVE_ENTRY_ACL_STYLE_MARK_DEFAULT	2048
+-const wchar_t	*archive_entry_acl_text_w(struct archive_entry *, int flags);
++LIBARCHIVE_DLL_IMPEXP const wchar_t	*archive_entry_acl_text_w(struct archive_entry *, int flags);
+ 
+ /* Return a count of entries matching 'want_type' */
+-int	 archive_entry_acl_count(struct archive_entry *, int want_type);
++LIBARCHIVE_DLL_IMPEXP int	 archive_entry_acl_count(struct archive_entry *, int want_type);
+ 
+ /*
+  * Private ACL parser.  This is private because it handles some
+@@ -260,15 +284,15 @@ int	 archive_entry_acl_count(struct arch
+  *
+  * You were warned!
+  */
+-int		 __archive_entry_acl_parse_w(struct archive_entry *,
++LIBARCHIVE_DLL_IMPEXP int		 __archive_entry_acl_parse_w(struct archive_entry *,
+ 		     const wchar_t *, int type);
+ 
+ /*
+  * extended attributes
+  */
+ 
+-void	 archive_entry_xattr_clear(struct archive_entry *);
+-void	 archive_entry_xattr_add_entry(struct archive_entry *,
++LIBARCHIVE_DLL_IMPEXP void	 archive_entry_xattr_clear(struct archive_entry *);
++LIBARCHIVE_DLL_IMPEXP void	 archive_entry_xattr_add_entry(struct archive_entry *,
+ 	     const char *name, const void *value, size_t size);
+ 
+ /*
+@@ -276,9 +300,9 @@ void	 archive_entry_xattr_add_entry(stru
+  * "next" entry.
+  */
+ 
+-int	archive_entry_xattr_count(struct archive_entry *);
+-int	archive_entry_xattr_reset(struct archive_entry *);
+-int	archive_entry_xattr_next(struct archive_entry *,
++LIBARCHIVE_DLL_IMPEXP int	archive_entry_xattr_count(struct archive_entry *);
++LIBARCHIVE_DLL_IMPEXP int	archive_entry_xattr_reset(struct archive_entry *);
++LIBARCHIVE_DLL_IMPEXP int	archive_entry_xattr_next(struct archive_entry *,
+ 	     const char **name, const void **value, size_t *);
+ 
+ /*
+@@ -298,11 +322,11 @@ int	archive_entry_xattr_next(struct arch
+  * have been found.  If the nlinks value is zero, it will keep every
+  * name in the cache indefinitely, which can use a lot of memory.
+  */
+-struct archive_entry_linkresolver;
++LIBARCHIVE_DLL_IMPEXP struct archive_entry_linkresolver;
+ 
+-struct archive_entry_linkresolver *archive_entry_linkresolver_new(void);
+-void archive_entry_linkresolver_free(struct archive_entry_linkresolver *);
+-const char *archive_entry_linkresolve(struct archive_entry_linkresolver *,
++LIBARCHIVE_DLL_IMPEXP struct archive_entry_linkresolver *archive_entry_linkresolver_new(void);
++LIBARCHIVE_DLL_IMPEXP void archive_entry_linkresolver_free(struct archive_entry_linkresolver *);
++LIBARCHIVE_DLL_IMPEXP const char *archive_entry_linkresolve(struct archive_entry_linkresolver *,
+     struct archive_entry *);
+ 
+ #ifdef __cplusplus
+diff -ipuwr --binary --strip-trailing-cr -x '*.bak' -x '*.orig' -x '*.rej' -x '*.new' -x '*~' -x debian -x '*.po' -x '*.pot' libarchive-2.4.11-orig/libarchive/archive_platform.h libarchive-2.4.11-src/libarchive/archive_platform.h
+--- libarchive-2.4.11-orig/libarchive/archive_platform.h	2007-10-31 05:41:09.000000000 +0100
++++ libarchive-2.4.11-src/libarchive/archive_platform.h	2007-11-03 10:59:52.000000000 +0100
+@@ -47,6 +47,9 @@
+ #error Oops: No config.h and no pre-built configuration in archive_platform.h.
+ #endif
+ 
++#ifdef _WIN32
++# include "libarchive-nonposix.h"
++#endif /* _WIN32 */
+ /*
+  * The config files define a lot of feature macros.  The following
+  * uses those macros to select/define replacements and include key
+diff -ipuwr --binary --strip-trailing-cr -x '*.bak' -x '*.orig' -x '*.rej' -x '*.new' -x '*~' -x debian -x '*.po' -x '*.pot' libarchive-2.4.11-orig/libarchive/archive_read.c libarchive-2.4.11-src/libarchive/archive_read.c
+--- libarchive-2.4.11-orig/libarchive/archive_read.c	2007-10-31 04:45:27.000000000 +0100
++++ libarchive-2.4.11-src/libarchive/archive_read.c	2007-12-18 23:48:58.000000000 +0100
+@@ -97,13 +97,14 @@ archive_read_new(void)
+  * Record the do-not-extract-to file. This belongs in archive_read_extract.c.
+  */
+ void
+-archive_read_extract_set_skip_file(struct archive *_a, dev_t d, ino_t i)
++archive_read_extract_set_skip_file(struct archive *_a, dev_t d, ino_t i, char *name)
+ {
+ 	struct archive_read *a = (struct archive_read *)_a;
+ 	__archive_check_magic(_a, ARCHIVE_READ_MAGIC, ARCHIVE_STATE_ANY,
+ 	    "archive_read_extract_set_skip_file");
+ 	a->skip_file_dev = d;
+ 	a->skip_file_ino = i;
++	a->skip_file_name = strdup(name);
+ }
+ 
+ 
+@@ -666,6 +667,8 @@ archive_read_finish(struct archive *_a)
+ 	if (a->entry)
+ 		archive_entry_free(a->entry);
+ 	a->archive.magic = 0;
++	if (a->skip_file_name)
++		free(a->skip_file_name);
+ 	free(a);
+ #if ARCHIVE_API_VERSION > 1
+ 	return (r);
+diff -ipuwr --binary --strip-trailing-cr -x '*.bak' -x '*.orig' -x '*.rej' -x '*.new' -x '*~' -x debian -x '*.po' -x '*.pot' libarchive-2.4.11-orig/libarchive/archive_read_extract.c libarchive-2.4.11-src/libarchive/archive_read_extract.c
+--- libarchive-2.4.11-orig/libarchive/archive_read_extract.c	2007-05-29 04:00:18.000000000 +0200
++++ libarchive-2.4.11-src/libarchive/archive_read_extract.c	2007-10-29 20:45:06.000000000 +0100
+@@ -93,7 +93,7 @@ archive_read_extract(struct archive *_a,
+ 	extract = a->extract;
+ 	archive_write_disk_set_options(a->extract->ad, flags);
+ 	archive_write_disk_set_skip_file(a->extract->ad,
+-	    a->skip_file_dev, a->skip_file_ino);
++	    a->skip_file_dev, a->skip_file_ino, a->skip_file_name);
+ 	r = archive_write_header(a->extract->ad, entry);
+ 	if (r < ARCHIVE_WARN)
+ 		r = ARCHIVE_WARN;
+diff -ipuwr --binary --strip-trailing-cr -x '*.bak' -x '*.orig' -x '*.rej' -x '*.new' -x '*~' -x debian -x '*.po' -x '*.pot' libarchive-2.4.11-orig/libarchive/archive_read_open_fd.c libarchive-2.4.11-src/libarchive/archive_read_open_fd.c
+--- libarchive-2.4.11-orig/libarchive/archive_read_open_fd.c	2007-06-26 06:06:48.000000000 +0200
++++ libarchive-2.4.11-src/libarchive/archive_read_open_fd.c	2007-10-29 20:45:06.000000000 +0100
+@@ -95,7 +95,7 @@ file_open(struct archive *a, void *clien
+ 	}
+ 
+ 	if (S_ISREG(st.st_mode)) {
+-		archive_read_extract_set_skip_file(a, st.st_dev, st.st_ino);
++		archive_read_extract_set_skip_file(a, st.st_dev, st.st_ino, NULL);
+ 		/*
+ 		 * Enabling skip here is a performance optimization for
+ 		 * anything that supports lseek().  On FreeBSD, only
+diff -ipuwr --binary --strip-trailing-cr -x '*.bak' -x '*.orig' -x '*.rej' -x '*.new' -x '*~' -x debian -x '*.po' -x '*.pot' libarchive-2.4.11-orig/libarchive/archive_read_open_file.c libarchive-2.4.11-src/libarchive/archive_read_open_file.c
+--- libarchive-2.4.11-orig/libarchive/archive_read_open_file.c	2007-06-26 06:06:48.000000000 +0200
++++ libarchive-2.4.11-src/libarchive/archive_read_open_file.c	2007-10-29 20:45:06.000000000 +0100
+@@ -99,8 +99,7 @@ file_open(struct archive *a, void *clien
+ 	 * of I/O streams.)
+ 	 */
+ 	if (fstat(fileno(mine->f), &st) == 0 && S_ISREG(st.st_mode)) {
+-		archive_read_extract_set_skip_file(a, st.st_dev, st.st_ino);
+-		/* Enable the seek optimization for regular files. */
++ 		archive_read_extract_set_skip_file(a, st.st_dev, st.st_ino, NULL);
+ 		mine->can_skip = 1;
+ 	}
+ 
+diff -ipuwr --binary --strip-trailing-cr -x '*.bak' -x '*.orig' -x '*.rej' -x '*.new' -x '*~' -x debian -x '*.po' -x '*.pot' libarchive-2.4.11-orig/libarchive/archive_read_open_filename.c libarchive-2.4.11-src/libarchive/archive_read_open_filename.c
+--- libarchive-2.4.11-orig/libarchive/archive_read_open_filename.c	2007-06-26 06:06:48.000000000 +0200
++++ libarchive-2.4.11-src/libarchive/archive_read_open_filename.c	2007-10-29 20:45:06.000000000 +0100
+@@ -113,7 +113,7 @@ file_open(struct archive *a, void *clien
+ 		return (ARCHIVE_FATAL);
+ 	}
+ 	if (mine->filename[0] != '\0')
+-		mine->fd = open(mine->filename, O_RDONLY);
++		mine->fd = open(mine->filename, O_RDONLY | O_BINARY);
+ 	else
+ 		mine->fd = 0; /* Fake "open" for stdin. */
+ 	if (mine->fd < 0) {
+@@ -125,7 +125,7 @@ file_open(struct archive *a, void *clien
+ 		/* If we're reading a file from disk, ensure that we don't
+ 		   overwrite it with an extracted file. */
+ 		if (S_ISREG(st.st_mode)) {
+-			archive_read_extract_set_skip_file(a, st.st_dev, st.st_ino);
++			archive_read_extract_set_skip_file(a, st.st_dev, st.st_ino, mine->filename);
+ 			/*
+ 			 * Enabling skip here is a performance
+ 			 * optimization for anything that supports
+diff -ipuwr --binary --strip-trailing-cr -x '*.bak' -x '*.orig' -x '*.rej' -x '*.new' -x '*~' -x debian -x '*.po' -x '*.pot' libarchive-2.4.11-orig/libarchive/archive_read_private.h libarchive-2.4.11-src/libarchive/archive_read_private.h
+--- libarchive-2.4.11-orig/libarchive/archive_read_private.h	2007-05-29 04:00:18.000000000 +0200
++++ libarchive-2.4.11-src/libarchive/archive_read_private.h	2007-10-29 20:45:06.000000000 +0100
+@@ -40,6 +40,7 @@ struct archive_read {
+ 	/* Dev/ino of the archive being read/written. */
+ 	dev_t		  skip_file_dev;
+ 	ino_t		  skip_file_ino;
++	char			 *skip_file_name;
+ 
+ 	/* Utility:  Pointer to a block of nulls. */
+ 	const unsigned char	*nulls;
+diff -ipuwr --binary --strip-trailing-cr -x '*.bak' -x '*.orig' -x '*.rej' -x '*.new' -x '*~' -x debian -x '*.po' -x '*.pot' libarchive-2.4.11-orig/libarchive/archive_write.c libarchive-2.4.11-src/libarchive/archive_write.c
+--- libarchive-2.4.11-orig/libarchive/archive_write.c	2007-05-29 04:00:19.000000000 +0200
++++ libarchive-2.4.11-src/libarchive/archive_write.c	2007-12-18 23:49:32.000000000 +0100
+@@ -176,13 +176,14 @@ archive_write_get_bytes_in_last_block(st
+  * an archive to itself recursively.
+  */
+ int
+-archive_write_set_skip_file(struct archive *_a, dev_t d, ino_t i)
++archive_write_set_skip_file(struct archive *_a, dev_t d, ino_t i, char *name)
+ {
+ 	struct archive_write *a = (struct archive_write *)_a;
+ 	__archive_check_magic(&a->archive, ARCHIVE_WRITE_MAGIC,
+ 	    ARCHIVE_STATE_ANY, "archive_write_set_skip_file");
+ 	a->skip_file_dev = d;
+ 	a->skip_file_ino = i;
++	a->skip_file_name = strdup(name);
+ 	return (ARCHIVE_OK);
+ }
+ 
+@@ -284,6 +285,8 @@ _archive_write_finish(struct archive *_a
+ 	free((void *)(uintptr_t)(const void *)a->nulls);
+ 	archive_string_free(&a->archive.error_string);
+ 	a->archive.magic = 0;
++	if (a->skip_file_name)
++		free(a->skip_file_name);
+ 	free(a);
+ 	return (r);
+ }
+@@ -296,6 +299,7 @@ _archive_write_header(struct archive *_a
+ {
+ 	struct archive_write *a = (struct archive_write *)_a;
+ 	int ret, r2;
++	char *aefullpathname, *afullskipfilename;
+ 
+ 	__archive_check_magic(&a->archive, ARCHIVE_WRITE_MAGIC,
+ 	    ARCHIVE_STATE_DATA | ARCHIVE_STATE_HEADER, "archive_write_header");
+@@ -306,14 +310,25 @@ _archive_write_header(struct archive *_a
+ 	if (ret < ARCHIVE_OK && ret != ARCHIVE_WARN)
+ 		return (ret);
+ 
+-	if (a->skip_file_dev != 0 &&
++	aefullpathname = fullname (archive_entry_pathname(entry));
++	afullskipfilename = fullname (a->skip_file_name);
++	if ((a->skip_file_dev != 0 &&
+ 	    archive_entry_dev(entry) == a->skip_file_dev &&
+ 	    a->skip_file_ino != 0 &&
+-	    archive_entry_ino(entry) == a->skip_file_ino) {
++	    archive_entry_ino(entry) == a->skip_file_ino) ||
++	    !stricmp (afullskipfilename, aefullpathname)) {
+ 		archive_set_error(&a->archive, 0,
+ 		    "Can't add archive to itself");
++		if (aefullpathname) 
++			free (aefullpathname);
++		if (afullskipfilename) 
++			free (afullskipfilename);
+ 		return (ARCHIVE_FAILED);
+ 	}
++	if (aefullpathname)
++		free (aefullpathname);
++	if (afullskipfilename) 
++		free (afullskipfilename);
+ 
+ 	/* Format and write header. */
+ 	r2 = ((a->format_write_header)(a, entry));
+diff -ipuwr --binary --strip-trailing-cr -x '*.bak' -x '*.orig' -x '*.rej' -x '*.new' -x '*~' -x debian -x '*.po' -x '*.pot' libarchive-2.4.11-orig/libarchive/archive_write_disk.c libarchive-2.4.11-src/libarchive/archive_write_disk.c
+--- libarchive-2.4.11-orig/libarchive/archive_write_disk.c	2007-10-07 02:06:58.000000000 +0200
++++ libarchive-2.4.11-src/libarchive/archive_write_disk.c	2007-12-18 23:41:10.000000000 +0100
+@@ -136,6 +136,7 @@ struct archive_write_disk {
+ 	uid_t			 user_uid;
+ 	dev_t			 skip_file_dev;
+ 	ino_t			 skip_file_ino;
++	char				 *skip_file_name;
+ 
+ 	gid_t (*lookup_gid)(void *private, const char *gname, gid_t gid);
+ 	void  (*cleanup_gid)(void *private);
+@@ -173,6 +174,7 @@ struct archive_write_disk {
+ 	off_t			 offset;
+ 	/* Dir we were in before this restore; only for deep paths. */
+ 	int			 restore_pwd;
++	char			 *restore_pwname;
+ 	/* Mode we should use for this entry; affected by _PERM and umask. */
+ 	mode_t			 mode;
+ 	/* UID/GID to use in restoring this entry. */
+@@ -198,9 +200,7 @@ struct archive_write_disk {
+ static int	check_symlinks(struct archive_write_disk *);
+ static int	create_filesystem_object(struct archive_write_disk *);
+ static struct fixup_entry *current_fixup(struct archive_write_disk *, const char *pathname);
+-#ifdef HAVE_FCHDIR
+ static void	edit_deep_directories(struct archive_write_disk *ad);
+-#endif
+ static int	cleanup_pathname(struct archive_write_disk *);
+ static int	create_dir(struct archive_write_disk *, char *);
+ static int	create_parent_dir(struct archive_write_disk *, char *);
+@@ -375,21 +375,23 @@ _archive_write_header(struct archive *_a
+ 		if (ret != ARCHIVE_OK)
+ 			goto done;
+ 	}
+-#ifdef HAVE_FCHDIR
+ 	/* If path exceeds PATH_MAX, shorten the path. */
+ 	edit_deep_directories(a);
+-#endif
+ 
+ 	ret = restore_entry(a);
+ 
+-#ifdef HAVE_FCHDIR
+ 	/* If we changed directory above, restore it here. */
+ 	if (a->restore_pwd >= 0) {
++#ifdef HAVE_FCHDIR
+ 		fchdir(a->restore_pwd);
+ 		close(a->restore_pwd);
++#else
++		chdir (a->restore_pwname);
++		if (a->restore_pwname)
++			free (a->restore_pwname);
++#endif
+ 		a->restore_pwd = -1;
+ 	}
+-#endif
+ 
+ 	/*
+ 	 * Fixup uses the unedited pathname from archive_entry_pathname(),
+@@ -435,13 +437,14 @@ done:
+ }
+ 
+ int
+-archive_write_disk_set_skip_file(struct archive *_a, dev_t d, ino_t i)
++archive_write_disk_set_skip_file(struct archive *_a, dev_t d, ino_t i, char *name)
+ {
+ 	struct archive_write_disk *a = (struct archive_write_disk *)_a;
+ 	__archive_check_magic(&a->archive, ARCHIVE_WRITE_DISK_MAGIC,
+ 	    ARCHIVE_STATE_ANY, "archive_write_disk_set_skip_file");
+ 	a->skip_file_dev = d;
+ 	a->skip_file_ino = i;
++	a->skip_file_name = strdup(name);
+ 	return (ARCHIVE_OK);
+ }
+ 
+@@ -534,6 +537,16 @@ _archive_write_finish_entry(struct archi
+ 	 * bits.  If we set the owner, we know what it is and can skip
+ 	 * a stat() call to examine the ownership of the file on disk.
+ 	 */
++	/* MS-Windows doesn't have the futimes function; so close fd first.
++	*  Otherwise the fields set by utimes are overwritten by the close
++	*/ 
++#ifndef CAN_RESTORE_METADATA_FD	
++	if (a->fd >= 0) {
++		close(a->fd);
++		a->fd = -1;
++	}
++#endif /* CAN_RESTORE_METADATA_FD  */
++
+ 	if (a->todo & TODO_OWNER)
+ 		ret = set_ownership(a);
+ 	if (a->todo & TODO_MODE) {
+@@ -639,7 +652,6 @@ archive_write_disk_new(void)
+  * object creation is likely to fail, but any error will get handled
+  * at that time.
+  */
+-#ifdef HAVE_FCHDIR
+ static void
+ edit_deep_directories(struct archive_write_disk *a)
+ {
+@@ -653,7 +665,12 @@ edit_deep_directories(struct archive_wri
+ 		return;
+ 
+ 	/* Try to record our starting dir. */
+-	a->restore_pwd = open(".", O_RDONLY);
++#ifdef HAVE_FCHDIR
++	a->restore_pwd = open(".", O_RDONLY | O_BINARY);
++#else
++	a->restore_pwname = fullname(".");
++	a->restore_pwd = 9999;
++#endif
+ 	if (a->restore_pwd < 0)
+ 		return;
+ 
+@@ -680,7 +697,6 @@ edit_deep_directories(struct archive_wri
+ 	}
+ 	return;
+ }
+-#endif
+ 
+ /*
+  * The main restore function.
+@@ -689,6 +705,7 @@ static int
+ restore_entry(struct archive_write_disk *a)
+ {
+ 	int ret = ARCHIVE_OK, en;
++	char *aefullpathname, *afullskipfilename;
+ 
+ 	if (a->flags & ARCHIVE_EXTRACT_UNLINK && !S_ISDIR(a->mode)) {
+ 		if (unlink(a->name) == 0) {
+@@ -761,11 +778,18 @@ restore_entry(struct archive_write_disk 
+ 		}
+ 
+ 		/* If it's our archive, we're done. */
+-		if (a->skip_file_dev > 0 &&
++		aefullpathname = fullname (a->name);
++		afullskipfilename = fullname (a->skip_file_name);
++		if ((a->skip_file_dev > 0 &&
+ 		    a->skip_file_ino > 0 &&
+ 		    a->st.st_dev == a->skip_file_dev &&
+-		    a->st.st_ino == a->skip_file_ino) {
++		    a->st.st_ino == a->skip_file_ino) ||
++		    !stricmp (aefullpathname, afullskipfilename)) {
+ 			archive_set_error(&a->archive, 0, "Refusing to overwrite archive");
++			if (aefullpathname) 
++				free (aefullpathname);
++			if (afullskipfilename) 
++				free (afullskipfilename);
+ 			return (ARCHIVE_FAILED);
+ 		}
+ 
+@@ -824,7 +848,7 @@ create_filesystem_object(struct archive_
+ 	/* Create the entry. */
+ 	const char *linkname;
+ 	mode_t final_mode, mode;
+-	int r;
++	int r = 0;
+ 
+ 	/* We identify hard/symlinks according to the link names. */
+ 	/* Since link(2) and symlink(2) don't handle modes, we're done here. */
+@@ -856,16 +880,20 @@ create_filesystem_object(struct archive_
+ 		/* FALLTHROUGH */
+ 	case S_IFREG:
+ 		a->fd = open(a->name,
+-		    O_WRONLY | O_CREAT | O_EXCL, mode);
++		    O_WRONLY | O_CREAT | O_EXCL | O_BINARY, mode);
+ 		r = (a->fd < 0);
+ 		break;
+ 	case S_IFCHR:
++#ifdef HAVE_MKNOD
+ 		r = mknod(a->name, mode | S_IFCHR,
+ 		    archive_entry_rdev(a->entry));
++#endif /* HAVE_MKNOD */
+ 		break;
+ 	case S_IFBLK:
++#ifdef HAVE_MKNOD
+ 		r = mknod(a->name, mode | S_IFBLK,
+ 		    archive_entry_rdev(a->entry));
++#endif /* HAVE_MKNOD */
+ 		break;
+ 	case S_IFDIR:
+ 		mode = (mode | MINIMUM_DIR_MODE) & MAXIMUM_DIR_MODE;
+@@ -881,7 +909,9 @@ create_filesystem_object(struct archive_
+ 		}
+ 		break;
+ 	case S_IFIFO:
++#ifdef HAVE_MKFIFO
+ 		r = mkfifo(a->name, mode);
++#endif /* HAVE_MKFIFO */
+ 		break;
+ 	}
+ 
+@@ -1126,7 +1156,8 @@ check_symlinks(struct archive_write_disk
+ 			/* We've hit a dir that doesn't exist; stop now. */
+ 			if (errno == ENOENT)
+ 				break;
+-		} else if (S_ISLNK(st.st_mode)) {
++		} 
++		else if (S_ISLNK(st.st_mode)) {
+ 			if (c == '\0') {
+ 				/*
+ 				 * Last element is symlink; remove it
+@@ -1434,10 +1465,14 @@ set_ownership(struct archive_write_disk 
+ #ifdef HAVE_LCHOWN
+ 	if (lchown(a->name, a->uid, a->gid) == 0)
+ 		goto success;
+-#else
++#else /* HAVE_LCHOWN */
++#ifndef HAVE_CHOWN
++	goto success;
++#else /* ! HAVE_CHOWN */
+ 	if (!S_ISLNK(a->mode) && chown(a->name, a->uid, a->gid) == 0)
+ 		goto success;
+-#endif
++#endif /* ! HAVE_CHOWN */
++#endif /* HAVE_LCHOWN */
+ 
+ 	archive_set_error(&a->archive, errno,
+ 	    "Can't set user=%d/group=%d for %s", a->uid, a->gid,
+@@ -1525,7 +1560,6 @@ set_time(struct archive_write_disk *a)
+ }
+ #endif
+ 
+-
+ static int
+ set_mode(struct archive_write_disk *a, int mode)
+ {
+@@ -1612,7 +1646,8 @@ set_mode(struct archive_write_disk *a, i
+ 			r = ARCHIVE_WARN;
+ 		}
+ #endif
+-	} else if (!S_ISDIR(a->mode)) {
++	} 
++	else if (!S_ISDIR(a->mode)) {
+ 		/*
+ 		 * If it's not a symlink and not a dir, then use
+ 		 * fchmod() or chmod(), depending on whether we have
+@@ -1786,7 +1821,7 @@ set_fflags_platform(struct archive_write
+ 
+ 	/* If we weren't given an fd, open it ourselves. */
+ 	if (myfd < 0)
+-		myfd = open(name, O_RDONLY|O_NONBLOCK);
++		myfd = open(name, O_RDONLY|O_NONBLOCK|O_BINARY);
+ 	if (myfd < 0)
+ 		return (ARCHIVE_OK);
+ 
+diff -ipuwr --binary --strip-trailing-cr -x '*.bak' -x '*.orig' -x '*.rej' -x '*.new' -x '*~' -x debian -x '*.po' -x '*.pot' libarchive-2.4.11-orig/libarchive/archive_write_open_fd.c libarchive-2.4.11-src/libarchive/archive_write_open_fd.c
+--- libarchive-2.4.11-orig/libarchive/archive_write_open_fd.c	2007-01-27 22:36:15.000000000 +0100
++++ libarchive-2.4.11-src/libarchive/archive_write_open_fd.c	2007-10-29 20:45:06.000000000 +0100
+@@ -81,11 +81,12 @@ file_open(struct archive *a, void *clien
+ 		return (ARCHIVE_FATAL);
+ 	}
+ 
++
+ 	/*
+ 	 * If this is a regular file, don't add it to itself.
+ 	 */
+ 	if (S_ISREG(st.st_mode))
+-		archive_write_set_skip_file(a, st.st_dev, st.st_ino);
++		archive_write_set_skip_file(a, st.st_dev, st.st_ino, NULL);
+ 
+ 	/*
+ 	 * If client hasn't explicitly set the last block handling,
+diff -ipuwr --binary --strip-trailing-cr -x '*.bak' -x '*.orig' -x '*.rej' -x '*.new' -x '*~' -x debian -x '*.po' -x '*.pot' libarchive-2.4.11-orig/libarchive/archive_write_open_filename.c libarchive-2.4.11-src/libarchive/archive_write_open_filename.c
+--- libarchive-2.4.11-orig/libarchive/archive_write_open_filename.c	2007-01-27 22:36:15.000000000 +0100
++++ libarchive-2.4.11-src/libarchive/archive_write_open_filename.c	2007-10-29 20:45:06.000000000 +0100
+@@ -95,7 +95,7 @@ file_open(struct archive *a, void *clien
+ 	struct stat st;
+ 
+ 	mine = (struct write_file_data *)client_data;
+-	flags = O_WRONLY | O_CREAT | O_TRUNC;
++	flags = O_WRONLY | O_CREAT | O_TRUNC | O_BINARY;
+ 
+ 	/*
+ 	 * Open the file.
+@@ -142,7 +142,7 @@ file_open(struct archive *a, void *clien
+ 	 * entry to the output archive.
+ 	 */
+ 	if (S_ISREG(st.st_mode))
+-		archive_write_set_skip_file(a, st.st_dev, st.st_ino);
++		archive_write_set_skip_file(a, st.st_dev, st.st_ino, mine->filename);
+ 
+ 	return (ARCHIVE_OK);
+ }
+diff -ipuwr --binary --strip-trailing-cr -x '*.bak' -x '*.orig' -x '*.rej' -x '*.new' -x '*~' -x debian -x '*.po' -x '*.pot' libarchive-2.4.11-orig/libarchive/archive_write_private.h libarchive-2.4.11-src/libarchive/archive_write_private.h
+--- libarchive-2.4.11-orig/libarchive/archive_write_private.h	2007-05-29 04:00:19.000000000 +0200
++++ libarchive-2.4.11-src/libarchive/archive_write_private.h	2007-10-29 20:45:06.000000000 +0100
+@@ -38,6 +38,7 @@ struct archive_write {
+ 	/* Dev/ino of the archive being written. */
+ 	dev_t		  skip_file_dev;
+ 	ino_t		  skip_file_ino;
++	char 		  *skip_file_name;
+ 
+ 	/* Utility:  Pointer to a block of nulls. */
+ 	const unsigned char	*nulls;
+diff -ipuwr --binary --strip-trailing-cr -x '*.bak' -x '*.orig' -x '*.rej' -x '*.new' -x '*~' -x debian -x '*.po' -x '*.pot' libarchive-2.4.11-orig/libarchive/test/test_acl_pax.c libarchive-2.4.11-src/libarchive/test/test_acl_pax.c
+--- libarchive-2.4.11-orig/libarchive/test/test_acl_pax.c	2007-07-06 18:44:46.000000000 +0200
++++ libarchive-2.4.11-src/libarchive/test/test_acl_pax.c	2007-10-29 20:45:06.000000000 +0100
+@@ -457,12 +457,12 @@ DEFINE_TEST(test_acl_pax)
+ #endif
+ 
+ 	/* Write out the data we generated to a file for manual inspection. */
+-	assert(-1 < (fd = open("testout", O_WRONLY | O_CREAT | O_TRUNC, 0775)));
++	assert(-1 < (fd = open("testout", O_WRONLY | O_CREAT | O_TRUNC | O_BINARY, 0775)));
+ 	assert(used == (size_t)write(fd, buff, used));
+ 	close(fd);
+ 
+ 	/* Write out the reference data to a file for manual inspection. */
+-	assert(-1 < (fd = open("reference", O_WRONLY | O_CREAT | O_TRUNC, 0775)));
++	assert(-1 < (fd = open("reference", O_WRONLY | O_CREAT | O_TRUNC | O_BINARY, 0775)));
+ 	assert(sizeof(reference) == write(fd, reference, sizeof(reference)));
+ 	close(fd);
+ 
+diff -ipuwr --binary --strip-trailing-cr -x '*.bak' -x '*.orig' -x '*.rej' -x '*.new' -x '*~' -x debian -x '*.po' -x '*.pot' libarchive-2.4.11-orig/libarchive/test/test_read_data_large.c libarchive-2.4.11-src/libarchive/test/test_read_data_large.c
+--- libarchive-2.4.11-orig/libarchive/test/test_read_data_large.c	2007-05-29 04:00:20.000000000 +0200
++++ libarchive-2.4.11-src/libarchive/test/test_read_data_large.c	2007-10-29 20:45:06.000000000 +0100
+@@ -96,7 +96,7 @@ DEFINE_TEST(test_read_data_large)
+ 	assertA(0 == archive_read_support_compression_all(a));
+ 	assertA(0 == archive_read_open_memory(a, buff1, sizeof(buff1)));
+ 	assertA(0 == archive_read_next_header(a, &ae));
+-	tmpfilefd = open(tmpfilename, O_WRONLY | O_CREAT, 0777);
++	tmpfilefd = open(tmpfilename, O_WRONLY | O_CREAT | O_BINARY, 0777);
+ 	assert(tmpfilefd != 0);
+ 	assertEqualIntA(a, 0, archive_read_data_into_fd(a, tmpfilefd));
+ 	assert(0 == archive_read_close(a));
+@@ -107,7 +107,7 @@ DEFINE_TEST(test_read_data_large)
+ #endif
+ 	close(tmpfilefd);
+ 
+-	tmpfilefd = open(tmpfilename, O_RDONLY);
++	tmpfilefd = open(tmpfilename, O_RDONLY | O_BINARY);
+ 	assert(tmpfilefd != 0);
+ 	assertEqualIntA(NULL, sizeof(buff3), read(tmpfilefd, buff3, sizeof(buff3)));
+ 	close(tmpfilefd);
+diff -ipuwr --binary --strip-trailing-cr -x '*.bak' -x '*.orig' -x '*.rej' -x '*.new' -x '*~' -x debian -x '*.po' -x '*.pot' libarchive-2.4.11-orig/libarchive/test/test_read_extract.c libarchive-2.4.11-src/libarchive/test/test_read_extract.c
+--- libarchive-2.4.11-orig/libarchive/test/test_read_extract.c	2007-05-29 04:00:20.000000000 +0200
++++ libarchive-2.4.11-src/libarchive/test/test_read_extract.c	2007-10-29 20:45:07.000000000 +0100
+@@ -143,7 +143,7 @@ DEFINE_TEST(test_read_extract)
+ 	assert(st.st_mode == (S_IFREG | 0755));
+ 	failure("The file extracted to disk is the wrong size.");
+ 	assert(st.st_size == FILE_BUFF_SIZE);
+-	fd = open("file", O_RDONLY);
++	fd = open("file", O_RDONLY | O_BINARY);
+ 	failure("The file on disk could not be opened.");
+ 	assert(fd != 0);
+ 	bytes_read = read(fd, buff, FILE_BUFF_SIZE);
+diff -ipuwr --binary --strip-trailing-cr -x '*.bak' -x '*.orig' -x '*.rej' -x '*.new' -x '*~' -x debian -x '*.po' -x '*.pot' libarchive-2.4.11-orig/libarchive/test/test_read_large.c libarchive-2.4.11-src/libarchive/test/test_read_large.c
+--- libarchive-2.4.11-orig/libarchive/test/test_read_large.c	2007-05-29 04:00:21.000000000 +0200
++++ libarchive-2.4.11-src/libarchive/test/test_read_large.c	2007-10-29 20:45:07.000000000 +0100
+@@ -34,7 +34,11 @@ DEFINE_TEST(test_read_large)
+ {
+ 	unsigned int i;
+ 	int tmpfilefd;
++#ifdef _WIN32
++	char tmpfilename[] = "./test-read_large.XXXXXX";
++#else
+ 	char tmpfilename[] = "/tmp/test-read_large.XXXXXX";
++#endif
+ 	size_t used;
+ 	struct archive *a;
+ 	struct archive_entry *entry;
+@@ -85,10 +89,10 @@ DEFINE_TEST(test_read_large)
+ #else
+ 	archive_read_finish(a);
+ #endif
+-	tmpfilefd = open(tmpfilename, O_RDONLY);
++	tmpfilefd = open(tmpfilename, O_RDONLY | O_BINARY);
+ 	read(tmpfilefd, testdatacopy, sizeof(testdatacopy));
+ 	close(tmpfilefd);
+ 	assert(0 == memcmp(testdata, testdatacopy, sizeof(testdata)));
+ 
+-	unlink(tmpfilename);
++//	unlink(tmpfilename);
+ }
+diff -ipuwr --binary --strip-trailing-cr -x '*.bak' -x '*.orig' -x '*.rej' -x '*.new' -x '*~' -x debian -x '*.po' -x '*.pot' libarchive-2.4.11-orig/libarchive/test/test_write_disk_perms.c libarchive-2.4.11-src/libarchive/test/test_write_disk_perms.c
+--- libarchive-2.4.11-orig/libarchive/test/test_write_disk_perms.c	2007-12-03 07:51:45.000000000 +0100
++++ libarchive-2.4.11-src/libarchive/test/test_write_disk_perms.c	2007-12-07 10:20:08.000000000 +0100
+@@ -60,7 +60,7 @@ searchgid(void)
+ 	_searched = 1;
+ 
+ 	/* Create a file on disk in the current default dir. */
+-	fd = open("test_gid", O_CREAT, 0664);
++	fd = open("test_gid", O_CREAT | O_BINARY, 0664);
+ 	failure("Couldn't create a file for gid testing.");
+ 	assert(fd > 0);
+ 
+@@ -68,6 +68,7 @@ searchgid(void)
+ 	assert(fstat(fd, &st) == 0);
+ 	_default_gid = st.st_gid;
+ 
++#ifdef HAVE_FCHOWN
+ 	/* Find a GID for which fchown() fails.  This is our "invalid" GID. */
+ 	_invalid_gid = -1;
+ 	/* This loop stops when we wrap the gid or examine 10,000 gids. */
+@@ -77,7 +78,9 @@ searchgid(void)
+ 			break;
+ 		}
+ 	}
++#endif /* HAVE_FCHOWN */
+ 
++#ifdef HAVE_FCHOWN
+ 	/*
+ 	 * Find a GID for which fchown() succeeds, but which isn't the
+ 	 * default.  This is the "alternate" gid.
+@@ -92,6 +95,7 @@ searchgid(void)
+ 			break;
+ 		}
+ 	}
++#endif /* HAVE_FCHOWN */
+ 	close(fd);
+ }
+ 
+@@ -139,7 +143,9 @@ DEFINE_TEST(test_write_disk_perms)
+ 	 * and we're on a system where group ownership is inherited.
+ 	 * (Because we're not allowed to SGID files with defaultgid().)
+ 	 */
++#if HAVE_CHOWN && HAVE_GETGID
+ 	assertEqualInt(0, chown(".", getuid(), getgid()));
++#endif /* HAVE_CHOWN */
+ 
+ 	/* Create an archive_write_disk object. */
+ 	assert((a = archive_write_disk_new()) != NULL);
+diff -ipuwr --binary --strip-trailing-cr -x '*.bak' -x '*.orig' -x '*.rej' -x '*.new' -x '*~' -x debian -x '*.po' -x '*.pot' libarchive-2.4.11-orig/libarchive/test/test_write_open_memory.c libarchive-2.4.11-src/libarchive/test/test_write_open_memory.c
+--- libarchive-2.4.11-orig/libarchive/test/test_write_open_memory.c	2007-05-29 04:00:21.000000000 +0200
++++ libarchive-2.4.11-src/libarchive/test/test_write_open_memory.c	2007-10-29 20:45:07.000000000 +0100
+@@ -33,7 +33,11 @@ DEFINE_TEST(test_write_open_memory)
+ 	unsigned int i;
+ 	struct archive *a;
+ 	struct archive_entry *ae;
++#ifdef _WIN32
++	const char *name="./test";
++#else
+ 	const char *name="/tmp/test";
++#endif
+ 
+ 	/* Create a simple archive_entry. */
+ 	assert((ae = archive_entry_new()) != NULL);
+diff -ipuwr --binary --strip-trailing-cr -x '*.bak' -x '*.orig' -x '*.rej' -x '*.new' -x '*~' -x debian -x '*.po' -x '*.pot' libarchive-2.4.11-orig/tar/bsdtar.c libarchive-2.4.11-src/tar/bsdtar.c
+--- libarchive-2.4.11-orig/tar/bsdtar.c	2007-09-17 02:30:14.000000000 +0200
++++ libarchive-2.4.11-src/tar/bsdtar.c	2007-10-29 20:45:07.000000000 +0100
+@@ -78,13 +78,13 @@ struct option {
+ 
+ #include "bsdtar.h"
+ 
+-#if !HAVE_DECL_OPTARG
+-extern int optarg;
+-#endif
+-
+-#if !HAVE_DECL_OPTIND
+-extern int optind;
+-#endif
++//#if !HAVE_DECL_OPTARG
++//extern int optarg;
++//#endif
++
++//#if !HAVE_DECL_OPTIND
++//extern int optind;
++//#endif
+ 
+ /*
+  * Per POSIX.1-1988, tar defaults to reading/writing archives to/from
+@@ -94,6 +94,10 @@ extern int optind;
+ #define	_PATH_DEFTAPE "/dev/st0"
+ #endif
+ 
++#ifdef _WIN32
++#define	_PATH_DEFTAPE "\\\\.\\TAPE0"
++#endif /* _WIN32  */
++
+ #ifndef _PATH_DEFTAPE
+ #define	_PATH_DEFTAPE "/dev/tape"
+ #endif
+diff -ipuwr --binary --strip-trailing-cr -x '*.bak' -x '*.orig' -x '*.rej' -x '*.new' -x '*~' -x debian -x '*.po' -x '*.pot' libarchive-2.4.11-orig/tar/tree.c libarchive-2.4.11-src/tar/tree.c
+--- libarchive-2.4.11-orig/tar/tree.c	2007-03-11 11:36:42.000000000 +0100
++++ libarchive-2.4.11-src/tar/tree.c	2007-10-29 20:45:07.000000000 +0100
+@@ -100,6 +100,9 @@ struct tree {
+ 	struct tree_entry	*current;
+ 	DIR	*d;
+ 	int	 initialDirFd;
++#ifndef HAVE_FCHDIR
++	char *initialDir;
++#endif /* HAVE_FCHDIR */
+ 	int	 flags;
+ 	int	 visit_type;
+ 	int	 tree_errno; /* Error code from last failed operation. */
+@@ -164,6 +167,8 @@ tree_push(struct tree *t, const char *pa
+ 	te->next = t->stack;
+ 	t->stack = te;
+ 	te->fd = -1;
++	if (te->name)
++		free (te->name);
+ 	te->name = strdup(path);
+ 	te->flags = needsPreVisit | needsPostVisit;
+ 	te->dirname_length = t->dirname_length;
+@@ -213,7 +218,13 @@ tree_open(const char *path)
+ 	t = malloc(sizeof(*t));
+ 	memset(t, 0, sizeof(*t));
+ 	tree_append(t, path, strlen(path));
+-	t->initialDirFd = open(".", O_RDONLY);
++#ifdef HAVE_FCHDIR
++	t->initialDirFd = open(".", O_RDONLY | O_BINARY);
++#else /* HAVE_FCHDIR */
++	t->initialDir = fullname(".");
++	t->initialDirFd = 9999;
++#endif /* HAVE_FCHDIR */
++	
+ 	/*
+ 	 * During most of the traversal, items are set up and then
+ 	 * returned immediately from tree_next().  That doesn't work
+@@ -235,8 +246,12 @@ tree_ascend(struct tree *t)
+ 	te = t->stack;
+ 	t->depth--;
+ 	if (te->flags & isDirLink) {
++#ifdef HAVE_FCHDIR
+ 		fchdir(te->fd);
+ 		close(te->fd);
++#else /* HAVE_FCHDIR */
++		chdir(te->name);
++#endif /* HAVE_FCHDIR */
+ 		t->openCount--;
+ 	} else {
+ 		chdir("..");
+@@ -312,7 +327,11 @@ tree_next(struct tree *t)
+ 			t->stack->flags &= ~needsPreVisit;
+ 			/* If it is a link, set up fd for the ascent. */
+ 			if (t->stack->flags & isDirLink) {
+-				t->stack->fd = open(".", O_RDONLY);
++#ifdef HAVE_FCHDIR
++			t->stack->fd = open(".", O_RDONLY | O_BINARY);
++#else /* HAVE_FCHDIR */
++//			t->stack->name = fullname (".");
++#endif /* HAVE_FCHDIR */
+ 				t->openCount++;
+ 				if (t->openCount > t->maxOpenCount)
+ 					t->maxOpenCount = t->openCount;
+@@ -483,6 +502,7 @@ tree_current_is_physical_link(struct tre
+ 	if (st == NULL)
+ 		return 0;
+ 	return (S_ISLNK(st->st_mode));
++	return 0;
+ }
+ 
+ /*
+@@ -534,8 +554,14 @@ tree_close(struct tree *t)
+ 		free(t->buff);
+ 	/* chdir() back to where we started. */
+ 	if (t->initialDirFd >= 0) {
++#ifdef HAVE_FCHDIR
+ 		fchdir(t->initialDirFd);
+ 		close(t->initialDirFd);
++#else /* HAVE_FCHDIR */
++		chdir(t->initialDir);
++		if (t->initialDir)
++			free(t->initialDir);
++#endif /* HAVE_FCHDIR */
+ 		t->initialDirFd = -1;
+ 	}
+ 	free(t);
+diff -ipuwr --binary --strip-trailing-cr -x '*.bak' -x '*.orig' -x '*.rej' -x '*.new' -x '*~' -x debian -x '*.po' -x '*.pot' libarchive-2.4.11-orig/tar/util.c libarchive-2.4.11-src/tar/util.c
+--- libarchive-2.4.11-orig/tar/util.c	2007-09-13 07:09:02.000000000 +0200
++++ libarchive-2.4.11-src/tar/util.c	2007-10-29 20:45:07.000000000 +0100
+@@ -173,12 +173,29 @@ yes(const char *fmt, ...)
+ 
+ 	va_list ap;
+ 	va_start(ap, fmt);
++#ifdef _WIN32
++{
++#include <conio.h>
++#define MAXTTYLINE 80
++	char wbuf[MAXTTYLINE];
++	char *result;
++
++	vsprintf (wbuf, fmt, ap);
++	va_end (ap);
++	_cputs (wbuf);
++	_cputs (" (y/N)? ");
++	wbuf[0] = MAXTTYLINE;
++	result = _cgets(wbuf);
++	l = wbuf[1];
++	strcpy(buff, result);
++}
++#else /* _WIN32 */
+ 	vfprintf(stderr, fmt, ap);
+ 	va_end(ap);
+ 	fprintf(stderr, " (y/N)? ");
+ 	fflush(stderr);
+-
+ 	l = read(2, buff, sizeof(buff));
++#endif /* _WIN32 */
+ 	if (l <= 0)
+ 		return (0);
+ 	buff[l] = 0;
+diff -ipuwr --binary --strip-trailing-cr -x '*.bak' -x '*.orig' -x '*.rej' -x '*.new' -x '*~' -x debian -x '*.po' -x '*.pot' libarchive-2.4.11-orig/tar/write.c libarchive-2.4.11-src/tar/write.c
+--- libarchive-2.4.11-orig/tar/write.c	2007-09-16 01:47:52.000000000 +0200
++++ libarchive-2.4.11-src/tar/write.c	2007-10-29 20:45:07.000000000 +0100
+@@ -259,7 +259,7 @@ tar_mode_r(struct bsdtar *bsdtar)
+ 
+ 	format = ARCHIVE_FORMAT_TAR_PAX_RESTRICTED;
+ 
+-	bsdtar->fd = open(bsdtar->filename, O_RDWR | O_CREAT, 0666);
++	bsdtar->fd = open(bsdtar->filename, O_RDWR | O_CREAT | O_BINARY, 0666);
+ 	if (bsdtar->fd < 0)
+ 		bsdtar_errc(bsdtar, 1, errno,
+ 		    "Cannot open %s", bsdtar->filename);
+@@ -355,7 +355,7 @@ tar_mode_u(struct bsdtar *bsdtar)
+ 	/* Sanity-test some arguments and the file. */
+ 	test_for_append(bsdtar);
+ 
+-	bsdtar->fd = open(bsdtar->filename, O_RDWR);
++	bsdtar->fd = open(bsdtar->filename, O_RDWR | O_BINARY);
+ 	if (bsdtar->fd < 0)
+ 		bsdtar_errc(bsdtar, 1, errno,
+ 		    "Cannot open %s", bsdtar->filename);
+@@ -706,7 +706,7 @@ write_hierarchy(struct bsdtar *bsdtar, s
+ 		 * we have to open() the file/dir and do an ioctl on it...
+ 		 */
+ 		if (bsdtar->option_honor_nodump &&
+-		    ((fd = open(name, O_RDONLY|O_NONBLOCK)) >= 0) &&
++		    ((fd = open(name, O_RDONLY|O_NONBLOCK | O_BINARY)) >= 0) &&
+ 		    ((r = ioctl(fd, EXT2_IOC_GETFLAGS, &fflags)),
+ 			close(fd), r) >= 0 &&
+ 		    (fflags & EXT2_NODUMP_FL))
+@@ -846,7 +846,7 @@ write_entry(struct bsdtar *bsdtar, struc
+ 
+ #ifdef __linux
+ 	if ((S_ISREG(st->st_mode) || S_ISDIR(st->st_mode)) &&
+-	    ((fd = open(accpath, O_RDONLY|O_NONBLOCK)) >= 0) &&
++	    ((fd = open(accpath, O_RDONLY|O_NONBLOCK | O_BINARY)) >= 0) &&
+ 	    ((r = ioctl(fd, EXT2_IOC_GETFLAGS, &stflags)), close(fd), (fd = -1), r) >= 0 &&
+ 	    stflags) {
+ 		archive_entry_set_fflags(entry, stflags, 0);
+@@ -864,7 +864,7 @@ write_entry(struct bsdtar *bsdtar, struc
+ 	 * can't read it.
+ 	 */
+ 	if (S_ISREG(st->st_mode) && st->st_size > 0) {
+-		fd = open(accpath, O_RDONLY);
++		fd = open(accpath, O_RDONLY | O_BINARY);
+ 		if (fd < 0) {
+ 			if (!bsdtar->verbose)
+ 				bsdtar_warnc(bsdtar, errno, "%s: could not open file", pathname);
+@@ -1392,10 +1392,11 @@ lookup_uname(struct bsdtar *bsdtar, uid_
+ static int
+ lookup_uname_helper(struct bsdtar *bsdtar, const char **name, id_t id)
+ {
+-	struct passwd	*pwent;
+-
+ 	(void)bsdtar; /* UNUSED */
+ 
++#ifdef HAVE_PWD
++	struct passwd	*pwent;
++
+ 	errno = 0;
+ 	pwent = getpwuid((uid_t)id);
+ 	if (pwent == NULL) {
+@@ -1406,6 +1407,9 @@ lookup_uname_helper(struct bsdtar *bsdta
+ 	}
+ 
+ 	*name = pwent->pw_name;
++#else /* HAVE_PWD  */
++	*name = NULL;
++#endif /* HAVE_PWD  */
+ 	return (0);
+ }
+ 
+@@ -1419,10 +1423,11 @@ lookup_gname(struct bsdtar *bsdtar, gid_
+ static int
+ lookup_gname_helper(struct bsdtar *bsdtar, const char **name, id_t id)
+ {
+-	struct group	*grent;
+-
+ 	(void)bsdtar; /* UNUSED */
+ 
++#ifdef HAVE_GRP
++	struct group	*grent;
++
+ 	errno = 0;
+ 	grent = getgrgid((gid_t)id);
+ 	if (grent == NULL) {
+@@ -1433,6 +1438,9 @@ lookup_gname_helper(struct bsdtar *bsdta
+ 	}
+ 
+ 	*name = grent->gr_name;
++#else /* HAVE_GRP  */
++	*name = NULL;
++#endif /* HAVE_GRP */	
+ 	return (0);
+ }
+ 

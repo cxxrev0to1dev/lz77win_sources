@@ -1,0 +1,38 @@
+BUILDDIR=$(shell cygpath -m `pwd`)
+SRCDIR=../$(shell basename $(BUILDDIR)-src)
+export DEFSPLUS=-DBZ_IMPORT 
+export INCLUDESPLUS=#-I$(SRCDIR)/nonposix
+export CFLAGSPLUS=
+export LDFLAGSPLUS=
+export LIBSPLUS= -liberty
+export DLLFLAG=-DBUILD_LIBARCHIVE_DLL
+sedfiles=Makefile libtool config.h
+export PREFIX=c:/progra~1/LibArchive
+
+#export ac_cv_lib_acl_acl_set_file=no
+#export ac_cv_header_sys_acl_h=no
+#export ac_cv_func_acl_create_entry=no
+#export ac_cv_func_acl_init=no
+#export ac_cv_func_acl_set_file=no
+
+#export ac_cv_header_sys_sysmacros_h=yes
+
+.PHONY: all 
+all: CONF MFSED
+CONF:
+#	if [ ! -e Makefile.in.sed ]; then \
+#		cp -fp k:/Makefile.in.sed .; \
+#	fi
+#	find.exe $(SRCDIR) -iname Makefile.in -exec sed -i -f Makefile.in.sed '{}' ';'
+	$(SRCDIR)/configure --prefix="$(PREFIX)"  --srcdir="$(SRCDIR)" \
+		--enable-shared --disable-static --enable-bsdcpio=shared \
+		--disable-xattr --disable-acl \
+		--docdir="$(PREFIX)/doc" --infodir="$(PREFIX)/info" --mandir="$(PREFIX)/man"
+		
+	
+-include $(DVLDIR)/makefile.chg
+
+#	make all
+#	make check
+#	make install prefix=c:/temp/sed
+                                 

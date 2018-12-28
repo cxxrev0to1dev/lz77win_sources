@@ -1,0 +1,382 @@
+Hmm...  Looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|diff -ipuwr --binary --strip-trailing-cr -x '*.bak' -x '*.orig' -x '*.rej' -x '*.new' -x '*~' -x debian -x '*.po' -x '*.pot' libarchive-2.4.11-orig/Makefile.in libarchive-2.4.11-src/Makefile.in
+|--- libarchive-2.4.11-orig/Makefile.in	2007-12-31 07:38:05.000000000 +0100
+|+++ libarchive-2.4.11-src/Makefile.in	2008-01-02 09:01:44.375000000 +0100
+--------------------------
+Patching file Makefile.in using Plan A...
+Hunk #1 succeeded at 16.
+Hunk #2 succeeded at 123.
+Hunk #3 succeeded at 140.
+Hunk #4 succeeded at 174 (offset 1 line).
+Hunk #5 succeeded at 242 (offset 1 line).
+Hunk #6 succeeded at 381 (offset 2 lines).
+Hunk #7 succeeded at 404 (offset 2 lines).
+Hunk #8 succeeded at 501 (offset 12 lines).
+Hunk #9 succeeded at 566 (offset 13 lines).
+Hunk #10 FAILED at 674.
+Hunk #11 succeeded at 831 (offset 25 lines).
+Hunk #12 succeeded at 1065 (offset 25 lines).
+Hunk #13 succeeded at 1179 (offset 27 lines).
+Hunk #14 succeeded at 1204 (offset 27 lines).
+Hunk #15 succeeded at 1387 (offset 27 lines).
+Hunk #16 succeeded at 1560 (offset 30 lines).
+Hunk #17 succeeded at 1572 with fuzz 1 (offset 30 lines).
+Hunk #18 succeeded at 1696 (offset 31 lines).
+Hunk #19 succeeded at 1752 (offset 31 lines).
+Hunk #20 succeeded at 1835 with fuzz 1 (offset 32 lines).
+Hunk #21 succeeded at 1957 (offset 33 lines).
+Hunk #22 succeeded at 2028 (offset 34 lines).
+Hunk #23 succeeded at 2489 (offset 34 lines).
+Hunk #24 succeeded at 2825 (offset 48 lines).
+Hunk #25 succeeded at 3054 (offset 48 lines).
+Hunk #26 succeeded at 3788 (offset 48 lines).
+Not setting time of file Makefile.in (time mismatch)
+1 out of 26 hunks FAILED -- saving rejects to file Makefile.in.rej
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|diff -ipuwr --binary --strip-trailing-cr -x '*.bak' -x '*.orig' -x '*.rej' -x '*.new' -x '*~' -x debian -x '*.po' -x '*.pot' libarchive-2.4.11-orig/config.h.in libarchive-2.4.11-src/config.h.in
+|--- libarchive-2.4.11-orig/config.h.in	2007-12-31 07:38:03.000000000 +0100
+|+++ libarchive-2.4.11-src/config.h.in	2008-01-02 08:59:08.734375000 +0100
+--------------------------
+Patching file config.h.in using Plan A...
+Hunk #1 succeeded at 1.
+Hunk #2 succeeded at 134.
+Hunk #3 succeeded at 225.
+Hunk #4 succeeded at 488.
+Not setting time of file config.h.in (time mismatch)
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|diff -ipuwr --binary --strip-trailing-cr -x '*.bak' -x '*.orig' -x '*.rej' -x '*.new' -x '*~' -x debian -x '*.po' -x '*.pot' libarchive-2.4.11-orig/cpio/cmdline.c libarchive-2.4.11-src/cpio/cmdline.c
+|--- libarchive-2.4.11-orig/cpio/cmdline.c	2007-12-22 08:11:16.000000000 +0100
+|+++ libarchive-2.4.11-src/cpio/cmdline.c	2008-01-02 08:59:08.765625000 +0100
+--------------------------
+Patching file cpio/cmdline.c using Plan A...
+Hunk #1 succeeded at 209.
+Hunk #2 succeeded at 232.
+Hunk #3 succeeded at 246.
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|diff -ipuwr --binary --strip-trailing-cr -x '*.bak' -x '*.orig' -x '*.rej' -x '*.new' -x '*~' -x debian -x '*.po' -x '*.pot' libarchive-2.4.11-orig/cpio/cpio.c libarchive-2.4.11-src/cpio/cpio.c
+|--- libarchive-2.4.11-orig/cpio/cpio.c	2007-12-30 23:45:35.000000000 +0100
+|+++ libarchive-2.4.11-src/cpio/cpio.c	2008-01-02 08:59:08.781250000 +0100
+--------------------------
+Patching file cpio/cpio.c using Plan A...
+Hunk #1 succeeded at 447 (offset 4 lines).
+Hunk #2 succeeded at 470 (offset 4 lines).
+Not setting time of file cpio/cpio.c (time mismatch)
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|diff -ipuwr --binary --strip-trailing-cr -x '*.bak' -x '*.orig' -x '*.rej' -x '*.new' -x '*~' -x debian -x '*.po' -x '*.pot' libarchive-2.4.11-orig/cpio/cpio.h libarchive-2.4.11-src/cpio/cpio.h
+|--- libarchive-2.4.11-orig/cpio/cpio.h	2007-12-22 07:51:40.000000000 +0100
+|+++ libarchive-2.4.11-src/cpio/cpio.h	2008-01-02 08:59:08.812500000 +0100
+--------------------------
+Patching file cpio/cpio.h using Plan A...
+Hunk #1 succeeded at 31.
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|diff -ipuwr --binary --strip-trailing-cr -x '*.bak' -x '*.orig' -x '*.rej' -x '*.new' -x '*~' -x debian -x '*.po' -x '*.pot' libarchive-2.4.11-orig/cpio/matching.c libarchive-2.4.11-src/cpio/matching.c
+|--- libarchive-2.4.11-orig/cpio/matching.c	2007-12-22 07:37:00.000000000 +0100
+|+++ libarchive-2.4.11-src/cpio/matching.c	2008-01-02 09:19:34.078125000 +0100
+--------------------------
+Patching file cpio/matching.c using Plan A...
+Hunk #1 succeeded at 272.
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|diff -ipuwr --binary --strip-trailing-cr -x '*.bak' -x '*.orig' -x '*.rej' -x '*.new' -x '*~' -x debian -x '*.po' -x '*.pot' libarchive-2.4.11-orig/libarchive/archive.h.in libarchive-2.4.11-src/libarchive/archive.h.in
+|--- libarchive-2.4.11-orig/libarchive/archive.h.in	2007-09-17 03:35:00.000000000 +0200
+|+++ libarchive-2.4.11-src/libarchive/archive.h.in	2007-10-29 20:45:06.000000000 +0100
+--------------------------
+Patching file libarchive/archive.h.in using Plan A...
+Hunk #1 succeeded at 40.
+Hunk #2 succeeded at 82.
+Hunk #3 succeeded at 101.
+Hunk #4 succeeded at 112.
+Hunk #5 succeeded at 243.
+Hunk #6 succeeded at 252.
+Hunk #7 succeeded at 285.
+Hunk #8 succeeded at 330.
+Hunk #9 succeeded at 377.
+Hunk #10 succeeded at 414.
+Hunk #11 succeeded at 498.
+Hunk #12 succeeded at 522.
+Hunk #13 succeeded at 542.
+Not setting time of file libarchive/archive.h.in (time mismatch)
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|diff -ipuwr --binary --strip-trailing-cr -x '*.bak' -x '*.orig' -x '*.rej' -x '*.new' -x '*~' -x debian -x '*.po' -x '*.pot' libarchive-2.4.11-orig/libarchive/archive_entry.h libarchive-2.4.11-src/libarchive/archive_entry.h
+|--- libarchive-2.4.11-orig/libarchive/archive_entry.h	2007-09-16 02:10:07.000000000 +0200
+|+++ libarchive-2.4.11-src/libarchive/archive_entry.h	2007-10-29 20:45:06.000000000 +0100
+--------------------------
+Patching file libarchive/archive_entry.h using Plan A...
+Hunk #1 succeeded at 28.
+Hunk #2 succeeded at 96.
+Hunk #3 succeeded at 147.
+Hunk #4 succeeded at 196.
+Hunk #5 succeeded at 238.
+Hunk #6 succeeded at 249.
+Hunk #7 succeeded at 269.
+Hunk #8 succeeded at 284.
+Hunk #9 succeeded at 300.
+Hunk #10 succeeded at 322.
+Not setting time of file libarchive/archive_entry.h (time mismatch)
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|diff -ipuwr --binary --strip-trailing-cr -x '*.bak' -x '*.orig' -x '*.rej' -x '*.new' -x '*~' -x debian -x '*.po' -x '*.pot' libarchive-2.4.11-orig/libarchive/archive_platform.h libarchive-2.4.11-src/libarchive/archive_platform.h
+|--- libarchive-2.4.11-orig/libarchive/archive_platform.h	2007-10-31 05:41:09.000000000 +0100
+|+++ libarchive-2.4.11-src/libarchive/archive_platform.h	2007-11-03 10:59:52.000000000 +0100
+--------------------------
+Patching file libarchive/archive_platform.h using Plan A...
+Hunk #1 succeeded at 47.
+Not setting time of file libarchive/archive_platform.h (time mismatch)
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|diff -ipuwr --binary --strip-trailing-cr -x '*.bak' -x '*.orig' -x '*.rej' -x '*.new' -x '*~' -x debian -x '*.po' -x '*.pot' libarchive-2.4.11-orig/libarchive/archive_read.c libarchive-2.4.11-src/libarchive/archive_read.c
+|--- libarchive-2.4.11-orig/libarchive/archive_read.c	2007-10-31 04:45:27.000000000 +0100
+|+++ libarchive-2.4.11-src/libarchive/archive_read.c	2007-12-18 23:48:58.000000000 +0100
+--------------------------
+Patching file libarchive/archive_read.c using Plan A...
+Hunk #1 succeeded at 97.
+Hunk #2 succeeded at 667.
+Not setting time of file libarchive/archive_read.c (time mismatch)
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|diff -ipuwr --binary --strip-trailing-cr -x '*.bak' -x '*.orig' -x '*.rej' -x '*.new' -x '*~' -x debian -x '*.po' -x '*.pot' libarchive-2.4.11-orig/libarchive/archive_read_extract.c libarchive-2.4.11-src/libarchive/archive_read_extract.c
+|--- libarchive-2.4.11-orig/libarchive/archive_read_extract.c	2007-05-29 04:00:18.000000000 +0200
+|+++ libarchive-2.4.11-src/libarchive/archive_read_extract.c	2007-10-29 20:45:06.000000000 +0100
+--------------------------
+Patching file libarchive/archive_read_extract.c using Plan A...
+Hunk #1 succeeded at 94 (offset 1 line).
+Not setting time of file libarchive/archive_read_extract.c (time mismatch)
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|diff -ipuwr --binary --strip-trailing-cr -x '*.bak' -x '*.orig' -x '*.rej' -x '*.new' -x '*~' -x debian -x '*.po' -x '*.pot' libarchive-2.4.11-orig/libarchive/archive_read_open_fd.c libarchive-2.4.11-src/libarchive/archive_read_open_fd.c
+|--- libarchive-2.4.11-orig/libarchive/archive_read_open_fd.c	2007-06-26 06:06:48.000000000 +0200
+|+++ libarchive-2.4.11-src/libarchive/archive_read_open_fd.c	2007-10-29 20:45:06.000000000 +0100
+--------------------------
+Patching file libarchive/archive_read_open_fd.c using Plan A...
+Hunk #1 succeeded at 95.
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|diff -ipuwr --binary --strip-trailing-cr -x '*.bak' -x '*.orig' -x '*.rej' -x '*.new' -x '*~' -x debian -x '*.po' -x '*.pot' libarchive-2.4.11-orig/libarchive/archive_read_open_file.c libarchive-2.4.11-src/libarchive/archive_read_open_file.c
+|--- libarchive-2.4.11-orig/libarchive/archive_read_open_file.c	2007-06-26 06:06:48.000000000 +0200
+|+++ libarchive-2.4.11-src/libarchive/archive_read_open_file.c	2007-10-29 20:45:06.000000000 +0100
+--------------------------
+Patching file libarchive/archive_read_open_file.c using Plan A...
+Hunk #1 succeeded at 99.
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|diff -ipuwr --binary --strip-trailing-cr -x '*.bak' -x '*.orig' -x '*.rej' -x '*.new' -x '*~' -x debian -x '*.po' -x '*.pot' libarchive-2.4.11-orig/libarchive/archive_read_open_filename.c libarchive-2.4.11-src/libarchive/archive_read_open_filename.c
+|--- libarchive-2.4.11-orig/libarchive/archive_read_open_filename.c	2007-06-26 06:06:48.000000000 +0200
+|+++ libarchive-2.4.11-src/libarchive/archive_read_open_filename.c	2007-10-29 20:45:06.000000000 +0100
+--------------------------
+Patching file libarchive/archive_read_open_filename.c using Plan A...
+Hunk #1 succeeded at 113.
+Hunk #2 succeeded at 125.
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|diff -ipuwr --binary --strip-trailing-cr -x '*.bak' -x '*.orig' -x '*.rej' -x '*.new' -x '*~' -x debian -x '*.po' -x '*.pot' libarchive-2.4.11-orig/libarchive/archive_read_private.h libarchive-2.4.11-src/libarchive/archive_read_private.h
+|--- libarchive-2.4.11-orig/libarchive/archive_read_private.h	2007-05-29 04:00:18.000000000 +0200
+|+++ libarchive-2.4.11-src/libarchive/archive_read_private.h	2007-10-29 20:45:06.000000000 +0100
+--------------------------
+Patching file libarchive/archive_read_private.h using Plan A...
+Hunk #1 succeeded at 40.
+Not setting time of file libarchive/archive_read_private.h (time mismatch)
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|diff -ipuwr --binary --strip-trailing-cr -x '*.bak' -x '*.orig' -x '*.rej' -x '*.new' -x '*~' -x debian -x '*.po' -x '*.pot' libarchive-2.4.11-orig/libarchive/archive_write.c libarchive-2.4.11-src/libarchive/archive_write.c
+|--- libarchive-2.4.11-orig/libarchive/archive_write.c	2007-05-29 04:00:19.000000000 +0200
+|+++ libarchive-2.4.11-src/libarchive/archive_write.c	2007-12-18 23:49:32.000000000 +0100
+--------------------------
+Patching file libarchive/archive_write.c using Plan A...
+Hunk #1 succeeded at 176.
+Hunk #2 succeeded at 285.
+Hunk #3 succeeded at 299.
+Hunk #4 succeeded at 310.
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|diff -ipuwr --binary --strip-trailing-cr -x '*.bak' -x '*.orig' -x '*.rej' -x '*.new' -x '*~' -x debian -x '*.po' -x '*.pot' libarchive-2.4.11-orig/libarchive/archive_write_disk.c libarchive-2.4.11-src/libarchive/archive_write_disk.c
+|--- libarchive-2.4.11-orig/libarchive/archive_write_disk.c	2007-10-07 02:06:58.000000000 +0200
+|+++ libarchive-2.4.11-src/libarchive/archive_write_disk.c	2007-12-18 23:41:10.000000000 +0100
+--------------------------
+Patching file libarchive/archive_write_disk.c using Plan A...
+Hunk #1 succeeded at 136.
+Hunk #2 succeeded at 176 with fuzz 1 (offset 2 lines).
+Hunk #3 succeeded at 202 (offset 2 lines).
+Hunk #4 succeeded at 378 (offset 3 lines).
+Hunk #5 succeeded at 442 (offset 5 lines).
+Hunk #6 succeeded at 551 (offset 14 lines).
+Hunk #7 succeeded at 666 (offset 14 lines).
+Hunk #8 succeeded at 679 (offset 14 lines).
+Hunk #9 succeeded at 711 (offset 14 lines).
+Hunk #10 succeeded at 719 (offset 14 lines).
+Hunk #11 succeeded at 792 (offset 14 lines).
+Hunk #12 succeeded at 862 (offset 14 lines).
+Hunk #13 succeeded at 906 (offset 26 lines).
+Hunk #14 succeeded at 935 (offset 26 lines).
+Hunk #15 succeeded at 1182 (offset 26 lines).
+Hunk #16 succeeded at 1491 (offset 26 lines).
+Hunk #17 succeeded at 1586 (offset 26 lines).
+Hunk #18 succeeded at 1672 (offset 26 lines).
+Hunk #19 succeeded at 1847 (offset 26 lines).
+Not setting time of file libarchive/archive_write_disk.c (time mismatch)
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|diff -ipuwr --binary --strip-trailing-cr -x '*.bak' -x '*.orig' -x '*.rej' -x '*.new' -x '*~' -x debian -x '*.po' -x '*.pot' libarchive-2.4.11-orig/libarchive/archive_write_open_fd.c libarchive-2.4.11-src/libarchive/archive_write_open_fd.c
+|--- libarchive-2.4.11-orig/libarchive/archive_write_open_fd.c	2007-01-27 22:36:15.000000000 +0100
+|+++ libarchive-2.4.11-src/libarchive/archive_write_open_fd.c	2007-10-29 20:45:06.000000000 +0100
+--------------------------
+Patching file libarchive/archive_write_open_fd.c using Plan A...
+Hunk #1 succeeded at 81.
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|diff -ipuwr --binary --strip-trailing-cr -x '*.bak' -x '*.orig' -x '*.rej' -x '*.new' -x '*~' -x debian -x '*.po' -x '*.pot' libarchive-2.4.11-orig/libarchive/archive_write_open_filename.c libarchive-2.4.11-src/libarchive/archive_write_open_filename.c
+|--- libarchive-2.4.11-orig/libarchive/archive_write_open_filename.c	2007-01-27 22:36:15.000000000 +0100
+|+++ libarchive-2.4.11-src/libarchive/archive_write_open_filename.c	2007-10-29 20:45:06.000000000 +0100
+--------------------------
+Patching file libarchive/archive_write_open_filename.c using Plan A...
+Hunk #1 succeeded at 95.
+Hunk #2 succeeded at 142.
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|diff -ipuwr --binary --strip-trailing-cr -x '*.bak' -x '*.orig' -x '*.rej' -x '*.new' -x '*~' -x debian -x '*.po' -x '*.pot' libarchive-2.4.11-orig/libarchive/archive_write_private.h libarchive-2.4.11-src/libarchive/archive_write_private.h
+|--- libarchive-2.4.11-orig/libarchive/archive_write_private.h	2007-05-29 04:00:19.000000000 +0200
+|+++ libarchive-2.4.11-src/libarchive/archive_write_private.h	2007-10-29 20:45:06.000000000 +0100
+--------------------------
+Patching file libarchive/archive_write_private.h using Plan A...
+Hunk #1 succeeded at 38.
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|diff -ipuwr --binary --strip-trailing-cr -x '*.bak' -x '*.orig' -x '*.rej' -x '*.new' -x '*~' -x debian -x '*.po' -x '*.pot' libarchive-2.4.11-orig/libarchive/test/test_acl_pax.c libarchive-2.4.11-src/libarchive/test/test_acl_pax.c
+|--- libarchive-2.4.11-orig/libarchive/test/test_acl_pax.c	2007-07-06 18:44:46.000000000 +0200
+|+++ libarchive-2.4.11-src/libarchive/test/test_acl_pax.c	2007-10-29 20:45:06.000000000 +0100
+--------------------------
+Patching file libarchive/test/test_acl_pax.c using Plan A...
+Hunk #1 succeeded at 457.
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|diff -ipuwr --binary --strip-trailing-cr -x '*.bak' -x '*.orig' -x '*.rej' -x '*.new' -x '*~' -x debian -x '*.po' -x '*.pot' libarchive-2.4.11-orig/libarchive/test/test_read_data_large.c libarchive-2.4.11-src/libarchive/test/test_read_data_large.c
+|--- libarchive-2.4.11-orig/libarchive/test/test_read_data_large.c	2007-05-29 04:00:20.000000000 +0200
+|+++ libarchive-2.4.11-src/libarchive/test/test_read_data_large.c	2007-10-29 20:45:06.000000000 +0100
+--------------------------
+Patching file libarchive/test/test_read_data_large.c using Plan A...
+Hunk #1 succeeded at 96.
+Hunk #2 succeeded at 107.
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|diff -ipuwr --binary --strip-trailing-cr -x '*.bak' -x '*.orig' -x '*.rej' -x '*.new' -x '*~' -x debian -x '*.po' -x '*.pot' libarchive-2.4.11-orig/libarchive/test/test_read_extract.c libarchive-2.4.11-src/libarchive/test/test_read_extract.c
+|--- libarchive-2.4.11-orig/libarchive/test/test_read_extract.c	2007-05-29 04:00:20.000000000 +0200
+|+++ libarchive-2.4.11-src/libarchive/test/test_read_extract.c	2007-10-29 20:45:07.000000000 +0100
+--------------------------
+Patching file libarchive/test/test_read_extract.c using Plan A...
+Hunk #1 succeeded at 143.
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|diff -ipuwr --binary --strip-trailing-cr -x '*.bak' -x '*.orig' -x '*.rej' -x '*.new' -x '*~' -x debian -x '*.po' -x '*.pot' libarchive-2.4.11-orig/libarchive/test/test_read_large.c libarchive-2.4.11-src/libarchive/test/test_read_large.c
+|--- libarchive-2.4.11-orig/libarchive/test/test_read_large.c	2007-05-29 04:00:21.000000000 +0200
+|+++ libarchive-2.4.11-src/libarchive/test/test_read_large.c	2007-10-29 20:45:07.000000000 +0100
+--------------------------
+Patching file libarchive/test/test_read_large.c using Plan A...
+Hunk #1 succeeded at 34.
+Hunk #2 succeeded at 89.
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|diff -ipuwr --binary --strip-trailing-cr -x '*.bak' -x '*.orig' -x '*.rej' -x '*.new' -x '*~' -x debian -x '*.po' -x '*.pot' libarchive-2.4.11-orig/libarchive/test/test_write_disk_perms.c libarchive-2.4.11-src/libarchive/test/test_write_disk_perms.c
+|--- libarchive-2.4.11-orig/libarchive/test/test_write_disk_perms.c	2007-12-03 07:51:45.000000000 +0100
+|+++ libarchive-2.4.11-src/libarchive/test/test_write_disk_perms.c	2007-12-07 10:20:08.000000000 +0100
+--------------------------
+Patching file libarchive/test/test_write_disk_perms.c using Plan A...
+Hunk #1 succeeded at 60.
+Hunk #2 succeeded at 68.
+Hunk #3 succeeded at 78.
+Hunk #4 succeeded at 95.
+Hunk #5 succeeded at 143.
+Not setting time of file libarchive/test/test_write_disk_perms.c (time mismatch)
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|diff -ipuwr --binary --strip-trailing-cr -x '*.bak' -x '*.orig' -x '*.rej' -x '*.new' -x '*~' -x debian -x '*.po' -x '*.pot' libarchive-2.4.11-orig/libarchive/test/test_write_open_memory.c libarchive-2.4.11-src/libarchive/test/test_write_open_memory.c
+|--- libarchive-2.4.11-orig/libarchive/test/test_write_open_memory.c	2007-05-29 04:00:21.000000000 +0200
+|+++ libarchive-2.4.11-src/libarchive/test/test_write_open_memory.c	2007-10-29 20:45:07.000000000 +0100
+--------------------------
+Patching file libarchive/test/test_write_open_memory.c using Plan A...
+Hunk #1 succeeded at 33.
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|diff -ipuwr --binary --strip-trailing-cr -x '*.bak' -x '*.orig' -x '*.rej' -x '*.new' -x '*~' -x debian -x '*.po' -x '*.pot' libarchive-2.4.11-orig/tar/bsdtar.c libarchive-2.4.11-src/tar/bsdtar.c
+|--- libarchive-2.4.11-orig/tar/bsdtar.c	2007-09-17 02:30:14.000000000 +0200
+|+++ libarchive-2.4.11-src/tar/bsdtar.c	2007-10-29 20:45:07.000000000 +0100
+--------------------------
+Patching file tar/bsdtar.c using Plan A...
+Hunk #1 succeeded at 78.
+Hunk #2 succeeded at 94.
+Not setting time of file tar/bsdtar.c (time mismatch)
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|diff -ipuwr --binary --strip-trailing-cr -x '*.bak' -x '*.orig' -x '*.rej' -x '*.new' -x '*~' -x debian -x '*.po' -x '*.pot' libarchive-2.4.11-orig/tar/tree.c libarchive-2.4.11-src/tar/tree.c
+|--- libarchive-2.4.11-orig/tar/tree.c	2007-03-11 11:36:42.000000000 +0100
+|+++ libarchive-2.4.11-src/tar/tree.c	2007-10-29 20:45:07.000000000 +0100
+--------------------------
+Patching file tar/tree.c using Plan A...
+Hunk #1 succeeded at 100.
+Hunk #2 succeeded at 167.
+Hunk #3 succeeded at 218.
+Hunk #4 succeeded at 246.
+Hunk #5 succeeded at 327.
+Hunk #6 succeeded at 502.
+Hunk #7 succeeded at 554.
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|diff -ipuwr --binary --strip-trailing-cr -x '*.bak' -x '*.orig' -x '*.rej' -x '*.new' -x '*~' -x debian -x '*.po' -x '*.pot' libarchive-2.4.11-orig/tar/util.c libarchive-2.4.11-src/tar/util.c
+|--- libarchive-2.4.11-orig/tar/util.c	2007-09-13 07:09:02.000000000 +0200
+|+++ libarchive-2.4.11-src/tar/util.c	2007-10-29 20:45:07.000000000 +0100
+--------------------------
+Patching file tar/util.c using Plan A...
+Hunk #1 succeeded at 173.
+Not setting time of file tar/util.c (time mismatch)
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|diff -ipuwr --binary --strip-trailing-cr -x '*.bak' -x '*.orig' -x '*.rej' -x '*.new' -x '*~' -x debian -x '*.po' -x '*.pot' libarchive-2.4.11-orig/tar/write.c libarchive-2.4.11-src/tar/write.c
+|--- libarchive-2.4.11-orig/tar/write.c	2007-09-16 01:47:52.000000000 +0200
+|+++ libarchive-2.4.11-src/tar/write.c	2007-10-29 20:45:07.000000000 +0100
+--------------------------
+Patching file tar/write.c using Plan A...
+Hunk #1 succeeded at 259.
+Hunk #2 succeeded at 355.
+Hunk #3 succeeded at 706.
+Hunk #4 succeeded at 846.
+Hunk #5 succeeded at 864.
+Hunk #6 succeeded at 1392.
+Hunk #7 succeeded at 1407.
+Hunk #8 succeeded at 1423.
+Hunk #9 succeeded at 1438.
+done

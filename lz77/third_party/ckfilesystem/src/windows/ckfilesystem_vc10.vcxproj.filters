@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\dvdvideo.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\eltorito.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\filesystem.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\filesystemhelper.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\filesystemwriter.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\filetree.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\iforeader.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\iso.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\isopathtable.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\isoreader.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\isowriter.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\joliet.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\sectormanager.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\sectorstream.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\stringtable.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\udf.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\udfwriter.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\util.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\include\ckfilesystem\const.hh">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="..\..\include\ckfilesystem\dvdvideo.hh">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="..\..\include\ckfilesystem\eltorito.hh">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="..\..\include\ckfilesystem\exception.hh">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="..\..\include\ckfilesystem\fileset.hh">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="..\..\include\ckfilesystem\filesystem.hh">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="..\..\include\ckfilesystem\filesystemhelper.hh">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="..\..\include\ckfilesystem\filesystemwriter.hh">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="..\..\include\ckfilesystem\filetree.hh">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="..\..\include\ckfilesystem\iforeader.hh">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="..\..\include\ckfilesystem\iso.hh">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="..\..\include\ckfilesystem\isopathtable.hh">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="..\..\include\ckfilesystem\isoreader.hh">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="..\..\include\ckfilesystem\isowriter.hh">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="..\..\include\ckfilesystem\joliet.hh">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="..\..\include\ckfilesystem\sectormanager.hh">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="..\..\include\ckfilesystem\sectorstream.hh">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="..\..\include\ckfilesystem\stringtable.hh">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="..\..\include\ckfilesystem\udf.hh">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="..\..\include\ckfilesystem\udfwriter.hh">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="..\..\include\ckfilesystem\util.hh">
+      <Filter>Header Files</Filter>
+    </None>
+  </ItemGroup>
+</Project>

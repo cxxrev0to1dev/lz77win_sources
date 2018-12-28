@@ -1,0 +1,90 @@
+  Hello folks !
+
+
+This is MikMod, version 3.2.8, a module player for DOS.
+Comments & feedback are welcome.
+
+
+>> BUILDING MIKMOD
+------------------
+
+- If you're not building libmikmod for DOS, then you're lost in the sources.
+  Go up one directory, and read the main README file.
+
+This port has been designed to work only with DJGPP compiler. However, it
+should not be too complex to make it compile with any other compiler. If you
+manage to make libmikmod compile and work with another compiler, we'd like to
+hear from you. You'll likely have to write an appropiate makefile, or build
+things manually ...
+
+You should have pre-built libmikmod.a either in %DJGPP%/lib or in $(MIKMOD)
+(see Makefile) directory. Refer to the libmikmod source for instructions on
+how to build libmikmod under DOS.
+
+If you have all proper tools installed, just type
+
+    make -f Makefile.dj
+
+You should end up with a MIKMOD.EXE binary in the current directory.
+
+
+>> USING MIKMOD
+---------------
+
+Run MikMod with the ``--help'' parameter to get the available options.
+Program documentation is available as an Unix man page (..\src\mikmod.1) which
+you can read if you've got a port of the 'man' tool.
+
+Also, after you've run MikMod for the first time, you might want to
+customize your mikmod.cfg file, either from the configuration panel or by
+editing the file yourself, so you won't need to supply the same options to
+MikMod all the time. This file will be created in  in C:\
+
+Once you're in the player, pressing the H key will give you an help screen with
+the list of the keys you can use. I hope it's understandable.
+
+
+>> THANKS
+---------
+
+We would like to thank everyone who contributed to libmikmod. Their names
+are in the AUTHORS file for the significative contributions, but some other
+names can be found in the NEWS file. Thanks a lot ! Keeping MikMod alive
+wouldn't be much fun without you.
+
+
+>> LICENSE
+----------
+
+The MikMod module player is covered by the GNU General Public License as
+published by the Free Software Fundation (you'll find it in the file COPYING) ;
+either version 2 of the licence, or (at your option) any later version.
+
+
+>> CONTACT AND DOWNLOAD INFO
+----------------------------
+
+MikMod and libmikmod home page is located at SourceForge:
+
+    http://mikmod.sourceforge.net/
+    http://sourceforge.net/projects/mikmod/
+
+There's a mailing list (mikmod-public) for discussing the development
+of MikMod (new features, bugs, ideas...) Look for more information on
+the web site.
+
+Things related to the DOS port should also be forwarded to the DOS
+``portmaster'', Andrew Zabolotny, at: bit@eltech.ru
+
+
+>> LAST NOTES
+-------------
+
+We hope you'll enjoy using this version of MikMod as well as we enjoyed
+debugging and improving it.
+
+-- Miodrag ("Miod") Vallat, 10/19/1999
+   miodrag@mikmod.darkorb.net
+
+   Andrew Zabolotny
+   bit@eltech.ru

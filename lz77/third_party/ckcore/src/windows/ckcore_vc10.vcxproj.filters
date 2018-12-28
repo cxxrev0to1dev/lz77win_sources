@@ -1,0 +1,203 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Source Files\windows">
+      <UniqueIdentifier>{93dfb7de-9b13-4b48-acd1-bcc8375596b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Header Files\windows">
+      <UniqueIdentifier>{cc534c77-19f3-46e5-ab29-8962a331a672}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\bufferedstream.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\canexstream.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\convert.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\crcstream.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dynlib.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\exception.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\filestream.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\log.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\nullstream.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\path.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\progresser.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\stream.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\string.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\system.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\threadpool.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="directory.cc">
+      <Filter>Source Files\windows</Filter>
+    </ClCompile>
+    <ClCompile Include="file.cc">
+      <Filter>Source Files\windows</Filter>
+    </ClCompile>
+    <ClCompile Include="process.cc">
+      <Filter>Source Files\windows</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cc">
+      <Filter>Source Files\windows</Filter>
+    </ClCompile>
+    <ClCompile Include="thread.cc">
+      <Filter>Source Files\windows</Filter>
+    </ClCompile>
+    <ClCompile Include="util.cc">
+      <Filter>Source Files\windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assert.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\memorystream.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\include\ckcore\buffer.hh">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="..\..\include\ckcore\bufferedstream.hh">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="..\..\include\ckcore\canexstream.hh">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="..\..\include\ckcore\cast.hh">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="..\..\include\ckcore\convert.hh">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="..\..\include\ckcore\crcstream.hh">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="..\..\include\ckcore\directory.hh">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="..\..\include\ckcore\dynlib.hh">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="..\..\include\ckcore\exception.hh">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="..\..\include\ckcore\file.hh">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="..\..\include\ckcore\filestream.hh">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="..\..\include\ckcore\linereader.hh">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="..\..\include\ckcore\locker.hh">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="..\..\include\ckcore\log.hh">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="..\..\include\ckcore\memory.hh">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="..\..\include\ckcore\nullstream.hh">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="..\..\include\ckcore\path.hh">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="..\..\include\ckcore\process.hh">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="..\..\include\ckcore\progress.hh">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="..\..\include\ckcore\progresser.hh">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="..\..\include\ckcore\stream.hh">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="..\..\include\ckcore\string.hh">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="..\..\include\ckcore\system.hh">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="..\..\include\ckcore\thread.hh">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="..\..\include\ckcore\threadpool.hh">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="..\..\include\ckcore\types.hh">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="..\..\include\ckcore\windows\directory.hh">
+      <Filter>Header Files\windows</Filter>
+    </None>
+    <None Include="..\..\include\ckcore\windows\process.hh">
+      <Filter>Header Files\windows</Filter>
+    </None>
+    <None Include="stdafx.hh">
+      <Filter>Header Files\windows</Filter>
+    </None>
+    <None Include="..\..\include\ckcore\windows\thread.hh">
+      <Filter>Header Files\windows</Filter>
+    </None>
+    <None Include="util.hh">
+      <Filter>Header Files\windows</Filter>
+    </None>
+    <None Include="..\..\include\ckcore\assert.hh">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="..\..\include\ckcore\memorystream.hh">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="..\..\include\ckcore\task.hh">
+      <Filter>Header Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="cpuid64.asm">
+      <Filter>Source Files\windows</Filter>
+    </CustomBuild>
+  </ItemGroup>
+</Project>
